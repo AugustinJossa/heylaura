@@ -1,0 +1,44 @@
+.devise-links-session {
+  display: inline-block;
+  margin-top: 0.5em;
+}
+
+.devise-links {
+  cursor: pointer;
+  font-size: 14px;
+  color: $brand-primary;
+}
+
+.devise-links:hover {
+  text-decoration: none;
+}
+
+// .criteria h3 {
+//   font-size: 16px;
+// }
+
+// .criteria li {
+//   font-size: 12px;
+// }
+
+// .hide-el {
+//   display: none;
+// }
+
+
+.wrapper {
+  background-color: rgb(243,243,243);
+}
+
+.container {
+  min-height: calc(100vh - 70px);
+  background-color: rgb(243,243,243);
+}
+
+.form-group {
+  text-align: left !important;
+}
+
+.full-width {
+  width: 100%;
+}

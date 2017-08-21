@@ -1,0 +1,48 @@
+<div class="container-fluid">
+  <div class="banner" style="background-image: linear-gradient(-225deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 50%), url( <%= image_path "background.jpg" %>);">
+    <div class="banner-content">
+      <div class="row">
+        <div class="col-xs-12 col-md-5 chat-status-col">
+          <div class="chat-status">
+<!--             <form id="testform" cf-form action="">
+              <label for="name">What is your name ?</label>
+              <input type="name"> -->
+            </form>
+          </div>
+        </div>
+        <div class="hidden-xs hidden-sm col-md-1"></div>
+        <div class="col-xs-12 col-md-6">
+          <div class="chat-content">
+            <div cf-context id="chatrestit"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- form display for debug - to hide with hideform class -->
+
+<%= simple_form_for :profile_info,
+  url: "#",
+  html: { id: 'chatform', class: "hideform", "cf-form" => true },
+  method: :post do |f| %>
+  <%= f.input :name,
+    input_html: {"cf-questions" => "Hello?&&Please tell me your name."} %>
+  <%= f.input :ideal_job,
+    label: "Quel est ton job idéal?" %>
+<% end %>
+
+<% content_for(:js) do %>
+    <script>
+      // function initCf() {
+      //   new cf.ConversationalForm({
+      //     // HTMLFormElement
+      //     formEl:  document.getElementById("chatform"),
+      //     context: document.getElementById("chatrestit")
+      //   });
+      // };
+      // initCf();
+    </script>
+<% end %>
