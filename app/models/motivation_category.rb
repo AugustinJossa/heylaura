@@ -1,0 +1,2 @@
+class MotivationCategory < ApplicationRecord
+end
