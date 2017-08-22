@@ -118,16 +118,6 @@ def load_json
   puts "json loaded"
 end
 
-def seed_new_data
-  Company.destroy_all
-  Job.destroy_all
-  MatchedJob.destroy_all
-  User.destroy_all
-  RequiredSkill.destroy_all
-
-  seed_candidates
-  seed_jobs
-end
 
 def seed_candidates
   puts 'Creating 5 candidates'
@@ -140,50 +130,12 @@ def seed_candidates
       headline: Faker::Job.title,
       location: Faker::Address.city,
       position: Faker::Job.field,
-      profile: Faker::Lorem.sentence,
       picture_url: nil,
       )
     user.save
   end
 end
 
-def seed_jobs
-  # companies_names = Company.all.map {company.name}
-  JobLoader.all.each do |jl|
-    company = Company.find_by(name: jl.cname)
-    # binding.pry
-    unless company
-      company = seed_company(jl)
-      puts "create company"
-    end
-    job = seed_job(jl, company)
-    puts "create job"
-    seed_jrs(job)
-    puts "create job requests"
-  end
-end
-
-def seed_job(jl, company)
-  date = Date.today + rand(30..180)
-  job = Job.new(
-    company_id: company,
-    title: jl.title,
-    contract: JOB_CONTRACT_ARRAY[rand(0..JOB_CONTRACT_ARRAY.length)],
-    remote: JOB_REMOTE_ARRAY[rand(0..JOB_REMOTE_ARRAY.length)],
-    salary: JOB_SALARY_ARRAY[rand(0..JOB_SALARY_ARRAY.length)],
-    type: JOB_TYPE_ARRAY[rand(0..JOB_TYPE_ARRAY.length)],
-    subtype: nil,
-    description: jl.shortdesc,
-    profile: JOB_PROFILE_ARRAY[rand(0..JOB_PROFILE_ARRAY.length)],
-    open: true
-    )
-
-  if job.type == "marketing"
-    job.subtype = JOB_SUBTYPE_ARRAY[rand(0..JOB_SUBTYPE_ARRAY.length)]
-  else
-  end
-
-end
 
 def seed_company(jl)
 
@@ -192,9 +144,9 @@ def seed_company(jl)
     location: jl.city,
     location_lat: nil,
     location_lng: nil,
-    type: COMPANY_TYPE_ARRAY[rand(0..COMPANY_TYPE_ARRAY.length)],
-    industry: COMPANY_INDUSTRY[rand(0..COMPANY_INDUSTRY.length)],
-    size: COMPANY_SIZE[rand(0..COMPANY_SIZE.length)],
+    company_type: COMPANY_TYPE_ARRAY.sample,
+    industry: COMPANY_INDUSTRY_ARRAY.sample,
+    size: COMPANY_SIZE_ARRAY.sample,
     description: jl.shortdesc,
     logo: jl.clogourl,
     picture: nil,
@@ -202,9 +154,62 @@ def seed_company(jl)
     )
 
     url = ["https://static.pexels.com/photos/7096/people-woman-coffee-meeting.jpg", "https://static.pexels.com/photos/7369/startup-photos.jpg", "https://static.pexels.com/photos/7097/people-coffee-tea-meeting.jpg", "https://static.pexels.com/photos/40218/business-innovation-money-icon-40218.jpeg", "https://static.pexels.com/photos/7355/startup-photos.jpg", "https://static.pexels.com/photos/296878/pexels-photo-296878.jpeg", "https://static.pexels.com/photos/355988/pexels-photo-355988.jpeg", "https://static.pexels.com/photos/450271/pexels-photo-450271.jpeg", "https://static.pexels.com/photos/296886/pexels-photo-296886.jpeg"]
-    comp.picture = url.rand(0..url.length)
-    comp.save
+    comp.picture = url.sample
+    comp.save!
     return comp
+
+end
+
+
+def seed_job(jl)
+
+  job = Job.new(
+    company_id: nil,
+    title: jl.title,
+    contract: JOB_CONTRACT_ARRAY.sample,
+    remote: JOB_REMOTE_ARRAY.sample,
+    salary: JOB_SALARY_ARRAY.sample,
+    job_type: JOB_TYPE_ARRAY.sample,
+    subtype: nil,
+    description: jl.desctext,
+    profile: JOB_PROFILE_ARRAY.sample,
+    open: true
+    )
+
+    # first_id = Company.first.id
+    # last_id = Company.last.id
+    job.company = Company.find(jl.id)
+
+  if job.job_type == "marketing"
+    job.subtype = JOB_SUBTYPE_ARRAY.sample
+  else
+    job.subtype = nil
+  end
+
+  job.save!
+
+end
+
+
+
+  def seed_elements
+    JobLoader.all.each do |jl|
+      seed_company(jl)
+      seed_job(jl)
+    end
+  end
+
+
+def seed_new_data
+  Company.destroy_all
+  Job.destroy_all
+  MatchedJob.destroy_all
+  User.destroy_all
+  RequiredSkill.destroy_all
+
+  seed_candidates
+  seed_elements
+
 
 end
 
