@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170821155604) do
+
+ActiveRecord::Schema.define(version: 20170822085259) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,13 +27,13 @@ ActiveRecord::Schema.define(version: 20170821155604) do
     t.string   "description"
     t.string   "logo"
     t.string   "picture"
-    t.integer  "user_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.integer  "user_id"
+    t.index ["user_id"], name: "index_companies_on_user_id", using: :btree
   end
 
   create_table "jobs", force: :cascade do |t|
-    t.integer  "company_id"
     t.string   "title"
     t.string   "contract"
     t.string   "remote"
@@ -44,16 +45,18 @@ ActiveRecord::Schema.define(version: 20170821155604) do
     t.boolean  "open"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "company_id"
+    t.index ["company_id"], name: "index_jobs_on_company_id", using: :btree
   end
 
   create_table "matched_jobs", force: :cascade do |t|
     t.float    "matching"
     t.string   "status"
     t.text     "message"
-    t.integer  "user_id"
-    t.integer  "job_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "job_id"
+    t.integer  "user_id"
     t.index ["job_id"], name: "index_matched_jobs_on_job_id", using: :btree
     t.index ["user_id"], name: "index_matched_jobs_on_user_id", using: :btree
   end
@@ -139,6 +142,8 @@ ActiveRecord::Schema.define(version: 20170821155604) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "companies", "users"
+  add_foreign_key "jobs", "companies"
   add_foreign_key "matched_jobs", "jobs"
   add_foreign_key "matched_jobs", "users"
   add_foreign_key "motivation_rankings", "motivation_categories"
