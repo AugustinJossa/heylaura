@@ -1,7 +1,7 @@
 <div class="navbar-wagon">
   <!-- Logo -->
   <%= link_to root_path, class: "navbar-wagon-brand" do %>
-    <%= image_tag "logo.png" %>
+    <%= image_tag "http://res.cloudinary.com/dkalpv2xf/image/upload/v1502728312/Projet/Laura-logo.png" %>
   <% end %>
 
   <!-- Right Navigation -->
@@ -10,14 +10,21 @@
     <% if user_signed_in? %>
 
       <!-- Links when logged in -->
-      <%= link_to "Host", "#", class: "navbar-wagon-item navbar-wagon-link" %>
-      <%= link_to "Trips", "#", class: "navbar-wagon-item navbar-wagon-link" %>
-      <%= link_to "Messages", "#", class: "navbar-wagon-item navbar-wagon-link" %>
+       <%= link_to "Recherche", root_path, class: "navbar-wagon-item navbar-wagon-link" %>
+      <!-- Change to user_path(current_user) -->
+      <%= link_to "Dashboard", root_path, class: "navbar-wagon-item navbar-wagon-link" %>
+
 
       <!-- Avatar with dropdown menu -->
+
+      <!-- add : "#{current_user.first_name[0].upcase}#{current_user.last_name[0].upcase}" -->
       <div class="navbar-wagon-item">
         <div class="dropdown">
-          <%= image_tag "http://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar dropdown-toggle", id: "navbar-wagon-menu", "data-toggle" => "dropdown" %>
+          <div class="new_avatar dropdown-toggle", id="navbar-wagon-menu" data-toggle= "dropdown">
+              hey
+          </div>
+         
+
           <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
             <li>
               <%= link_to "#" do %>
@@ -25,7 +32,7 @@
               <% end %>
             </li>
             <li>
-              <%= link_to "#" do %>
+              <%= link_to root_path do %>
                 <i class="fa fa-home"></i>  <%= t(".profile", default: "Home") %>
               <% end %>
             </li>
@@ -38,9 +45,11 @@
         </div>
       </div>
     <% else %>
+
       <!-- Login link (when logged out) -->
       <%= link_to t(".sign_in", default: "Login"), new_user_session_path, class: "navbar-wagon-item navbar-wagon-link" %>
     <% end %>
+
   </div>
 
   <!-- Dropdown list appearing on mobile only -->
