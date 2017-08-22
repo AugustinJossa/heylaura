@@ -1,20 +1,22 @@
 <div class="container-fluid">
   <div class="banner" style="background-image: linear-gradient(-225deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 50%), url( <%= image_path "background.jpg" %>);">
-    <div class="banner-content">
+    <div class="banner-start" id="bstart">
+      <%= render 'landing' %>
+    </div>
+    <div class="banner-chat hidden" id="bchat">
       <div class="row">
         <div class="col-xs-12 col-md-5 chat-status-col">
           <div class="chat-status">
-<!--             <form id="testform" cf-form action="">
+          <!--             <form id="testform" cf-form action="">
               <label for="name">What is your name ?</label>
-              <input type="name"> -->
-            </form>
+              <input type="name">
+            </form> -->
           </div>
         </div>
         <div class="hidden-xs hidden-sm col-md-1"></div>
         <div class="col-xs-12 col-md-6">
           <div class="chat-content">
-            <div cf-context id="chatrestit"></div>
-            </div>
+            <div id="chatrestit"></div>
           </div>
         </div>
       </div>
@@ -23,26 +25,110 @@
 </div>
 
 <!-- form display for debug - to hide with hideform class -->
+<div class="container">
+  <%= link_to "link" "profiles/files/formless.json" %>
+  <%= simple_form_for :profile_info,
+    url: "#",
+    html: { id: 'chatform', class: "hideform" } do |f| %>
+    <%= f.input :name, chat_input("Salut&&Je m'appelle Laura et toi ?") %>
+    <%= f.input :name, chat_input("Et toi ?") %>
+  <% end %>
 
-<%= simple_form_for :profile_info,
-  url: "#",
-  html: { id: 'chatform', class: "hideform", "cf-form" => true },
-  method: :post do |f| %>
-  <%= f.input :name,
-    input_html: {"cf-questions" => "Hello?&&Please tell me your name."} %>
-  <%= f.input :ideal_job,
-    label: "Quel est ton job idéal?" %>
-<% end %>
+    <%= simple_form_for :profile2,
+    url: "#",
+    html: { id: 'chatform2', class: "hideform" } do |f| %>
+    <%= f.input :name, chat_input("deuxieme form") %>
+  <% end %>
+
+</div>
 
 <% content_for(:js) do %>
     <script>
-      // function initCf() {
-      //   new cf.ConversationalForm({
-      //     // HTMLFormElement
-      //     formEl:  document.getElementById("chatform"),
-      //     context: document.getElementById("chatrestit")
-      //   });
-      // };
-      // initCf();
+
+      var cForm;
+
+
+      // var tags = [
+      //   {
+      //     // basic tag
+      //     "tag": "input",
+      //     "type": "text",
+      //     "cf-questions": "Tag is injected at runtime, data from 'webservice', check source of <a href='formless.html' style='text-decoration:underline'>formless.html</a>",
+      //     "cf-error": "Inject some text"
+      //   },
+      //   {
+      //     // basic tag
+      //     "tag": "input",
+      //     "type": "text",
+      //     "cf-questions": "Tag is injected at runtime, data from 'webservice', check source of <a href='formless.html' style='text-decoration:underline'>formless.html</a>",
+      //     "cf-error": "Inject some text"
+      //   }
+      // ];
+
+      const beforeendCf = () => {
+          // console.log(tags);
+          // console.log(window.ConversationalForm.addTags(tags, false));
+
+          cForm.addRobotChatResponse("NOT THE END");
+          // cForm.addTags(tags, false);
+          new cf.ConversationalForm({
+            formEl: document.getElementById("chatform2"),
+            context: document.getElementById("chatrestit")
+          });
+          console.log("before end");
+          // debugger;
+          cForm.addRobotChatResponse("THE END");
+        };
+
+      const endCf = () => {
+          // console.log(tags);
+          // console.log(window.ConversationalForm.addTags(tags, false));
+          // window.ConversationalForm.addTags(tags, false);
+          console.log("end");
+          // debugger;
+          // cForm.addRobotChatResponse("THE END");
+        };
+
+
+      const initCf = () => {
+        new cf.ConversationalForm({
+          // HTMLFormElement
+          formEl:  document.getElementById("chatform"),
+          context: document.getElementById("chatrestit"),
+          // tags: tags,
+          flowStepCallback: function(){
+            beforeendCf();
+          },
+          submitCallback: function(){
+            endCf();
+          },
+          eventDispatcher: dispatcher
+        });
+        // window.ConversationalForm.addRobotChatResponse("random msg");
+        // cForm.getFormData().get('profile_info[name]')
+      };
+
+      const startButton = document.getElementById("start-button");
+      const bannerStart = document.getElementById("bstart");
+      const bannerChat = document.getElementById("bchat");
+      const dispatcher = new cf.EventDispatcher();
+
+      startButton.addEventListener("click", (event) => {
+        event.preventDefault;
+        bannerStart.classList.add("hidden");
+        bannerChat.classList.remove("hidden");
+        initCf();
+        cForm = window.ConversationalForm;
+      });
+
+      dispatcher.addEventListener(cf.FlowEvents.USER_INPUT_UPDATE, (event) => {
+        console.log(event.detail);
+        cf.addTags(tags, false);
+      }, false);
+
+
+
+
+
     </script>
 <% end %>
