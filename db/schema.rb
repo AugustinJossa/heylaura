@@ -10,11 +10,53 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
 ActiveRecord::Schema.define(version: 20170821155604) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "companies", force: :cascade do |t|
+    t.string   "name"
+    t.string   "location"
+    t.float    "location_lat"
+    t.float    "location_lng"
+    t.string   "type"
+    t.string   "industry"
+    t.integer  "size"
+    t.string   "description"
+    t.string   "logo"
+    t.string   "picture"
+    t.integer  "user_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "jobs", force: :cascade do |t|
+    t.integer  "company_id"
+    t.string   "title"
+    t.string   "contract"
+    t.string   "remote"
+    t.float    "salary"
+    t.string   "type"
+    t.string   "subtype"
+    t.string   "description"
+    t.string   "profile"
+    t.boolean  "open"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "matched_jobs", force: :cascade do |t|
+    t.float    "matching"
+    t.string   "status"
+    t.text     "message"
+    t.integer  "user_id"
+    t.integer  "job_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_id"], name: "index_matched_jobs_on_job_id", using: :btree
+    t.index ["user_id"], name: "index_matched_jobs_on_user_id", using: :btree
+  end
 
   create_table "motivation_categories", force: :cascade do |t|
     t.string   "name"
@@ -68,6 +110,8 @@ ActiveRecord::Schema.define(version: 20170821155604) do
     t.integer  "skill_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "job_id"
+    t.index ["job_id"], name: "index_required_skills_on_job_id", using: :btree
     t.index ["skill_id"], name: "index_required_skills_on_skill_id", using: :btree
   end
 
@@ -95,56 +139,13 @@ ActiveRecord::Schema.define(version: 20170821155604) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
-   create_table "companies", force: :cascade do |t|
-    t.string   "name"
-    t.string   "location"
-    t.float    "location_lat"
-    t.float    "location_lng"
-    t.string   "type"
-    t.string   "industry"
-    t.integer  "size"
-    t.string   "description"
-    t.string   "logo"
-    t.string   "picture"
-    t.integer  "user_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
-  create_table "jobs", force: :cascade do |t|
-    t.integer  "company_id"
-    t.string   "title"
-    t.string   "contract"
-    t.string   "remote"
-    t.float    "salary"
-    t.string   "type"
-    t.string   "subtype"
-    t.string   "description"
-    t.string   "profile"
-    t.boolean  "open"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-  
-  create_table "matched_jobs", force: :cascade do |t|
-    t.float    "matching"
-    t.string   "status"
-    t.text     "message"
-    t.integer  "user_id"
-    t.integer  "job_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["job_id"], name: "index_matched_jobs_on_job_id", using: :btree
-    t.index ["user_id"], name: "index_matched_jobs_on_user_id", using: :btree
-  end
-    
+  add_foreign_key "matched_jobs", "jobs"
+  add_foreign_key "matched_jobs", "users"
   add_foreign_key "motivation_rankings", "motivation_categories"
   add_foreign_key "motivation_rankings", "profiles"
   add_foreign_key "profile_skills", "profiles"
   add_foreign_key "profile_skills", "skills"
   add_foreign_key "profiles", "users"
+  add_foreign_key "required_skills", "jobs"
   add_foreign_key "required_skills", "skills"
-  add_foreign_key "matched_jobs", "jobs"
-  add_foreign_key "matched_jobs", "users"
-
 end
