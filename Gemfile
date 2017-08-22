@@ -17,6 +17,11 @@ gem 'sass-rails'
 gem 'simple_form'
 gem 'uglifier'
 
+
+# GEMs installed for the project
+gem 'cloudinary'
+gem 'omniauth-linkedin-oauth2'
+
 group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'
@@ -25,3 +30,4 @@ group :development, :test do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
+
