@@ -129,7 +129,7 @@ def seed_candidates
       last_name: Faker::Name.last_name,
       headline: Faker::Job.title,
       location: Faker::Address.city,
-      position: Faker::Job.field,
+      positions: Faker::Job.field,
       picture_url: nil,
       )
     user.save
@@ -187,6 +187,41 @@ def seed_job(jl)
   end
 
   job.save!
+
+end
+
+
+main_diploma_array = ["licence", "M1", "M2"]
+main_school_array = ["HEC", "IESEG", "Dauphine", "Audencia", "Centrale", "le wagon"]
+main_school_major_topic_array = ["marketing", "finance", "stratégie", "supplychain", "conseil"]
+main_diploma_array = []
+nb_years_experience_array = [1,2,3]
+main_school_graduation_year_array = [2010,2011,2012,2013,2014]
+
+def seed_profile(jl)
+
+
+  comp = Profile.new(
+    user: ,
+    main_diploma: main_diploma_array.sample,
+    main_school: main_school_array.sample,
+    main_school_major_topic: main_school_major_topic_array.sample,
+    main_school_graduation_year: main,
+    nb_years_experience: nb_years_experience_array.sample,
+    company_type: ,
+    company_industry: ,
+    company_size: ,
+    job_type: ,
+    job_subtype: ,
+    job_location: ,
+    job_remote: ,
+    job_contract: ,
+    job_minsalary: ,
+    )
+
+
+    profile.save!
+    return comp
 
 end
 
