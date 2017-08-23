@@ -5,14 +5,15 @@
   justify-content: space-between;
   height: 100px;
   padding: 0px 50px;
-  color: red;
+  color: grey;
   font-size: 16px;
+  height: 60px;
 }
 .footer-links {
   display: flex;
   align-items: center;
 }
-.footer-links a {
+.footer a {
   color: black;
   opacity: 0.5;
   text-decoration: none;
@@ -23,3 +24,4 @@
 .footer-links a:hover {
   opacity: 0.8;
 }
+
