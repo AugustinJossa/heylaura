@@ -1,0 +1,2 @@
+class JobLoader < ApplicationRecord
+end

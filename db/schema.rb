@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20170822150255) do
     t.string   "location"
     t.float    "location_lat"
     t.float    "location_lng"
-    t.string   "type"
+    t.string   "company_type"
     t.string   "industry"
     t.integer  "size"
     t.string   "description"
@@ -32,12 +32,33 @@ ActiveRecord::Schema.define(version: 20170822150255) do
     t.index ["user_id"], name: "index_companies_on_user_id", using: :btree
   end
 
+  create_table "job_loaders", force: :cascade do |t|
+    t.string   "cname"
+    t.string   "cpath"
+    t.string   "clogourl"
+    t.string   "title"
+    t.string   "path"
+    t.text     "tags"
+    t.string   "city"
+    t.text     "shortdesc"
+    t.text     "detailtags"
+    t.string   "imgurl"
+    t.text     "deschtml"
+    t.text     "desctext"
+    t.text     "profilhtml"
+    t.text     "profiltext"
+    t.string   "img"
+    t.string   "logo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "jobs", force: :cascade do |t|
     t.string   "title"
     t.string   "contract"
     t.string   "remote"
     t.float    "salary"
-    t.string   "type"
+    t.string   "job_type"
     t.string   "subtype"
     t.string   "description"
     t.string   "profile"
