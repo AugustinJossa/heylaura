@@ -34,10 +34,13 @@
       const companyTypes = <%= raw company_types %>;
       const companyIndustries = <%= raw company_industries %> ;
       const companySizes = <%= raw company_sizes %>;
+      const jobTypes = <%= raw job_types %>;
+      const jobSubTypesMarket = <%= raw job_subtypes("marketing") %>;
+      const jobRemote = <%= raw job_remotes %>;
       const companyTags = createCompanyTags(companyTypes, companyIndustries, companySizes);
-      const jobTags = createJobTags(); // TODO
-      const profileTags = createProfileTags(); // TODO
-      const aspirTags = createAspirTags(); // TODO
+      const jobTags = createJobTags();
+      const profileTags = createProfileTags();
+      const aspirTags = createAspirTags();
 
       // dom elements
       var perCent;
@@ -55,12 +58,18 @@
       var iProfile = 0;
       var iAspir = 0;
       var i = iComp + iJob + iProfile + iAspir + 1 ;
+      // var i = -1; // for skipping addTags
+      var currentProfile = {};
 
       const totalLength = companyTags.length + jobTags.length + profileTags.length + aspirTags.length + 3;
       const jsonInit = JSON.parse(JSON.stringify(<%= raw @json_init %>));
 
+
+
       initHomePageDOM();
 
+      var path = '<%= raw profiles_url %>';
+      const authenticity_token = '<%= form_authenticity_token %>';
 
     </script>
 <% end %>
