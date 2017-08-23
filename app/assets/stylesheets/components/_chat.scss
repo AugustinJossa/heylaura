@@ -1,0 +1,26 @@
+.chat-content, .chat-status {
+  background-color: white;
+  height: calc(100vh - 20vh - 60px);
+  // calcul de la height > full screen - taille des margins du content - navbar
+  width: 100%;
+}
+
+.chat-content {
+  opacity: 1;
+}
+
+.chat-status {
+  opacity: 0.8;
+}
+
+
+#chatrestit {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.hideform {
+  // height: 0px;
+  // width: 0px;
+  // overflow: hidden;
+}
