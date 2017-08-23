@@ -7,10 +7,11 @@
       <div class="row">
         <div class="col-xs-12 col-md-5 chat-status-col">
           <div class="chat-status">
-          <!--             <form id="testform" cf-form action="">
-              <label for="name">What is your name ?</label>
-              <input type="name">
-            </form> -->
+            <h2>Completion: <span id="percent">0</span>%</h2>
+            <h3 id="entreprise">L'entreprise de tes rêves</h3>
+            <h3 id="job">Ton job idéal</h3>
+            <h3 id="profil">Ton profil</h3>
+            <h3 id="aspirations">Tes aspirations</h3>
           </div>
         </div>
         <div class="hidden-xs hidden-sm col-md-1"></div>
@@ -28,106 +29,38 @@
 <% content_for(:js) do %>
     <script>
 
+    // Initialize global variables
+      // arrays and tags
+      const companyTypes = <%= raw company_types %>;
+      const companyIndustries = <%= raw company_industries %> ;
+      const companySizes = <%= raw company_sizes %>;
+      const companyTags = createCompanyTags(companyTypes, companyIndustries, companySizes);
+      const jobTags = createJobTags(); // TODO
+      const profileTags = createProfileTags(); // TODO
+      const aspirTags = createAspirTags(); // TODO
+
+      // dom elements
+      var perCent;
+      var entTag;
+      var jobTag;
+      var profTag;
+      var aspiTag;
+
+      // chat initialization
+      var chatRestit;
       var cForm;
-      var i = 0;
 
-      // functions to create tags for questions
+      var iComp = 0;
+      var iJob = 0;
+      var iProfile = 0;
+      var iAspir = 0;
+      var i = iComp + iJob + iProfile + iAspir + 1 ;
 
-      const chatText = (id, question, placeholder) => {
-        return(
-          [{
-            'tag': 'input',
-            'type': 'text',
-            'id': id,
-            'cf-questions': question,
-            'cf-input-placeholder': placeholder || "Ta réponse"
-          }]
-        );
-      };
-
-      const chatRadioTags = (texts) => {
-        const tags = texts.map((text) => {
-          return(
-            {
-              "tag": "input",
-              "type": "radio",
-              "cf-label": text
-            }
-          );
-        });
-        return tags;
-      };
-
-      const chatRadio = (id, question, radioTexts, placeholder) => {
-        return(
-          [{
-            "tag": "fieldset",
-            "type": "Radio buttons",
-            "cf-input-placeholder": placeholder || "Choisis ci-dessus", // TODO: sert a rien pour l instant
-            "cf-questions": question,
-            "children": chatRadioTags(radioTexts)
-          }]
-        );
-      };
-
-      // cform functions
-
+      const totalLength = companyTags.length + jobTags.length + profileTags.length + aspirTags.length + 3;
       const jsonInit = JSON.parse(JSON.stringify(<%= raw @json_init %>));
 
-      // const exampleTextOK = chatText("go", "C'est parti ?", "Go");
+      initHomePageDOM();
 
-      const firstTagsToInsertOLD = chatRadio("go", "C'est parti ?", ["Go","non","oui"]);
-
-      const tagsToInsert = [
-        chatRadio("go", "Bienvenue {previous-answer} && C'est parti ?", ["Go"]),
-        chatRadio("first_question", "Première question", ["rép 1","rép 2","rép 3"]),
-        chatText("second_question", "Texte libre", "Dis ce que tu veux")
-      ];
-
-      const callbackCfQuestion = (dto, success, error) => {
-        console.log(i);
-        console.log(dto);
-        if (i < tagsToInsert.length) {
-          cForm.addTags(tagsToInsert[i], true);
-          i = i + 1;
-        } else {
-          console.log("2eme blucle");
-          tags = chatText("third_question", dto.text, "check" );
-          cForm.addTags(tags, true);
-        }
-        success();
-      };
-
-      const endCf = () => {
-          console.log("end");
-          cForm.addRobotChatResponse("THE END");
-        };
-
-
-
-      // initialize conversational form
-
-      const initCf = () => {
-        jsonInit.options.submitCallback = endCf.bind(window);
-        jsonInit.options.flowStepCallback = callbackCfQuestion.bind(window);
-        cForm = window.cf.ConversationalForm.startTheConversation(jsonInit);
-        chatRestit.appendChild(cForm.el);
-      };
-
-      // DOM Elements
-      const startButton = document.getElementById("start-button");
-      const bannerStart = document.getElementById("bstart");
-      const bannerChat = document.getElementById("bchat");
-      const chatRestit = document.getElementById("chatrestit");
-      // const dispatcher = new cf.EventDispatcher();
-
-      // Listener to display and launch conversational form
-      startButton.addEventListener("click", (event) => {
-        event.preventDefault;
-        bannerStart.classList.add("hidden");
-        bannerChat.classList.remove("hidden");
-        initCf();
-      });
 
     </script>
 <% end %>
