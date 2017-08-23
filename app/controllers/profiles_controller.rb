@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
-  layout "home_layout", only: [ :home, :test ]
-  skip_before_action :authenticate_user!, only: [:home, :test ]
+  layout "home_layout", only: [ :home ]
+  skip_before_action :authenticate_user!, only: [:home ]
 
   def home
     #TODO : si profil deja existant en session
@@ -14,6 +14,7 @@ class ProfilesController < ApplicationController
         "tags": initial_tag
       }
     @json_init = initChat.to_json
+    authorize @json_init
   end
 
   def test
