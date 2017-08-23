@@ -130,7 +130,6 @@ def seed_candidates
       headline: Faker::Job.title,
       location: Faker::Address.city,
       positions: Faker::Job.field,
-      picture_url: nil,
       )
     user.save
   end
@@ -162,33 +161,37 @@ end
 
 
 def seed_job(jl)
+  5.times do
+    job = Job.new(
+      company_id: nil,
+      title: jl.title,
+      contract: JOB_CONTRACT_ARRAY.sample,
+      remote: JOB_REMOTE_ARRAY.sample,
+      salary: JOB_SALARY_ARRAY.sample,
+      job_type: JOB_TYPE_ARRAY.sample,
+      subtype: nil,
+      description: jl.desctext,
+      profile: JOB_PROFILE_ARRAY.sample,
+      open: true
+      )
 
-  job = Job.new(
-    company_id: nil,
-    title: jl.title,
-    contract: JOB_CONTRACT_ARRAY.sample,
-    remote: JOB_REMOTE_ARRAY.sample,
-    salary: JOB_SALARY_ARRAY.sample,
-    job_type: JOB_TYPE_ARRAY.sample,
-    subtype: nil,
-    description: jl.desctext,
-    profile: JOB_PROFILE_ARRAY.sample,
-    open: true
-    )
+      # first_id = Company.first.id
+      # last_id = Company.last.id
+      job.company = Company.find(jl.id)
 
-    # first_id = Company.first.id
-    # last_id = Company.last.id
-    job.company = Company.find(jl.id)
+    if job.job_type == "marketing"
+      job.subtype = JOB_SUBTYPE_ARRAY.sample
+    else
+      job.subtype = nil
+    end
 
-  if job.job_type == "marketing"
-    job.subtype = JOB_SUBTYPE_ARRAY.sample
-  else
-    job.subtype = nil
+    job.save!
   end
-
-  job.save!
-
+  puts "profile created"
 end
+
+
+def seed_profile
 
 
 main_diploma_array = ["licence", "M1", "M2"]
@@ -198,30 +201,34 @@ main_diploma_array = []
 nb_years_experience_array = [1,2,3]
 main_school_graduation_year_array = [2010,2011,2012,2013,2014]
 
-def seed_profile(jl)
-
-
-  comp = Profile.new(
-    user: ,
+  prof = Profile.new(
+    user: nil,
     main_diploma: main_diploma_array.sample,
     main_school: main_school_array.sample,
     main_school_major_topic: main_school_major_topic_array.sample,
-    main_school_graduation_year: main,
+    main_school_graduation_year: main_school_graduation_year_array.sample,
     nb_years_experience: nb_years_experience_array.sample,
-    company_type: ,
-    company_industry: ,
-    company_size: ,
-    job_type: ,
-    job_subtype: ,
-    job_location: ,
-    job_remote: ,
-    job_contract: ,
-    job_minsalary: ,
+    company_type: COMPANY_TYPE_ARRAY.sample,
+    company_industry: COMPANY_INDUSTRY_ARRAY.sample,
+    company_size: COMPANY_SIZE_ARRAY.sample,
+    job_type: JOB_TYPE_ARRAY.sample,
+    job_subtype: nil,
+    job_location: Faker::Address.city,
+    job_remote: JOB_REMOTE_ARRAY.sample,
+    job_contract: JOB_CONTRACT_ARRAY.sample,
+    job_min_salary: JOB_SALARY_ARRAY.sample,
     )
 
+    if prof.job_type == "marketing"
+      prof.job_subtype = JOB_SUBTYPE_ARRAY.sample
+    else
+      prof.job_subtype = nil
+    end
 
-    profile.save!
-    return comp
+    prof.save!
+    prof.user = User.find(prof.id)
+
+    return prof
 
 end
 
@@ -231,6 +238,7 @@ end
     JobLoader.all.each do |jl|
       seed_company(jl)
       seed_job(jl)
+      seed_profile
     end
   end
 
