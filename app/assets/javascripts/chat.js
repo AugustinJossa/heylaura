@@ -53,6 +53,7 @@ const chatRadio = (id, question, radioTexts, placeholder) => {
     [{
       "tag": "fieldset",
       "type": "Radio buttons",
+      "id": id,
       "cf-input-placeholder": placeholder || "Choisis ci-dessus", // TODO: sert a rien pour l instant
       "cf-questions": question,
       "children": chatRadioTags(radioTexts)
@@ -95,33 +96,46 @@ const runAspirQuestionnaire = () => {
 const callbackCfQuestion = (dto, success, error) => {
   // save value
   // TODO
-  if (iComp < companyTags.length) {
-    runCompanyQuestionnaire();
+  currentProfile[dto.tag.id] = dto.text;
+  if (i === -1) {
+    console.log("test")
   } else {
-    entTag.classList.remove("current-questions");
-    if (iJob < jobTags.length) {
-      runJobQuestionnaire();
+    if (iComp < companyTags.length) {
+      runCompanyQuestionnaire();
     } else {
-      jobTag.classList.remove("current-questions");
-      if (iProfile < profileTags.length) {
-        runProfileQuestionnaire();
+      entTag.classList.remove("current-questions");
+      if (iJob < jobTags.length) {
+        runJobQuestionnaire();
       } else {
-        profTag.classList.remove("current-questions");
-        if (iAspir < aspirTags.length) {
-          runAspirQuestionnaire();
+        jobTag.classList.remove("current-questions");
+        if (iProfile < profileTags.length) {
+          runProfileQuestionnaire();
         } else {
-          aspiTag.classList.remove("current-questions");
+          profTag.classList.remove("current-questions");
+          if (iAspir < aspirTags.length) {
+            runAspirQuestionnaire();
+          } else {
+            aspiTag.classList.remove("current-questions");
+          }
         }
       }
     }
+    i = i +1;
+    updateCompletion(i);
   }
-  i = i +1;
-  updateCompletion(i);
   success();
 };
 
 const endCf = () => {
     console.log("end");
+    var xhr = new XMLHttpRequest();
+    // var formData = cForm.getFormData();
+    xhr.open("POST", path);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+    xhr.setRequestHeader("X-CSRF-Token", authenticity_token);
+    xhr.send("profile=" + encodeURIComponent(JSON.stringify(currentProfile)));
+    // xhr.send("profile=" + currentProfile);
+    // debugger;
     cForm.addRobotChatResponse("THE END");
 };
 
@@ -144,7 +158,7 @@ const createCompanyTags = (types, industries, sizes) => {
     chatRadio("company_industry",
       "Parfait. Et dans quel secteur ?",
       industries),
-    chatRadio("company_sizes",
+    chatRadio("company_size",
       "C'est noté. Et quel serait la taille idéale de la boîte de tes rêves ?",
       sizes),
     chatRadio("go_entreprise",
@@ -181,4 +195,12 @@ const createAspirTags = () => {
   return tags;
 };
 
+const createJobTagsAll = () => {
+  const tags = [
+    chatRadio("go_job",
+      "Debut job",
+      ["Go"])
+  ];
+  return tags;
+};
 

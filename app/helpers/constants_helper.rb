@@ -29,7 +29,7 @@ module ConstantsHelper
   end
 
   def job_subtypes(type)
-    Job::JOB_SUBTYPE_ARRAY if type = 'marketing'
+    Job::JOB_SUBTYPE_ARRAY if type == 'marketing'
   end
 
   def job_profiles
