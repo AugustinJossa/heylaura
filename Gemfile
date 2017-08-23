@@ -16,12 +16,13 @@ gem 'jquery-rails'
 gem 'sass-rails'
 gem 'simple_form'
 gem 'uglifier'
-gem "pundit"
-
+gem 'pundit'
 
 # GEMs installed for the project
 gem 'cloudinary'
 gem 'omniauth-linkedin-oauth2'
+gem 'nokogiri'
+gem 'faker'
 
 group :development, :test do
   gem 'pry-byebug'

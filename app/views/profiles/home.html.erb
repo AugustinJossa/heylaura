@@ -1,0 +1,133 @@
+<div class="container-fluid">
+  <div class="banner" style="background-image: linear-gradient(-225deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 50%), url( <%= image_path "background.jpg" %>);">
+    <div class="banner-start" id="bstart">
+      <%= render 'landing' %>
+    </div>
+    <div class="banner-chat hidden" id="bchat">
+      <div class="row">
+        <div class="col-xs-12 col-md-5 chat-status-col">
+          <div class="chat-status">
+          <!--             <form id="testform" cf-form action="">
+              <label for="name">What is your name ?</label>
+              <input type="name">
+            </form> -->
+          </div>
+        </div>
+        <div class="hidden-xs hidden-sm col-md-1"></div>
+        <div class="col-xs-12 col-md-6">
+          <div class="chat-content">
+            <div id="chatrestit" cf-context ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- form display for debug - to hide with hideform class -->
+<% content_for(:js) do %>
+    <script>
+
+      var cForm;
+      var i = 0;
+
+      // functions to create tags for questions
+
+      const chatText = (id, question, placeholder) => {
+        return(
+          [{
+            'tag': 'input',
+            'type': 'text',
+            'id': id,
+            'cf-questions': question,
+            'cf-input-placeholder': placeholder || "Ta réponse"
+          }]
+        );
+      };
+
+      const chatRadioTags = (texts) => {
+        const tags = texts.map((text) => {
+          return(
+            {
+              "tag": "input",
+              "type": "radio",
+              "cf-label": text
+            }
+          );
+        });
+        return tags;
+      };
+
+      const chatRadio = (id, question, radioTexts, placeholder) => {
+        return(
+          [{
+            "tag": "fieldset",
+            "type": "Radio buttons",
+            "cf-input-placeholder": placeholder || "Choisis ci-dessus", // TODO: sert a rien pour l instant
+            "cf-questions": question,
+            "children": chatRadioTags(radioTexts)
+          }]
+        );
+      };
+
+      // cform functions
+
+      const jsonInit = JSON.parse(JSON.stringify(<%= raw @json_init %>));
+
+      // const exampleTextOK = chatText("go", "C'est parti ?", "Go");
+
+      const firstTagsToInsertOLD = chatRadio("go", "C'est parti ?", ["Go","non","oui"]);
+
+      const tagsToInsert = [
+        chatRadio("go", "Bienvenue {previous-answer} && C'est parti ?", ["Go"]),
+        chatRadio("first_question", "Première question", ["rép 1","rép 2","rép 3"]),
+        chatText("second_question", "Texte libre", "Dis ce que tu veux")
+      ];
+
+      const callbackCfQuestion = (dto, success, error) => {
+        console.log(i);
+        console.log(dto);
+        if (i < tagsToInsert.length) {
+          cForm.addTags(tagsToInsert[i], true);
+          i = i + 1;
+        } else {
+          console.log("2eme blucle");
+          tags = chatText("third_question", dto.text, "check" );
+          cForm.addTags(tags, true);
+        }
+        success();
+      };
+
+      const endCf = () => {
+          console.log("end");
+          cForm.addRobotChatResponse("THE END");
+        };
+
+
+
+      // initialize conversational form
+
+      const initCf = () => {
+        jsonInit.options.submitCallback = endCf.bind(window);
+        jsonInit.options.flowStepCallback = callbackCfQuestion.bind(window);
+        cForm = window.cf.ConversationalForm.startTheConversation(jsonInit);
+        chatRestit.appendChild(cForm.el);
+      };
+
+      // DOM Elements
+      const startButton = document.getElementById("start-button");
+      const bannerStart = document.getElementById("bstart");
+      const bannerChat = document.getElementById("bchat");
+      const chatRestit = document.getElementById("chatrestit");
+      // const dispatcher = new cf.EventDispatcher();
+
+      // Listener to display and launch conversational form
+      startButton.addEventListener("click", (event) => {
+        event.preventDefault;
+        bannerStart.classList.add("hidden");
+        bannerChat.classList.remove("hidden");
+        initCf();
+      });
+
+    </script>
+<% end %>

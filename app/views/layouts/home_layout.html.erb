@@ -3,29 +3,21 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Hey Laura</title>
-    <link rel="icon" href= <%= image_path "logo.png" %> type="image/png"> <!-- TODO mettre le logo à jour -->
-
+    <title>TODO</title>
+      <link rel="icon" href= <%= image_path "logo.png" %> type="image/png"> <!-- TODO mettre le logo à jour -->
     <%= csrf_meta_tags %>
     <%= action_cable_meta_tag %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
-    <% url= "http://res.cloudinary.com/dkalpv2xf/image/upload/v1503397215/favicon_qflwwj.ico"%>
-    <link rel="icon" href="<%= url %>" type="image/x-icon">
   </head>
-  
   <body>
-    
-    
     <%= render 'shared/navbar' %>
     <%= render 'shared/flashes' %>
     <div class="wrapper">
-      <div class="container">
         <%= yield %>
-      </div>
     </div>
     <%= render 'shared/footer' %>
     <%= javascript_include_tag 'application' %>
+    <script type="text/javascript" src="https://cf-4053.kxcdn.com/conversational-form/0.9.6/conversational-form.min.js" crossorigin></script>
     <%= yield(:js) %>
-
   </body>
 </html>
