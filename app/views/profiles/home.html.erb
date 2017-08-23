@@ -16,7 +16,7 @@
         <div class="hidden-xs hidden-sm col-md-1"></div>
         <div class="col-xs-12 col-md-6">
           <div class="chat-content">
-            <div id="chatrestit"></div>
+            <div id="chatrestit" cf-context ></div>
           </div>
         </div>
       </div>
@@ -25,110 +25,109 @@
 </div>
 
 <!-- form display for debug - to hide with hideform class -->
-<div class="container">
-  <%= link_to "link" "profiles/files/formless.json" %>
-  <%= simple_form_for :profile_info,
-    url: "#",
-    html: { id: 'chatform', class: "hideform" } do |f| %>
-    <%= f.input :name, chat_input("Salut&&Je m'appelle Laura et toi ?") %>
-    <%= f.input :name, chat_input("Et toi ?") %>
-  <% end %>
-
-    <%= simple_form_for :profile2,
-    url: "#",
-    html: { id: 'chatform2', class: "hideform" } do |f| %>
-    <%= f.input :name, chat_input("deuxieme form") %>
-  <% end %>
-
-</div>
-
 <% content_for(:js) do %>
     <script>
 
       var cForm;
+      var i = 0;
 
+      // functions to create tags for questions
 
-      // var tags = [
-      //   {
-      //     // basic tag
-      //     "tag": "input",
-      //     "type": "text",
-      //     "cf-questions": "Tag is injected at runtime, data from 'webservice', check source of <a href='formless.html' style='text-decoration:underline'>formless.html</a>",
-      //     "cf-error": "Inject some text"
-      //   },
-      //   {
-      //     // basic tag
-      //     "tag": "input",
-      //     "type": "text",
-      //     "cf-questions": "Tag is injected at runtime, data from 'webservice', check source of <a href='formless.html' style='text-decoration:underline'>formless.html</a>",
-      //     "cf-error": "Inject some text"
-      //   }
-      // ];
+      const chatText = (id, question, placeholder) => {
+        return(
+          [{
+            'tag': 'input',
+            'type': 'text',
+            'id': id,
+            'cf-questions': question,
+            'cf-input-placeholder': placeholder || "Ta réponse"
+          }]
+        );
+      };
 
-      const beforeendCf = () => {
-          // console.log(tags);
-          // console.log(window.ConversationalForm.addTags(tags, false));
+      const chatRadioTags = (texts) => {
+        const tags = texts.map((text) => {
+          return(
+            {
+              "tag": "input",
+              "type": "radio",
+              "cf-label": text
+            }
+          );
+        });
+        return tags;
+      };
 
-          cForm.addRobotChatResponse("NOT THE END");
-          // cForm.addTags(tags, false);
-          new cf.ConversationalForm({
-            formEl: document.getElementById("chatform2"),
-            context: document.getElementById("chatrestit")
-          });
-          console.log("before end");
-          // debugger;
+      const chatRadio = (id, question, radioTexts, placeholder) => {
+        return(
+          [{
+            "tag": "fieldset",
+            "type": "Radio buttons",
+            "cf-input-placeholder": placeholder || "Choisis ci-dessus", // TODO: sert a rien pour l instant
+            "cf-questions": question,
+            "children": chatRadioTags(radioTexts)
+          }]
+        );
+      };
+
+      // cform functions
+
+      const jsonInit = JSON.parse(JSON.stringify(<%= raw @json_init %>));
+
+      // const exampleTextOK = chatText("go", "C'est parti ?", "Go");
+
+      const firstTagsToInsertOLD = chatRadio("go", "C'est parti ?", ["Go","non","oui"]);
+
+      const tagsToInsert = [
+        chatRadio("go", "Bienvenue {previous-answer} && C'est parti ?", ["Go"]),
+        chatRadio("first_question", "Première question", ["rép 1","rép 2","rép 3"]),
+        chatText("second_question", "Texte libre", "Dis ce que tu veux")
+      ];
+
+      const callbackCfQuestion = (dto, success, error) => {
+        console.log(i);
+        console.log(dto);
+        if (i < tagsToInsert.length) {
+          cForm.addTags(tagsToInsert[i], true);
+          i = i + 1;
+        } else {
+          console.log("2eme blucle");
+          tags = chatText("third_question", dto.text, "check" );
+          cForm.addTags(tags, true);
+        }
+        success();
+      };
+
+      const endCf = () => {
+          console.log("end");
           cForm.addRobotChatResponse("THE END");
         };
 
-      const endCf = () => {
-          // console.log(tags);
-          // console.log(window.ConversationalForm.addTags(tags, false));
-          // window.ConversationalForm.addTags(tags, false);
-          console.log("end");
-          // debugger;
-          // cForm.addRobotChatResponse("THE END");
-        };
 
+
+      // initialize conversational form
 
       const initCf = () => {
-        new cf.ConversationalForm({
-          // HTMLFormElement
-          formEl:  document.getElementById("chatform"),
-          context: document.getElementById("chatrestit"),
-          // tags: tags,
-          flowStepCallback: function(){
-            beforeendCf();
-          },
-          submitCallback: function(){
-            endCf();
-          },
-          eventDispatcher: dispatcher
-        });
-        // window.ConversationalForm.addRobotChatResponse("random msg");
-        // cForm.getFormData().get('profile_info[name]')
+        jsonInit.options.submitCallback = endCf.bind(window);
+        jsonInit.options.flowStepCallback = callbackCfQuestion.bind(window);
+        cForm = window.cf.ConversationalForm.startTheConversation(jsonInit);
+        chatRestit.appendChild(cForm.el);
       };
 
+      // DOM Elements
       const startButton = document.getElementById("start-button");
       const bannerStart = document.getElementById("bstart");
       const bannerChat = document.getElementById("bchat");
-      const dispatcher = new cf.EventDispatcher();
+      const chatRestit = document.getElementById("chatrestit");
+      // const dispatcher = new cf.EventDispatcher();
 
+      // Listener to display and launch conversational form
       startButton.addEventListener("click", (event) => {
         event.preventDefault;
         bannerStart.classList.add("hidden");
         bannerChat.classList.remove("hidden");
         initCf();
-        cForm = window.ConversationalForm;
       });
-
-      dispatcher.addEventListener(cf.FlowEvents.USER_INPUT_UPDATE, (event) => {
-        console.log(event.detail);
-        cf.addTags(tags, false);
-      }, false);
-
-
-
-
 
     </script>
 <% end %>
