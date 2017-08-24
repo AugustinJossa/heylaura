@@ -26,7 +26,10 @@
 </div>
 <div class="util">
   <div class="hidden">
-
+    <%= simple_form_for @profile,  url: profiles_url, html: {id: "chat-form"}, :method => :post, remote: true do |f| %>
+      <%= f.input :raw_chat_content %>
+      <%= f.submit "Submit" %>
+    <% end %>
   </div>
 </div>
 
