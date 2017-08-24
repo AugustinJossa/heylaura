@@ -35,6 +35,4 @@ class MatchedJobsController < ApplicationController
     params.require(:query).permit(:job_type, :contract, :salary, :industry, :company_type, :size, :location)
   end
 
-
-
 end
