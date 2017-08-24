@@ -1,0 +1,38 @@
+.white-wraper{
+  background-color: white;
+  margin-bottom: 20px;
+}
+
+.flexbox{
+  border: solid 1px;
+  border-color: blue;
+  display: flex;
+  justify-content: space-between;
+}
+
+.flex-item-1{
+  border: solid 1px;
+  flex: 0 0 20%;
+  font-size: 15px;
+  padding: 10px;
+}
+
+.flex-item-2{
+  border: solid 1px;
+  flex: 0 0 78%;
+}
+
+.trait-inf{
+  border-bottom: solid 1px;
+  margin-bottom: 10px;
+}
+
+.filter-box{
+  border: solid 1px;
+  border-color: red;
+  margin-bottom: 10px;
+  font-size:12px;
+  padding: 5px;
+
+}
+

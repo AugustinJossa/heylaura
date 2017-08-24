@@ -7,7 +7,7 @@
     <div class='trait-inf'>Filtrer par</div>
 
   <div class='filter-box'>
-  <%= simple_form_for :query, url: filter_jobs_path, :method => :post do |f| %>
+  <%= simple_form_for :query, url: filter_profile_matched_jobs_path, :method => :post do |f| %>
     <%= f.input :job_type, label: "Métier", required: false, collection: @job_types %>
     <%= f.input :contract, label: "Type de contrat", required: false, collection: @contracts %>
     <%= f.input :salary, label: "Salaire min", required: false %>
@@ -38,3 +38,4 @@
   </div>
 </div>
 </div>
+

@@ -23,6 +23,7 @@ gem 'cloudinary'
 gem 'omniauth-linkedin-oauth2'
 gem 'nokogiri'
 gem 'faker'
+gem 'filterrific'
 
 group :development, :test do
   gem 'pry-byebug'

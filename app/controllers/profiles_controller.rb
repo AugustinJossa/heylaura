@@ -49,6 +49,7 @@ class ProfilesController < ApplicationController
     authorize @profile
   end
 
+
   private
 
   def profile_params
@@ -94,5 +95,19 @@ class ProfilesController < ApplicationController
       chat_init_radio("end", "Merci pour ta patience. C'est fini. && Tu veux voir les jobs qui te correspondent ?", ["Go"])
     ]
   end
+
+  end
+
+
+
+
+
+
+
+
+
+
+
+
 
 end
