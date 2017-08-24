@@ -28,8 +28,12 @@ module ConstantsHelper
     Job::JOB_TYPE_ARRAY
   end
 
-  def job_subtypes(type)
-    Job::JOB_SUBTYPE_ARRAY if type == 'marketing'
+  def job_subtypes(type = nil)
+    type ? Job::JOB_SUBTYPE_HASH[type] : Job::JOB_SUBTYPE_HASH
+  end
+
+  def job_subtypes_json
+    job_subtypes.to_json
   end
 
   def job_profiles

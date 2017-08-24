@@ -5,7 +5,7 @@
     </div>
     <div class="banner-chat hidden" id="bchat">
       <div class="row">
-        <div class="col-xs-12 col-md-5 chat-status-col">
+        <div class="hidden-xs hidden-sm col-md-5 chat-status-col">
           <div class="chat-status">
             <h2>Completion: <span id="percent">0</span>%</h2>
             <h3 id="entreprise">L'entreprise de tes rêves</h3>
@@ -24,8 +24,10 @@
     </div>
   </div>
 </div>
+<div class="container">
+  <!-- <p><%= job_subtypes('marketing') %></p> -->
+</div>
 
-<!-- form display for debug - to hide with hideform class -->
 <% content_for(:js) do %>
     <script>
 
@@ -35,12 +37,15 @@
       const companyIndustries = <%= raw company_industries %> ;
       const companySizes = <%= raw company_sizes %>;
       const jobTypes = <%= raw job_types %>;
-      const jobSubTypesMarket = <%= raw job_subtypes("marketing") %>;
-      const jobRemote = <%= raw job_remotes %>;
-      const companyTags = createCompanyTags(companyTypes, companyIndustries, companySizes);
-      const jobTags = createJobTags();
-      const profileTags = createProfileTags();
-      const aspirTags = createAspirTags();
+      const jobSubTypes = JSON.parse(JSON.stringify( <%= raw job_subtypes_json %>));
+      const jobRemotes = <%= raw job_remotes %>;
+      const jobContracts = <%= raw job_contracts %>;
+      const jobSalaries = <%= raw job_salaries %>;
+
+      var companyTags = createCompanyTags(companyTypes, companyIndustries, companySizes);
+      var jobTags = createJobTags("entreprise", jobTypes, "Tout", jobSubTypes["marketing"], jobRemotes, jobContracts, jobSalaries);
+      var profileTags = createProfileTags();
+      var aspirTags = createAspirTags();
 
       // dom elements
       var perCent;
