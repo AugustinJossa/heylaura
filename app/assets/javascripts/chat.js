@@ -11,6 +11,8 @@ const initHomePageDOM = () => {
   jobTag = document.getElementById("job");
   profTag = document.getElementById("profil");
   aspiTag = document.getElementById("aspirations");
+  profileForm = document.getElementById("chat-form");
+  rawChatContent = document.getElementById("profile_raw_chat_content");
 
   startButton.addEventListener("click", (event) => {
     event.preventDefault;
@@ -95,7 +97,20 @@ const runProfileQuestionnaire = () => {
 
 const runAspirQuestionnaire = () => {
   aspiTag.classList.add("current-questions");
-  cForm.addTags(aspirTags[iAspir], true);
+  debugger;
+  if (iAspir < aspirTags.length) {
+    cForm.addTags(aspirTags[iAspir], true);
+  } else {
+    if (iAspir === aspirTags.length) {
+      currentProfile["motivationCategories"] = [];
+    }
+    currentProfile["motivationCategories"][iAspir - aspirTags.length] = currentProfile["motivLastCat"];
+    currentCategories = currentCategories.filter(category => category != currentProfile["motivLastCat"]);
+    const currentTags = chatRadio("motivLastCat",
+      "Et ensuite ? || Et puis ? || Très bien, et le suivant ?",
+      currentCategories);
+    cForm.addTags(currentTags, true);
+  }
   iAspir = iAspir + 1;
 
 }
@@ -113,7 +128,7 @@ const manageQuestionnaire = () => {
         runProfileQuestionnaire();
       } else {
         profTag.classList.remove("current-questions");
-        if (iAspir < aspirTags.length) {
+        if (iAspir < aspirTags.length + motivationCategories.length - 1) {
           runAspirQuestionnaire();
         } else {
           aspiTag.classList.remove("current-questions");
@@ -135,14 +150,24 @@ const callbackCfQuestion = (dto, success, error) => {
   success();
 };
 
+const endChat = (normal) => {
+  window.ConversationalForm.remove();
+  if (normal === true) {
+    currentProfile["session_info"] = sessionInfo;
+    currentProfile["i"] = i;
+    currentProfile["icomp"] = iComp;
+    currentProfile["ijob"] = iJob;
+    currentProfile["iprofile"] = iProfile;
+    currentProfile["iaspir"] = iAspir;
+    rawChatContent.value = JSON.stringify(currentProfile);
+    // TO DO: mettre une div specifique pour la recherche de profil a la place du chat
+    profileForm.submit();
+  }
+  // TO DO: gerer la fin impromptue du chat
+}
+
 const endCf = () => {
-    console.log("end");
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", path);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-    xhr.setRequestHeader("X-CSRF-Token", authenticity_token);
-    xhr.send("profile=" + encodeURIComponent(JSON.stringify(currentProfile)));
-    // cForm.addRobotChatResponse("THE END");
+    endChat(true);
 };
 
 const initCf = (jsonInit) => {

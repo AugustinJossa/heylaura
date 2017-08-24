@@ -9,6 +9,7 @@ class Profile < ApplicationRecord
     filter_params = params.select do |key, index|
       object_keys.include?(key)
     end
+    filter_params["raw_chat_content"] = params.to_json
     return filter_params
   end
 
