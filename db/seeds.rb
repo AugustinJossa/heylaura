@@ -120,7 +120,6 @@ end
 
 
 def seed_candidates
-  puts 'Creating 5 candidates'
   5.times do
     user = User.new(
       email: Faker::Internet.unique.email,
@@ -161,7 +160,7 @@ end
 
 
 def seed_job(jl)
-  5.times do
+  # 5.times do
     job = Job.new(
       company_id: nil,
       title: jl.title,
@@ -186,13 +185,12 @@ def seed_job(jl)
     end
 
     job.save!
-  end
-  puts "profile created"
+  # end
+  
 end
 
 
 def seed_profile
-
 
 main_diploma_array = ["licence", "M1", "M2"]
 main_school_array = ["HEC", "IESEG", "Dauphine", "Audencia", "Centrale", "le wagon"]
@@ -201,36 +199,74 @@ main_diploma_array = []
 nb_years_experience_array = [1,2,3]
 main_school_graduation_year_array = [2010,2011,2012,2013,2014]
 
-  prof = Profile.new(
-    user: nil,
-    main_diploma: main_diploma_array.sample,
-    main_school: main_school_array.sample,
-    main_school_major_topic: main_school_major_topic_array.sample,
-    main_school_graduation_year: main_school_graduation_year_array.sample,
-    nb_years_experience: nb_years_experience_array.sample,
-    company_type: COMPANY_TYPE_ARRAY.sample,
-    company_industry: COMPANY_INDUSTRY_ARRAY.sample,
-    company_size: COMPANY_SIZE_ARRAY.sample,
-    job_type: JOB_TYPE_ARRAY.sample,
-    job_subtype: nil,
-    job_location: Faker::Address.city,
-    job_remote: JOB_REMOTE_ARRAY.sample,
-    job_contract: JOB_CONTRACT_ARRAY.sample,
-    job_min_salary: JOB_SALARY_ARRAY.sample,
-    )
+  5.times do
+    prof = Profile.new(
+      user: nil,
+      main_diploma: main_diploma_array.sample,
+      main_school: main_school_array.sample,
+      main_school_major_topic: main_school_major_topic_array.sample,
+      main_school_graduation_year: main_school_graduation_year_array.sample,
+      nb_years_experience: nb_years_experience_array.sample,
+      company_type: COMPANY_TYPE_ARRAY.sample,
+      company_industry: COMPANY_INDUSTRY_ARRAY.sample,
+      company_size: COMPANY_SIZE_ARRAY.sample,
+      job_type: JOB_TYPE_ARRAY.sample,
+      job_subtype: nil,
+      job_location: Faker::Address.city,
+      job_remote: JOB_REMOTE_ARRAY.sample,
+      job_contract: JOB_CONTRACT_ARRAY.sample,
+      job_min_salary: JOB_SALARY_ARRAY.sample,
+      )
 
-    if prof.job_type == "marketing"
-      prof.job_subtype = JOB_SUBTYPE_ARRAY.sample
-    else
-      prof.job_subtype = nil
-    end
+      if prof.job_type == "marketing"
+        prof.job_subtype = JOB_SUBTYPE_ARRAY.sample
+      else
+        prof.job_subtype = nil
+      end
 
     prof.save!
     prof.user = User.find(prof.id)
 
-    return prof
+  end
 
 end
+
+
+
+  def seed_matched_jobs
+
+    status_array = ["Bookmarked", "Pending", "Accepted", "Rejected"]
+    message_array = ["Je suis extremement motive", "Je suis tres interesse par votre entreprise", "J'adore votre produit", "Je suis desespere, embauchez-moi"]
+    number_of_jobs = Job.count
+    number_of_profiles = Profile.count
+    profiles = (1..number_of_profiles).to_a
+    jobs = (1..number_of_jobs).to_a
+
+    
+      profiles.each do |i|
+        jobs.each do |j|
+
+          proba = 1.fdiv(rand(1..5))
+          
+          m_j = MatchedJob.new(
+          profile: nil,
+          job: nil,
+          matching: proba,
+          status: status_array.sample,
+          message: message_array.sample
+          )
+
+          m_j.profile_id = i.to_i
+          m_j.job_id = j.to_i
+          
+          m_j.save!
+         
+        end
+      end
+
+  end
+
+
 
 
 
@@ -238,20 +274,28 @@ end
     JobLoader.all.each do |jl|
       seed_company(jl)
       seed_job(jl)
-      seed_profile
     end
   end
 
 
 def seed_new_data
-  Company.destroy_all
-  Job.destroy_all
   MatchedJob.destroy_all
-  User.destroy_all
+  Job.destroy_all
+  Company.destroy_all
   RequiredSkill.destroy_all
+  Profile.destroy_all
+  User.destroy_all
+  
 
   seed_candidates
+  puts "#{User.count} users created" 
   seed_elements
+  puts "#{Company.count} companies created" 
+  puts "#{Job.count} jobs created" 
+  seed_profile
+  puts "#{Profile.count} profiles created" 
+  seed_matched_jobs
+  puts "#{MatchedJob.count} matched jobs created" 
 
 
 end
@@ -277,5 +321,6 @@ end
 # parse_jobs_list(3)
 # parse_jobs_list(4)
 # save_json
+
 load_json
 seed_new_data
