@@ -1,25 +1,31 @@
 .white-wraper{
   background-color: white;
   margin-bottom: 20px;
+  border-radius: 2px;
+  padding: 20px;
 }
 
 .flexbox{
-  border: solid 1px;
-  border-color: blue;
+  // border: solid 1px;
+  // border-color: blue;
   display: flex;
   justify-content: space-between;
 }
 
 .flex-item-1{
-  border: solid 1px;
+  // border: solid 1px;
   flex: 0 0 20%;
   font-size: 15px;
   padding: 10px;
+  height: 100vh;
+  position: sticky !important;
+  top: 0 !important;
 }
 
 .flex-item-2{
-  border: solid 1px;
+  // border: solid 1px;
   flex: 0 0 78%;
+  margin-right: 10px;
 }
 
 .trait-inf{
@@ -28,8 +34,8 @@
 }
 
 .filter-box{
-  border: solid 1px;
-  border-color: red;
+  // border: solid 1px;
+  // border-color: red;
   margin-bottom: 10px;
   font-size:12px;
   padding: 5px;

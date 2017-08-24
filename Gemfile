@@ -24,7 +24,9 @@ gem 'omniauth-linkedin-oauth2'
 gem 'nokogiri'
 gem 'faker'
 gem 'filterrific'
-gem 'acts_as_list'
+gem 'sprockets', '>=3.0.0.beta'
+gem 'sprockets-es6'
+# gem 'acts_as_list'
 
 group :development, :test do
   gem 'pry-byebug'

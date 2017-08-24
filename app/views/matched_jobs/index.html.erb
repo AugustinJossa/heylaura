@@ -1,4 +1,4 @@
-<h1>Your jobs</h1>
+<h1>Trouve un emploi!</h1>
 
 <div class='white-wraper'>
 
@@ -22,20 +22,86 @@
   </div>
 
   <div class='flex-item-2'>
-    <ul>
+    <% @matched_jobs.each do |matched_job| %>
+      <div class="mycard">
+        <div class="line-1">
+          <div class="title"><%= matched_job.job.company.name.upcase %></div>
+          <img class="card-user" src="https://kitt.lewagon.com/placeholder/users/tgenaitay">
+        </div>
+        <div class="line-2">
+          <h2><%= matched_job.job.title %></h2>
+          <p><% if matched_job.job.description.split(" ").length > 60 %>
+            <%= "#{matched_job.job.description.split(" ")[0..60].join(" ")} ..." %>
+            <% else %>
+            <%= matched_job.job.description %>
+            <% end %>
+          </p>
+        </div>
+        <div class="line-3">
+          <div class="tags-1">
 
-      <% @jobs.each do |job| %>
-        <li>
-          <%= job.company.name %>
-          <%= job.company.logo %>
-          <%= job.title %>
-          <%= job.job_type %>
-          <%= job.contract %>
-        </li>
+            <div>
+              <%= link_to job_path(2) do %>
+            <span><i class="fa fa-heart-o coeur" aria-hidden="true"></i> </span>
+              <% end %>
+            </div>
+            <div class="meter">
+              <span style="width:<%= matched_job.matching*100 %>%"></span>
+            </div>
+            <div class="pourcentage"> <%= (matched_job.matching*100).to_i.round %>% de matching</div>
+          </div>
+          <div class="tags-2">
+            <div class="tags-elements-adapt"></div>
+            <div class="tags-elements"><%= matched_job.job.contract %></div>
+            <div class="tags-elements"><%= "#{matched_job.job.salary.round(0)} €" %></div>
+            <div class="tags-elements"><%= matched_job.job.remote %></div>
+          </div>
+        </div>
 
-      <% end %>
-    </ul>
+        <a class="card-link" href="#" ></a>
+      </div>
+    <% end %>
   </div>
-</div>
+
+
+
+
+
+
+
+
+  </div>
+
 </div>
 
+
+
+
+<% content_for(:js) do %>
+  <%= javascript_tag do  %>
+var bar = $('span');
+
+var width = bar.attr('style');
+width = width.replace("width:", "");
+width = width.substr(0, width.length-1);
+
+
+var interval;
+var start = 0;
+var end = parseInt(width);
+var current = start;
+
+var countUp = function() {
+  current++;
+  p.html(current + "%");
+
+  if (current === end) {
+    clearInterval(interval);
+  }
+};
+
+interval = setInterval(countUp, (1000 / (end + 1)));
+
+
+  <% end %>
+<% end %>

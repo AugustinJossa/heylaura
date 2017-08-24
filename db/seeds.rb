@@ -186,7 +186,7 @@ def seed_job(jl)
 
     job.save!
   # end
-  
+
 end
 
 
@@ -243,12 +243,12 @@ end
     profiles = (1..number_of_profiles).to_a
     jobs = (1..number_of_jobs).to_a
 
-    
+
       profiles.each do |i|
         jobs.each do |j|
 
           proba = 1.fdiv(rand(1..5))
-          
+
           m_j = MatchedJob.new(
           profile: nil,
           job: nil,
@@ -259,9 +259,9 @@ end
 
           m_j.profile_id = i.to_i
           m_j.job_id = j.to_i
-          
+
           m_j.save!
-         
+
         end
       end
 
@@ -280,18 +280,26 @@ end
 
 
 def seed_new_data
-  
   seed_candidates
-  puts "#{User.count} users created" 
+  puts "#{User.count} users created"
   seed_elements
-  puts "#{Company.count} companies created" 
-  puts "#{Job.count} jobs created" 
+  puts "#{Company.count} companies created"
+  puts "#{Job.count} jobs created"
   seed_profile
-  puts "#{Profile.count} profiles created" 
+  puts "#{Profile.count} profiles created"
   seed_matched_jobs
-  puts "#{MatchedJob.count} matched jobs created" 
+  puts "#{MatchedJob.count} matched jobs created"
 
 
+end
+
+def seed_motivation_categories
+  MotivationCategory.destroy_all
+  categories = ["Type d'entreprise", "Type de job", "Localisation", "Salaire et contrat"]
+  categories.each do |category|
+    MotivationCategory.create(name: category)
+    puts "motivation category created"
+  end
 end
 
 def destroy_data
@@ -327,6 +335,8 @@ end
 # parse_jobs_list(4)
 # save_json
 
+
+seed_motivation_categories
 destroy_data
 load_json
 seed_new_data
