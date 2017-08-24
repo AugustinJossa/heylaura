@@ -226,6 +226,7 @@ main_school_graduation_year_array = [2010,2011,2012,2013,2014]
 
     prof.save!
     prof.user = User.find(prof.id)
+    prof.save!
 
   end
 
@@ -279,14 +280,6 @@ end
 
 
 def seed_new_data
-  MatchedJob.destroy_all
-  Job.destroy_all
-  Company.destroy_all
-  RequiredSkill.destroy_all
-  Profile.destroy_all
-  User.destroy_all
-
-
   seed_candidates
   puts "#{User.count} users created"
   seed_elements
@@ -307,6 +300,17 @@ def seed_motivation_categories
     MotivationCategory.create(name: category)
     puts "motivation category created"
   end
+end
+
+def destroy_data
+  puts "Destrying data..." 
+  MatchedJob.destroy_all
+  Job.destroy_all
+  Company.destroy_all
+  RequiredSkill.destroy_all
+  Profile.destroy_all
+  User.destroy_all
+  puts "Data destroyed..." 
 end
 
 # def seed_jrs(job)
@@ -331,6 +335,8 @@ end
 # parse_jobs_list(4)
 # save_json
 
-# load_json
-# seed_new_data
+
 seed_motivation_categories
+destroy_data
+load_json
+seed_new_data

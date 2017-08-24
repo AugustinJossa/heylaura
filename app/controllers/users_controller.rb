@@ -1,21 +1,30 @@
 class UsersController < ApplicationController
 
-	def show
-		@user = User.find(params[:id])
-		authorize @user
-		return @matched_jobs = MatchedJob.where(user_id: @user.id)
+	before_action :set_user_and_profile
+
+	def show	
+		@matched_jobs = MatchedJob.where(profile_id: @profile.id)
+		
+		status = ["Bookmarked", "Pending", "Accepted", "Rejected"]
+		@mj_bookmarked = MatchedJob.where(profile_id: @profile.id, status: "Bookmarked")
+		@mj_pending = MatchedJob.where(profile_id: @profile.id, status: "Pending")
+		@mj_accepted = MatchedJob.where(profile_id: @profile.id, status: "Accepted")
+		@mj_rejected = MatchedJob.where(profile_id: @profile.id, status: "Rejected")
+	
 	end
 
 
-	def filter_by_status
+	# def filter_by_status(status)
+	# 	@mj_bookmarked = MatchedJob.where(profile_id: @profile.id, status: status)
+	# end
+
+
+	def set_user_and_profile
 		@user = User.find(params[:id])
 		authorize @user
-		binding.pry
-		status = "Bookmarked"
-		@mj_status = MatchedJob.where(user_id: @user.id, status: status)
+		@profile = Profile.find(user_id = @user.id)
+
 	end
-
-
 
 
 end
