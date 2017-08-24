@@ -1,5 +1,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
-//= require_tree .
+//= require conversational-form
 //= require filterrific/filterrific-jquery
+//= require_tree .

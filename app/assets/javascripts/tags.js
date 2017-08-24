@@ -17,20 +17,20 @@ const createCompanyTags = (types, industries, sizes) => {
   return tags;
 };
 
-const createJobTagsOLD = () => {
-  const tags = [
-    chatRadio("go_job",
-      "Debut job",
-      ["Go"])
-  ];
-  return tags;
-};
-
 const createProfileTags = () => {
   const tags = [
     chatRadio("go_profile",
-      "Debut profile",
-      ["Go"])
+      "Je vois bien le type de job qui t'intéresse. && Parlons un peu de toi maintenant.",
+      ["Go"]),
+    chatText("main_school",
+      "De quelle école es-tu diplômé ?",
+      "HEC"),
+    chatText("main_school_graduation_year",
+      "Cool. Et en quelle année es-tu sorti de {previous-answer} ?",
+      "2016"),
+    chatText("nb_years_experience",
+      "Et combien d'années d'expérience professionnelle (stages compris) as-tu ?",
+      "2")
   ];
   return tags;
 };
