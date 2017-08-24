@@ -74,6 +74,13 @@ const runCompanyQuestionnaire = () => {
 }
 
 const runJobQuestionnaire = () => {
+  if (iJob === 0) {
+    jobTags = createJobTags(currentProfile.company_type, jobTypes, "Tout", jobSubTypes["marketing"], jobRemotes, jobContracts, jobSalaries);
+  }
+  if (iJob === 2) { // update with selectedJobType
+    currentJobType = currentProfile.job_type;
+    jobTags = createJobTags(currentProfile.company_type, jobTypes, currentJobType, jobSubTypes[currentJobType], jobRemotes, jobContracts, jobSalaries);
+  }
   jobTag.classList.add("current-questions");
   cForm.addTags(jobTags[iJob], true);
   iJob = iJob + 1;
@@ -93,33 +100,35 @@ const runAspirQuestionnaire = () => {
 
 }
 
+const manageQuestionnaire = () => {
+  if (iComp < companyTags.length) {
+      runCompanyQuestionnaire();
+  } else {
+    entTag.classList.remove("current-questions");
+    if (iJob < jobTags.length) {
+      runJobQuestionnaire();
+    } else {
+      jobTag.classList.remove("current-questions");
+      if (iProfile < profileTags.length) {
+        runProfileQuestionnaire();
+      } else {
+        profTag.classList.remove("current-questions");
+        if (iAspir < aspirTags.length) {
+          runAspirQuestionnaire();
+        } else {
+          aspiTag.classList.remove("current-questions");
+        }
+      }
+    }
+  }
+}
+
 const callbackCfQuestion = (dto, success, error) => {
-  // save value
-  // TODO
   currentProfile[dto.tag.id] = dto.text;
   if (i === -1) {
     console.log("test")
   } else {
-    if (iComp < companyTags.length) {
-      runCompanyQuestionnaire();
-    } else {
-      entTag.classList.remove("current-questions");
-      if (iJob < jobTags.length) {
-        runJobQuestionnaire();
-      } else {
-        jobTag.classList.remove("current-questions");
-        if (iProfile < profileTags.length) {
-          runProfileQuestionnaire();
-        } else {
-          profTag.classList.remove("current-questions");
-          if (iAspir < aspirTags.length) {
-            runAspirQuestionnaire();
-          } else {
-            aspiTag.classList.remove("current-questions");
-          }
-        }
-      }
-    }
+    manageQuestionnaire();
     i = i +1;
     updateCompletion(i);
   }
@@ -129,14 +138,11 @@ const callbackCfQuestion = (dto, success, error) => {
 const endCf = () => {
     console.log("end");
     var xhr = new XMLHttpRequest();
-    // var formData = cForm.getFormData();
     xhr.open("POST", path);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
     xhr.setRequestHeader("X-CSRF-Token", authenticity_token);
     xhr.send("profile=" + encodeURIComponent(JSON.stringify(currentProfile)));
-    // xhr.send("profile=" + currentProfile);
-    // debugger;
-    cForm.addRobotChatResponse("THE END");
+    // cForm.addRobotChatResponse("THE END");
 };
 
 const initCf = (jsonInit) => {
@@ -145,62 +151,3 @@ const initCf = (jsonInit) => {
   cForm = window.cf.ConversationalForm.startTheConversation(jsonInit);
   chatRestit.appendChild(cForm.el);
 };
-
-// tags management
-const createCompanyTags = (types, industries, sizes) => {
-  const tags = [
-    chatRadio("go_company",
-      "Bienvenue {previous-answer} && Je vais t'aider à trouver le job de tes rêves. && Il suffit de répondre à quelques questions simples et je te proposerai les jobs qui te correspondent le mieux. && Prêt à tenter l'expérience ?",
-      ["Go"]),
-    chatRadio("company_type",
-      "Nous allons commencer par parler de ton entreprise idéale. && Dans quel type d'entreprise aimerais-tu travailler ?",
-      types),
-    chatRadio("company_industry",
-      "Parfait. Et dans quel secteur ?",
-      industries),
-    chatRadio("company_size",
-      "C'est noté. Et quel serait la taille idéale de la boîte de tes rêves ?",
-      sizes),
-    chatRadio("go_entreprise",
-      "Parfait, nous avons fini la partie entreprise. && Simple non ? && Nous allons maintenant parler du job de tes rêves en XXX.",
-      ["Go"])
-  ];
-  return tags;
-};
-
-const createJobTags = () => {
-  const tags = [
-    chatRadio("go_job",
-      "Debut job",
-      ["Go"])
-  ];
-  return tags;
-};
-
-const createProfileTags = () => {
-  const tags = [
-    chatRadio("go_profile",
-      "Debut profile",
-      ["Go"])
-  ];
-  return tags;
-};
-
-const createAspirTags = () => {
-  const tags = [
-    chatRadio("go_aspir",
-      "Debut aspirations",
-      ["Go"])
-  ];
-  return tags;
-};
-
-const createJobTagsAll = () => {
-  const tags = [
-    chatRadio("go_job",
-      "Debut job",
-      ["Go"])
-  ];
-  return tags;
-};
-
