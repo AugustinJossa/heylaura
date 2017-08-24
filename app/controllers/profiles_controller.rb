@@ -40,6 +40,7 @@ class ProfilesController < ApplicationController
     authorize @profile
   end
 
+
   private
 
   def profile_params
@@ -61,5 +62,19 @@ class ProfilesController < ApplicationController
     [ chat_init_text("first_name", "Salut&&Je m'appelle Laura et toi ?", "Ton prénom"),
     chat_init_text("end", "Merci", "end") ]
   end
+
+  end
+
+
+
+
+
+
+
+
+
+
+
+
 
 end

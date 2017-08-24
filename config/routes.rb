@@ -5,6 +5,16 @@ Rails.application.routes.draw do
   root to: 'profiles#home'
   resources :profiles, only: [ :create, :show]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  resources :profiles, only:[:show] do
+
+  resources :matched_jobs, only:[:index, :show] do
+    collection do
+        post 'filter', to: "profiles#filter"
+      end
+    end
+  end
+
   resources :jobs, only:[:index, :show]
   resources :users, only: [ :show]
  
