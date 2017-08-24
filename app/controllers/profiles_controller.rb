@@ -9,7 +9,13 @@ class ProfilesController < ApplicationController
     initChat = {
         "options": {
           "preventAutoAppend": false,
-          "preventAutoFocus": false
+          "preventAutoFocus": false,
+          "userInterfaceOptions": {
+            "user": {
+                "showThinking": true,
+                "showThumb": false
+            }
+          }
         },
         "tags": initial_tag
       }
