@@ -38,8 +38,11 @@ const createProfileTags = () => {
 const createAspirTags = () => {
   const tags = [
     chatRadio("go_aspir",
-      "Debut aspirations",
-      ["Go"])
+      "Presque fini ! Il nous reste juste à parcourir tes aspirations professionnelles. && Prêt?",
+      ["Go"]) ,
+    chatRadio("motivLastCat",
+      "Je vais te demander de classer les critères ci-dessous du plus important au moins important.&& Quel est pour toi le critère le plus important parmi les critères ci-dessous?",
+      motivationCategories)
   ];
   return tags;
 };

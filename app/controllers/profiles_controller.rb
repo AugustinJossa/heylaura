@@ -8,7 +8,7 @@ class ProfilesController < ApplicationController
     # envoie au chat les valeurs d'initialisation
     initChat = {
         "options": {
-          "preventAutoAppend": true,
+          "preventAutoAppend": false,
           "preventAutoFocus": false
         },
         "tags": initial_tag
@@ -23,11 +23,9 @@ class ProfilesController < ApplicationController
     @profile = Profile.new()
     filter_params = @profile.filter_chat_info(pparams)
     @profile = Profile.new(filter_params)
-    # binding.pry
     authorize @profile
     if @profile.save
       flash[:notice] = "Profile #{} has been created"
-      # render :find_match
       redirect_to find_match_profile_path(@profile)
     else
       flash[:notice] = "Profile not created"
@@ -40,7 +38,7 @@ class ProfilesController < ApplicationController
     authorize @profile
     # render :find_match
     sleep(5)
-    redirect_to profile_path(@profile)
+    # redirect_to profile_path(@profile)
   end
 
   def show

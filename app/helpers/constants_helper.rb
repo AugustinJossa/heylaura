@@ -44,7 +44,7 @@ module ConstantsHelper
     MotivationCategory.all.map { |motiv_cat| motiv_cat.name }
   end
 
-  def skills
-    Skills.all.map { |skill| skill.name }
-  end
+  # def skills
+  #   Skills.all.map { |skill| skill.name }
+  # end
 end
