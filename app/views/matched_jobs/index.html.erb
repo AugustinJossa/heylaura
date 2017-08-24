@@ -24,13 +24,13 @@
   <div class='flex-item-2'>
     <ul>
 
-      <% @jobs.each do |job| %>
+      <% @matched_jobs.each do |matched_job| %>
         <li>
-          <%= job.company.name %>
-          <%= job.company.logo %>
-          <%= job.title %>
-          <%= job.job_type %>
-          <%= job.contract %>
+          <%= matched_job.job.company.name %>
+          <%= matched_job.job.company.logo %>
+          <%= matched_job.job.title %>
+          <%= matched_job.job.job_type %>
+          <%= matched_job.job.contract %>
         </li>
 
       <% end %>

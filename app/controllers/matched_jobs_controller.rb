@@ -1,10 +1,11 @@
 class MatchedJobsController < ApplicationController
 
-  before_action :set_job, only: [:show]
+
   before_action :categories, only: [:index]
 
   def index
-    @jobs = policy_scope(Job).order(created_at: :desc)
+    @matched_jobs = policy_scope(MatchedJob).order(created_at: :desc)
+    @matched_jobs = MatchedJob.where(profile_id:2)
   end
 
 
@@ -16,8 +17,8 @@ class MatchedJobsController < ApplicationController
   private
 
 
-  def set_job
-    @job = Job.find(params[:id])
+  def set_profile
+    @profile = Profile.find(params[:id])
   end
 
   #liste des catégories pour le formulaire de filtres
