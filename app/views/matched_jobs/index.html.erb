@@ -1,0 +1,41 @@
+<h1>Your jobs</h1>
+
+<div class='white-wraper'>
+
+<div class='flexbox'>
+  <div class='flex-item-1'>
+    <div class='trait-inf'>Filtrer par</div>
+
+  <div class='filter-box'>
+  <%= simple_form_for :query, url: filter_profile_matched_jobs_path, :method => :post do |f| %>
+    <%= f.input :job_type, label: "Métier", required: false, collection: @job_types %>
+    <%= f.input :contract, label: "Type de contrat", required: false, collection: @contracts %>
+    <%= f.input :salary, label: "Salaire min", required: false %>
+    <%= f.input :industry, label: "Secteur", required: false %>
+    <%= f.input :company_type, label: "Type d'entreprise", required: false %>
+    <%= f.input :size, label: "Taille d'entreprise", required: false %>
+    <%= f.input :location, label: "Ville", required: false %>
+    <%= f.submit "Go Laura!", class: "btn btn-primary" %>
+  <% end %>
+  </div>
+
+  </div>
+
+  <div class='flex-item-2'>
+    <ul>
+
+      <% @jobs.each do |job| %>
+        <li>
+          <%= job.company.name %>
+          <%= job.company.logo %>
+          <%= job.title %>
+          <%= job.job_type %>
+          <%= job.contract %>
+        </li>
+
+      <% end %>
+    </ul>
+  </div>
+</div>
+</div>
+

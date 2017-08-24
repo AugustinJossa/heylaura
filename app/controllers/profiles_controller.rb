@@ -20,6 +20,7 @@ class ProfilesController < ApplicationController
   def test
   end
 
+
   private
 
   def chat_init_text(id, question, placeholder=nil )
@@ -36,5 +37,19 @@ class ProfilesController < ApplicationController
     [ chat_init_text("first_name", "Salut&&Je m'appelle Laura et toi ?", "Ton prénom"),
     chat_init_text("end", "Merci", "end") ]
   end
+
+  end
+
+
+
+
+
+
+
+
+
+
+
+
 
 end
