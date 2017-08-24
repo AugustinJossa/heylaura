@@ -3,7 +3,7 @@ class ProfilesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:home, :create, :show, :find_match ]
 
   def home
-    #TODO : si profil deja existant en session
+    #TODO : si profil deja existant en session (faire un update plutôt qu'un update ?)
 
     # envoie au chat les valeurs d'initialisation
     initChat = {
@@ -19,15 +19,21 @@ class ProfilesController < ApplicationController
   end
 
   def create
-    pparams = profile_params
+    pparams = profile_raw_params
     @profile = Profile.new()
     filter_params = @profile.filter_chat_info(pparams)
     @profile = Profile.new(filter_params)
     authorize @profile
     if @profile.save
-      flash[:notice] = "Profile #{} has been created"
-      redirect_to find_match_profile_path(@profile)
+      respond_to do |format|
+          format.html {
+            # flash[:notice] = "Un instant, je cherche des jobs qui correspondent à ton profil"
+            cookies[:session_info] = @profile.id;
+            redirect_to find_match_profile_path(@profile) }
+          # format.js  { render :find_match }
+      end
     else
+      #TODO: A gerer si le profil ne se sauve pas
       flash[:notice] = "Profile not created"
       render :home
     end
@@ -36,9 +42,8 @@ class ProfilesController < ApplicationController
   def find_match
     @profile = Profile.find(params[:id])
     authorize @profile
-    # render :find_match
     sleep(5)
-    # redirect_to profile_path(@profile)
+    redirect_to profile_path(@profile)
   end
 
   def show
@@ -50,9 +55,9 @@ class ProfilesController < ApplicationController
 
   private
 
-  def profile_params
-    JSON.parse(params.require(:profile))
-    # params.require(:profile).permit(:company_type, :company_size, :company_industry)
+  def profile_raw_params
+    form_params = params.require(:profile).permit(:raw_chat_content)
+    JSON.parse(form_params["raw_chat_content"])
   end
 
   def chat_init_text(id, question, placeholder=nil )

@@ -11,6 +11,8 @@ const initHomePageDOM = () => {
   jobTag = document.getElementById("job");
   profTag = document.getElementById("profil");
   aspiTag = document.getElementById("aspirations");
+  profileForm = document.getElementById("chat-form");
+  rawChatContent = document.getElementById("profile_raw_chat_content");
 
   startButton.addEventListener("click", (event) => {
     event.preventDefault;
@@ -150,11 +152,18 @@ const callbackCfQuestion = (dto, success, error) => {
 
 const endChat = (normal) => {
   window.ConversationalForm.remove();
-  var xhr = new XMLHttpRequest();
-  xhr.open("POST", path);
-  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-  xhr.setRequestHeader("X-CSRF-Token", authenticity_token);
-  xhr.send("profile=" + encodeURIComponent(JSON.stringify(currentProfile)));
+  if (normal === true) {
+    currentProfile["session_info"] = sessionInfo;
+    currentProfile["i"] = i;
+    currentProfile["icomp"] = iComp;
+    currentProfile["ijob"] = iJob;
+    currentProfile["iprofile"] = iProfile;
+    currentProfile["iaspir"] = iAspir;
+    rawChatContent.value = JSON.stringify(currentProfile);
+    // TO DO: mettre une div specifique pour la recherche de profil a la place du chat
+    profileForm.submit();
+  }
+  // TO DO: gerer la fin impromptue du chat
 }
 
 const endCf = () => {
