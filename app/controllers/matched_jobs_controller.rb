@@ -9,6 +9,8 @@ class MatchedJobsController < ApplicationController
 
 
   def show
+    @matched_job = MatchedJob.find(params[:id])
+    authorize @matched_job
 
   end
 
@@ -28,11 +30,16 @@ class MatchedJobsController < ApplicationController
       @contracts = Job.select(:contract).distinct.map do |job|
         job.contract
       end
-    end
+  end
 
   # récupération des params de mon form (attention à bien créer une route pour sauver les params)
   def filter_jobs_params
     params.require(:query).permit(:job_type, :contract, :salary, :industry, :company_type, :size, :location)
+  end
+
+  # def params pour instancier matched_job dans la show
+  def matched_job_params
+    params.require(:matched_job).permit(:matching, :status, :message, :job_id, :user_id)
   end
 
 end
