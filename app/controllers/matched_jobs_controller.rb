@@ -4,9 +4,15 @@ class MatchedJobsController < ApplicationController
   before_action :categories, only: [:index]
 
   def index
-    raise
-    @matched_jobs = policy_scope(MatchedJob).order(created_at: :desc)
-    @matched_jobs = MatchedJob.where(profile_id:2)
+    # @matched_jobs = policy_scope(MatchedJob).order(created_at: :desc)
+    @profile = Profile.find(params[:profile_id])
+    @profile.find_match_jobs
+    # raise
+    @matched_jobs = policy_scope(MatchedJob).where(profile_id: @profile.id).order(matching: :desc)
+    if current_user
+      @profile.user = current_user
+      @profile.save
+    end
   end
 
 

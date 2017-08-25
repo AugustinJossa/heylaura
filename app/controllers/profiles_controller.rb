@@ -28,7 +28,8 @@ class ProfilesController < ApplicationController
       respond_to do |format|
           format.html {
             # flash[:notice] = "Un instant, je cherche des jobs qui correspondent à ton profil"
-            cookies[:session_info] = @profile.id;
+            cookies[:session_info] = @profile.id
+            session[:profile_id] = @profile.id
             redirect_to find_match_profile_path(@profile) }
           # format.js  { render :find_match }
       end
@@ -43,14 +44,14 @@ class ProfilesController < ApplicationController
     @profile = Profile.find(params[:id])
     authorize @profile
     sleep(5)
-    redirect_to profile_path(@profile)
+    redirect_to profile_matched_jobs_path(@profile)
   end
 
-  def show
-    #TODO: pundit plus fin pour que seul le user / session puisse voir le profil
-    @profile = Profile.find(params[:id])
-    authorize @profile
-  end
+  # def show
+  #   #TODO: pundit plus fin pour que seul le user / session puisse voir le profil
+  #   @profile = Profile.find(params[:id])
+  #   authorize @profile
+  # end
 
 
   private
