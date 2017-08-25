@@ -29,6 +29,7 @@
       <div class="mycard">
         <div class="line-1">
           <div class="title"><%= matched_job.job.company.name.upcase %></div>
+          <%= image_tag matched_job.job.company.logo.url(:logo) %>
           <img class="card-user" src="https://kitt.lewagon.com/placeholder/users/tgenaitay">
         </div>
         <div class="line-2">

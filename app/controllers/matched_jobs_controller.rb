@@ -1,15 +1,20 @@
 class MatchedJobsController < ApplicationController
 
-
+  skip_before_action :authenticate_user!
   before_action :categories, only: [:index]
 
   def index
+    raise
     @matched_jobs = policy_scope(MatchedJob).order(created_at: :desc)
     @matched_jobs = MatchedJob.where(profile_id:2)
   end
 
 
   def show
+
+  end
+
+  def filter
 
   end
 
