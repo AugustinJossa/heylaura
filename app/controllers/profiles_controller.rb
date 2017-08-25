@@ -29,7 +29,7 @@ class ProfilesController < ApplicationController
           format.html {
             # flash[:notice] = "Un instant, je cherche des jobs qui correspondent à ton profil"
             cookies[:session_info] = @profile.id
-            session[:profile_id] = @profile.id
+            cookies[:profile_id] = @profile.id
             redirect_to find_match_profile_path(@profile) }
           # format.js  { render :find_match }
       end

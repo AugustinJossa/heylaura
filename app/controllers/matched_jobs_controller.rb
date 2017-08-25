@@ -2,7 +2,7 @@ class MatchedJobsController < ApplicationController
 
   skip_before_action :authenticate_user!
   before_action :categories, only: [:index]
-  before_action :set_profile_and_user, only: [:show, :index]
+  before_action :set_profile_and_user, only: [:show]
 
   def index
     # @matched_jobs = policy_scope(MatchedJob).order(created_at: :desc)
@@ -20,7 +20,6 @@ class MatchedJobsController < ApplicationController
   def show
     @matched_job = MatchedJob.find(params[:id])
     authorize @matched_job
-
   end
 
   def filter
