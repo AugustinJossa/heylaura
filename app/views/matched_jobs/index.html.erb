@@ -24,7 +24,7 @@
   <div class='flex-item-2'>
     <% @matched_jobs.each do |matched_job| %>
 
-<%= link_to new_user_registration_path do %>
+<%= link_to profile_matched_job_path(@profile, matched_job) do %>
 
       <div class="mycard">
         <div class="line-1">
