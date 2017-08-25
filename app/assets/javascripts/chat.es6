@@ -13,6 +13,7 @@ const initHomePageDOM = () => {
   aspiTag = document.getElementById("aspirations");
   profileForm = document.getElementById("chat-form");
   rawChatContent = document.getElementById("profile_raw_chat_content");
+  chatEnd = document.getElementById("chatend")
 
   startButton.addEventListener("click", (event) => {
     event.preventDefault;
@@ -152,6 +153,7 @@ const callbackCfQuestion = (dto, success, error) => {
 
 const endChat = (normal) => {
   window.ConversationalForm.remove();
+  chatEnd.classList.remove("hidden");
   if (normal === true) {
     currentProfile["session_info"] = sessionInfo;
     currentProfile["i"] = i;
@@ -173,17 +175,20 @@ const endCf = () => {
 const initCf = (jsonInit) => {
   jsonInit.options.submitCallback = endCf.bind(window);
   jsonInit.options.flowStepCallback = callbackCfQuestion.bind(window);
-  jsonInit.options.userInterfaceOptions = {
-    controlElementsInAnimationDelay: 250,
-    robot: {
-      robotResponseTime: 1000,
-      chainedResponseTime: 400
-    },
-    user:{
-      showThinking: true,
-      showThumb: false
-    }
-  }
+  jsonInit.options.robotImage = robotImgUrl;
+  jsonInit.options.userImage = userImgUrl;
+  // jsonInit.options.userInterfaceOptions.robot.robotResponseTime = "0";
+  // jsonInit.options.userInterfaceOptions = {
+  //   controlElementsInAnimationDelay: 250,
+  //   robot: {
+  //     robotResponseTime: 5000,
+  //     chainedResponseTime: 5000
+  //   },
+  //   user: {
+  //     showThinking: false,
+  //     showThumb: false
+  //   }
+  // };
   cForm = window.cf.ConversationalForm.startTheConversation(jsonInit);
   chatRestit.appendChild(cForm.el);
 };

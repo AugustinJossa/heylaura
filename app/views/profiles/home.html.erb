@@ -17,6 +17,10 @@
         <div class="hidden-xs hidden-sm col-md-1"></div>
         <div class="col-xs-12 col-md-6">
           <div class="chat-content">
+            <div class="chat-end hidden" id="chatend">
+              <h2 class="text-center">Un instant. Je cherche le job de tes rêves</h2>
+              <div class="text-center"><%= image_tag "robot.png" %></div>
+            </div>
             <div id="chatrestit" cf-context ></div>
           </div>
         </div>
@@ -51,6 +55,8 @@
       var currentCategories = motivationCategories; // categories rejected from currentCategories once selected
 
       const sessionInfo = <%= cookies[:session_info] || 0 %>;
+      const robotImgUrl = '<%= image_url "robot.png" %>';
+      const userImgUrl = '<%= image_url "avatar.png" %>';
 
       var companyTags = createCompanyTags(companyTypes, companyIndustries, companySizes);
       var jobTags = createJobTags("entreprise", jobTypes, "Tout", jobSubTypes["marketing"], jobRemotes, jobContracts, jobSalaries);
@@ -65,6 +71,7 @@
       var aspiTag;
       var profileForm;
       var rawChatContent;
+      var chatEnd;
 
       // chat initialization
       var chatRestit;
@@ -74,8 +81,8 @@
       var iJob = 0;
       var iProfile = 0;
       var iAspir = 0;
-      var i = iComp + iJob + iProfile + iAspir + 1 ;
-      // var i = -1; // for skipping addTags
+      // var i = iComp + iJob + iProfile + iAspir + 1 ;
+      var i = -1; // for skipping addTags
       var currentProfile = {};
 
       const totalLength = companyTags.length + jobTags.length + profileTags.length + (aspirTags.length + motivationCategories.length - 1) + 3;
