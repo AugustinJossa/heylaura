@@ -10,13 +10,6 @@ class ProfilesController < ApplicationController
         "options": {
           "preventAutoAppend": false,
           "preventAutoFocus": false,
-          "userInterfaceOptions": {
-            "user": {
-                "showThinking": true,
-                "showThumb": false
-            }
-          }
-        },
         "tags": initial_tag
       }
     @json_init = initChat.to_json

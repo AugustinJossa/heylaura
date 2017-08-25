@@ -173,6 +173,17 @@ const endCf = () => {
 const initCf = (jsonInit) => {
   jsonInit.options.submitCallback = endCf.bind(window);
   jsonInit.options.flowStepCallback = callbackCfQuestion.bind(window);
+  jsonInit.options.userInterfaceOptions = {
+    controlElementsInAnimationDelay: 250,
+    robot: {
+      robotResponseTime: 1000,
+      chainedResponseTime: 400
+    },
+    user:{
+      showThinking: true,
+      showThumb: false
+    }
+  }
   cForm = window.cf.ConversationalForm.startTheConversation(jsonInit);
   chatRestit.appendChild(cForm.el);
 };
