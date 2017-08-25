@@ -13,4 +13,17 @@ class Profile < ApplicationRecord
     return filter_params
   end
 
+  def find_match_jobs
+    p = self
+    Job.all.each do |job|
+      mj = MatchedJob.new(
+        profile: p,
+        job: job,
+        matching: rand(1..100).fdiv(100)
+       )
+      puts mj.valid?
+      mj.save
+    end
+  end
+
 end
