@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, omniauth_providers: [:linkedin]
 
-  after_create :set_user_in_profile
+  # after_create :set_user_in_profile
 
 	def self.find_for_linkedin_oauth(auth)
 	  user_params = auth.slice(:provider, :uid)
