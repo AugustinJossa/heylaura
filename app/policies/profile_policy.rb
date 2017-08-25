@@ -16,4 +16,8 @@ class ProfilePolicy < ApplicationPolicy
   def show?
     true
   end
+
+  def find_match?
+    show?
+  end
 end

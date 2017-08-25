@@ -1,0 +1,108 @@
+.dashboard-title {
+	padding-top : 30px;
+	color: rgba(0,0,0,0.6);
+	text-shadow: 0 1px 3px lightgrey;
+	h2 {
+	  	font-size : 20px;
+	  }
+	 i {
+	 	color:rgba(239, 100, 97, 0.9);
+	 }
+}
+
+.card-status {
+  background-color: white;
+  position: relative;
+  text-align: center;
+  margin: 25px 5px 20px 5px;
+  padding: 25px 10px 25px 10px;
+  align-items: center;
+  height: 500px;
+  border-top: 3px solid rgba(239, 100, 97, 0.9);
+}
+
+
+.badge-count{
+  width: 60px;
+  height: 60px;
+  display:flex;
+  border-radius: 50%;
+  box-shadow: 0 1px 2px red;
+  justify-content: space-around;
+  align-items: center;
+  text-shadow: 0 1px 3px red;
+  color:red;
+  opacity:0.6;
+  font-size: 24px;
+  margin: auto;
+  }
+
+.status-name {
+	padding-top: 10px;
+	padding-bottom:40px;
+	h2 {
+	font-size: 14px;
+	color:red;
+  	opacity:0.6;
+  	margin-top: 25px;
+  	margin-bottom: 20px;
+	}
+}
+
+ .job {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  border-bottom: 1px solid rgba(220,224,244,0.4);
+  margin-left: 5px;
+}
+
+.job:first-child {
+  border-top: 1px solid rgba(220,224,244,0.4);
+}
+
+.job:last-child {
+  border-bottom: none;
+}
+
+.job-desc {
+  flex-grow: 1;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 13px;
+  color: rgba(0,0,0,0.6);
+  text-align: left;
+  font-size: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.job-desc  strong{
+  color: rgba(0,0,0,0.9);
+  color: rgba(0,0,0,0.9);
+   display: inline-grid;
+
+}
+.job-desc  p {
+  margin: 6px 0;
+ 
+}
+
+.btn-danger{
+	font-size: 10px;
+	padding: 2px;
+	padding-left:5px;
+	padding-right:5px;
+}
+
+.btn-voir-plus {
+ 	padding-top: 10px;
+	padding-bottom: 10px;
+	padding: 5px;
+	h2 {
+	font-size: 14px;
+	color:red;
+  	opacity:0.4;
+	}
+}
