@@ -7,7 +7,7 @@
     <div class='trait-inf'>Filtrer par</div>
 
   <div class='filter-box'>
-  <%= simple_form_for :query, url: filter_profile_matched_jobs_path, :method => :post do |f| %>
+  <%= simple_form_for :query, url: profile_matched_jobs_path, :method => :get do |f| %>
     <%= f.input :job_type, label: "Métier", required: false, collection: @job_types %>
     <%= f.input :contract, label: "Type de contrat", required: false, collection: @contracts %>
     <%= f.input :salary, label: "Salaire min", required: false %>
@@ -24,13 +24,12 @@
   <div class='flex-item-2'>
     <% @matched_jobs.each do |matched_job| %>
 
-<%= link_to new_user_session_path do %>
-<span class="card-link">
+<%= link_to new_user_registration_path do %>
+
       <div class="mycard">
         <div class="line-1">
           <div class="title"><%= matched_job.job.company.name.upcase %></div>
-          <%= image_tag matched_job.job.company.logo.url(:logo) %>
-          <img class="card-user" src="https://kitt.lewagon.com/placeholder/users/tgenaitay">
+          <%= image_tag matched_job.job.company.logo.url(:logo), :class => "card-user"%>
         </div>
         <div class="line-2">
           <h2><%= matched_job.job.title %></h2>
@@ -66,7 +65,7 @@
 
 
 
-          </span>
+
         <% end %>
 
     <% end %>
@@ -86,32 +85,3 @@
 
 
 
-
-<% content_for(:js) do %>
-  <%= javascript_tag do  %>
-var bar = $('span');
-
-var width = bar.attr('style');
-width = width.replace("width:", "");
-width = width.substr(0, width.length-1);
-
-
-var interval;
-var start = 0;
-var end = parseInt(width);
-var current = start;
-
-var countUp = function() {
-  current++;
-  p.html(current + "%");
-
-  if (current === end) {
-    clearInterval(interval);
-  }
-};
-
-interval = setInterval(countUp, (1000 / (end + 1)));
-
-
-  <% end %>
-<% end %>

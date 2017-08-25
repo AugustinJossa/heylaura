@@ -10,7 +10,21 @@
   margin-bottom: 10px;
   display: flex;
   flex-direction: column;
+  text-decoration: none !important;
+    p{
+      color: $gray;
+      }
+}
 
+.mycard:hover {
+  background-color: rgba(0, 0, 0, 0.025);
+  text-decoration: none !important;
+    p{
+      text-decoration: none !important;
+    }
+    a{
+     text-decoration: none !important;
+    }
 }
 
 .line-1{
@@ -62,19 +76,6 @@
   border-radius: 50%;
 }
 
-.card-link {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  width: 100%;
-  z-index: 2;
-  background: black;
-  opacity: 0;
-}
-.card-link:hover {
-  opacity: 0.025;
-}
 
 .tags-1 {
   // border: solid 1px;
