@@ -144,9 +144,9 @@ def seed_company(jl)
       location: jl.city,
       location_lat: nil,
       location_lng: nil,
-      company_type: COMPANY_TYPE_ARRAY.sample,
-      industry: COMPANY_INDUSTRY_ARRAY.sample,
-      size: COMPANY_SIZE_ARRAY.sample,
+      company_type: Company::COMPANY_TYPE_ARRAY.sample,
+      industry: Company::COMPANY_INDUSTRY_ARRAY.sample,
+      size: Company::COMPANY_SIZE_ARRAY.sample,
       description: jl.shortdesc,
       logo: jl.clogourl,
       picture: nil,
@@ -168,13 +168,13 @@ def seed_job(jl)
     job = Job.new(
       company: company,
       title: jl.title,
-      contract: JOB_CONTRACT_ARRAY.sample,
-      remote: JOB_REMOTE_ARRAY.sample,
-      salary: JOB_SALARY_ARRAY.sample,
-      job_type: JOB_TYPE_ARRAY.sample,
+      contract: Job::JOB_CONTRACT_ARRAY.sample,
+      remote: Job::JOB_REMOTE_ARRAY.sample,
+      salary: Job::JOB_SALARY_ARRAY.sample,
+      job_type: Job::JOB_TYPE_ARRAY.sample,
       subtype: nil,
       description: jl.desctext,
-      profile: JOB_PROFILE_ARRAY.sample,
+      profile: Job::JOB_PROFILE_ARRAY.sample,
       open: true
       )
 
@@ -183,7 +183,7 @@ def seed_job(jl)
       # job.company = Company.find(jl.id)
 
     if job.job_type == "marketing"
-      job.subtype = JOB_SUBTYPE_ARRAY.sample
+      job.subtype = Job::JOB_SUBTYPE_ARRAY.sample
     else
       job.subtype = nil
     end
