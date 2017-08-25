@@ -2,10 +2,20 @@ class MatchedJobsController < ApplicationController
 
   skip_before_action :authenticate_user!
   before_action :categories, only: [:index]
+  before_action :set_profile_and_user, only: [:show, :index]
 
   def index
-    @matched_jobs = policy_scope(MatchedJob).order(created_at: :desc)
-    @matched_jobs = MatchedJob.where(profile_id:2)
+
+    # @matched_jobs = policy_scope(MatchedJob).order(created_at: :desc)
+    @profile = Profile.find(params[:profile_id])
+    @profile.find_match_jobs
+    # raise
+    @matched_jobs = policy_scope(MatchedJob).where(profile_id: @profile.id).order(matching: :desc)
+    if current_user
+      @profile.user = current_user
+      @profile.save
+    end
+
   end
 
 
@@ -19,12 +29,12 @@ class MatchedJobsController < ApplicationController
 
   end
 
-
   private
 
 
-  def set_profile
-    @profile = Profile.find(params[:id])
+  def set_profile_and_user
+    @profile = Profile.find(params[:profile_id])
+    @user= User.find(profile_id=@profile.id)
   end
 
   #liste des catégories pour le formulaire de filtres

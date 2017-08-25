@@ -10,7 +10,7 @@
     <% if user_signed_in? %>
 
       <!-- Links when logged in -->
-       <%= link_to "Recherche", root_path, class: "navbar-wagon-item navbar-wagon-link" %>
+       <%= link_to "Offres", root_path, class: "navbar-wagon-item navbar-wagon-link" %>
       <%= link_to "Dashboard", user_path(current_user), class: "navbar-wagon-item navbar-wagon-link" %>
 
 
@@ -19,9 +19,13 @@
       <div class="navbar-wagon-item">
         <div class="dropdown">
           <div class="new_avatar dropdown-toggle", id="navbar-wagon-menu" data-toggle= "dropdown">
-          <%= "#{current_user.first_name[0].upcase}#{current_user.last_name[0].upcase}" %>
+          <% if current_user.first_name && curent_user.last_name  %>
+            <%= "#{current_user.first_name[0].upcase}#{current_user.last_name[0].upcase}" %>
+          <% else %>
+           <%= "#{current_user.email[0].upcase}#{current_user.email[1].upcase}" %>
+          <% end %>
           </div>
-         
+
 
           <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
             <li>

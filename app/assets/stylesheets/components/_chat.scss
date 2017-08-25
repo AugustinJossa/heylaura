@@ -9,6 +9,19 @@
   opacity: 1;
 }
 
+.chat-end {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  overflow: hidden;
+  padding: 10%;
+  width: 100% !important;
+  height: 100% !important;
+  h2 {
+    font-size: 16px;
+  }
+}
+
 .chat-status {
   opacity: 0.8;
   overflow: hidden;

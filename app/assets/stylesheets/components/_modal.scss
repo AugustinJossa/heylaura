@@ -1,0 +1,26 @@
+.modal-title{
+	text-align: center;
+	color: $red;
+}
+
+.modal-footer {
+	align-items: center;
+    text-align: center;
+    padding-top: 30px;
+}
+
+.btn-modal {
+	width: 130px;
+	margin-left:20px;
+	margin-right: 20px;
+	a {
+	// font-size: 18px;
+	// // background-color:$red;
+	color: white;
+	}
+}
+
+.btn-modal a:hover{
+	text-decoration: none;
+}
+
