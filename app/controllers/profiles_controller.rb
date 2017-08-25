@@ -9,7 +9,8 @@ class ProfilesController < ApplicationController
     initChat = {
         "options": {
           "preventAutoAppend": false,
-          "preventAutoFocus": false,
+          "preventAutoFocus": false
+          },
         "tags": initial_tag
       }
     @json_init = initChat.to_json
