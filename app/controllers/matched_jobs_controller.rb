@@ -2,7 +2,7 @@ class MatchedJobsController < ApplicationController
 
   skip_before_action :authenticate_user!
   before_action :categories, only: [:index]
-  before_action :set_profile_and_user, only: [:show, :index]
+  before_action :set_profile_and_user, only: [:show]
 
   def index
 
@@ -22,7 +22,6 @@ class MatchedJobsController < ApplicationController
   def show
     @matched_job = MatchedJob.find(params[:id])
     authorize @matched_job
-
   end
 
   def filter

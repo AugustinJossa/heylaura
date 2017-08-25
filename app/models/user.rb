@@ -4,6 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, omniauth_providers: [:linkedin]
 
+  after_create :set_user_in_profile
 
 	def self.find_for_linkedin_oauth(auth)
 	  user_params = auth.slice(:provider, :uid)
@@ -15,7 +16,7 @@ class User < ApplicationRecord
 
 	  user = User.find_by(provider: auth.provider, uid: auth.uid)
 	  user ||= User.find_by(email: auth.info.email) # User did a regular sign up in the past.
-	  
+
 	  if user
 	      user.update(user_params)
 	  else
@@ -26,5 +27,14 @@ class User < ApplicationRecord
 
 	  return user
 	end
+
+  private
+
+  # def set_user_in_profile
+  #   # profile = Profile.find(cookies[:profile_id]) if cookies[:profile_id]
+  #   profile = Profile.all.last
+  #   profile.user = self
+  #   profile.save
+  # end
 
 end
