@@ -23,9 +23,13 @@
 
   <div class='flex-item-2'>
     <% @matched_jobs.each do |matched_job| %>
+
+<%= link_to new_user_session_path do %>
+<span class="card-link">
       <div class="mycard">
         <div class="line-1">
           <div class="title"><%= matched_job.job.company.name.upcase %></div>
+          <%= image_tag matched_job.job.company.logo.url(:logo) %>
           <img class="card-user" src="https://kitt.lewagon.com/placeholder/users/tgenaitay">
         </div>
         <div class="line-2">
@@ -57,10 +61,16 @@
             <div class="tags-elements"><%= matched_job.job.remote %></div>
           </div>
         </div>
-
-        <a class="card-link" href="#" ></a>
+    <!--     <a class="card-link" href="#" ></a> -->
       </div>
+
+
+
+          </span>
+        <% end %>
+
     <% end %>
+
   </div>
 
 
