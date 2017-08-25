@@ -297,6 +297,7 @@ end
 
 def destroy_data
   puts "Destrying data..."
+  JobLoader.destroy_all
   MatchedJob.destroy_all
   Job.destroy_all
   Company.destroy_all
