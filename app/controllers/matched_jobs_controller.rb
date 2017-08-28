@@ -3,21 +3,22 @@ class MatchedJobsController < ApplicationController
   skip_before_action :authenticate_user!
   before_action :categories, only: [:index]
   before_action :set_profile_and_user, only: [:show, :index]
+  before_action :set_matched_job, only: [:edit, :update]
+  skip_after_action :verify_policy_scoped, only: [:index]
 
 
   def index
 
-    # @matched_jobs = policy_scope(MatchedJob).order(created_at: :desc)
-    @profile = Profile.find(params[:profile_id])
+    # @matched_jobs = policy_scope(MatchedJob)
+    # @profile = Profile.find(params[:profile_id])
     # @profile.find_match_jobs
     # raise
-    @matched_jobs = policy_scope(MatchedJob).where(profile_id: @profile.id).order(matching: :desc)
 
-    if current_user
-      @profile.user = current_user
-      @profile.update(profile_params)
-      @profile.save
-    end
+    # @profile.update(profile_params)
+    # @profile.save
+    @matched_jobs = @profile.matched_jobs.order(created_at: :desc)
+
+
 
   end
 
@@ -36,40 +37,50 @@ class MatchedJobsController < ApplicationController
   # end
 
   def edit
+    @profile = @matched_job.profile
   end
 
   def update
+    @profile = @matched_job.profile
+    @matched_job.update(matched_job_params)
+    redirect_to profile_matched_jobs_path
   end
 
 
   private
 
+  def matched_job_params
+    params.require(:matched_job).permit(:status)
+  end
 
   def set_profile_and_user
     @profile = Profile.find(params[:profile_id])
     @user= User.find(profile_id=@profile.id)
   end
 
+  def set_matched_job
+    @matched_job = MatchedJob.find(params[:id])
+  end
+
   #liste des catégories pour le formulaire de filtres
   def categories
-      @job_types = Job.select(:job_type).distinct.map do |job|
-        job.job_type
-      end
-      @contracts = Job.select(:contract).distinct.map do |job|
-        job.contract
-      end
-      @industries = Company.select(:industry).distinct.map do |company|
-        company.industry
-      end
-      @company_types = Company.select(:company_type).distinct.map do |company|
-        company.company_type
-      end
-      @sizes = Company.select(:size).distinct.map do |company|
-        company.size
-      end
-      @remotes = Job.select(:remote).distinct.map do |company|
-        company.remote
-      end
+      @job_types = Job::JOB_TYPE_ARRAY
+
+      # @contracts = Job.select(:contract).distinct.map do |job|
+      #   job.contract
+      # end
+      # @industries = Company.select(:industry).distinct.map do |company|
+      #   company.industry
+      # end
+      # @company_types = Company.select(:company_type).distinct.map do |company|
+      #   company.company_type
+      # end
+      # @sizes = Company.select(:size).distinct.map do |company|
+      #   company.size
+      # end
+      # @remotes = Job.select(:remote).distinct.map do |company|
+      #   company.remote
+      # end
   end
 
   # def set_placeholders
@@ -93,8 +104,6 @@ class MatchedJobsController < ApplicationController
   #   params.require(:matched_job).permit(:matching, :status, :message, :job_id, :user_id)
   # end
 
-  def profile_params
-    params.require(:profile).permit!
-  end
+
 
 end

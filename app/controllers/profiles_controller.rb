@@ -1,6 +1,11 @@
 class ProfilesController < ApplicationController
   layout "home_layout", only: [ :home ]
-  skip_before_action :authenticate_user!, only: [:home, :create, :show, :find_match ]
+  skip_before_action :authenticate_user!, only: [:home, :create, :show, :find_match, :edit, :update ]
+
+  before_action :set_profile, only: [:edit, :update]
+  skip_after_action :verify_policy_scoped, only: [:update]
+  skip_after_action :verify_authorized, only: [:update]
+
 
   def home
     #TODO : si profil deja existant en session (faire un update plutôt qu'un update ?)
@@ -59,8 +64,24 @@ class ProfilesController < ApplicationController
   #   authorize @profile
   # end
 
+  def edit
+    @profile = Profile.find(params[:id])
+  end
+
+  def update
+    @profile.update(profile_params)
+    redirect_to profile_matched_jobs_path(@profile)
+  end
 
   private
+
+  def set_profile
+    @profile = Profile.find(params[:id])
+  end
+
+  def profile_params
+    params.require(:profile).permit!
+  end
 
   def profile_raw_params
     form_params = params.require(:profile).permit(:raw_chat_content)
