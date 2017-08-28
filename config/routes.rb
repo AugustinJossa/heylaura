@@ -14,9 +14,9 @@ Rails.application.routes.draw do
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  resources :profiles, only:[:show] do
+  resources :profiles, only:[:show, :edit, :update] do
 
-  resources :matched_jobs, only:[:index, :show] do
+  resources :matched_jobs, only:[:index, :show, :edit, :update] do
     collection do
         post 'filter', to: "profiles#filter"
       end
@@ -24,9 +24,11 @@ Rails.application.routes.draw do
   end
 
   resources :jobs, only:[:index, :show]
+
   resources :users, only: [ :show] do
     member do
       get :manage_connection
     end
   end
+
 end
