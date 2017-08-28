@@ -21,6 +21,6 @@ class UsersController < ApplicationController
 	def set_user_and_profile
 		@user = User.find(params[:id])
 		authorize @user
-		@profile = Profile.find(user_id = @user.id)
+		@profile = Profile.find_by(user: @user)
 	end
 end

@@ -9,9 +9,10 @@ class MatchedJobsController < ApplicationController
 
     # @matched_jobs = policy_scope(MatchedJob).order(created_at: :desc)
     @profile = Profile.find(params[:profile_id])
-    @profile.find_match_jobs
+    # @profile.find_match_jobs
     # raise
     @matched_jobs = policy_scope(MatchedJob).where(profile_id: @profile.id).order(matching: :desc)
+
     if current_user
       @profile.user = current_user
       @profile.update(profile_params)
@@ -38,7 +39,6 @@ class MatchedJobsController < ApplicationController
   end
 
   def update
-
   end
 
 
