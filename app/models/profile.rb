@@ -28,6 +28,20 @@ class Profile < ApplicationRecord
     end
   end
 
+  def remove_matched_jobs
+    p = self
+    p.matched_jobs.each do |mj|
+      mj.destroy
+    end
+  end
+
+  def remove_motivation_rankings
+    p = self
+    p.motivation_rankings.each do |mr|
+      mr.destroy
+    end
+  end
+
   def create_matched_jobs
     p = self
     Job.all.each do |job|

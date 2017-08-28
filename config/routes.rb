@@ -4,8 +4,12 @@ Rails.application.routes.draw do
 
   root to: 'profiles#home'
   resources :profiles, only: [ :create, :show] do
+    collection do
+      get :test # for testing only
+    end
     member do
       get :find_match
+      # get :test # for testing only
     end
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
@@ -20,6 +24,9 @@ Rails.application.routes.draw do
   end
 
   resources :jobs, only:[:index, :show]
-  resources :users, only: [ :show]
- 
+  resources :users, only: [ :show] do
+    member do
+      get :manage_connection
+    end
+  end
 end
