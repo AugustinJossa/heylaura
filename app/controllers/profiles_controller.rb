@@ -21,10 +21,16 @@ class ProfilesController < ApplicationController
   def create
     pparams = profile_raw_params
     @profile = Profile.new()
+    # puts raw params in real params and create associated profile
     filter_params = @profile.filter_chat_info(pparams)
     @profile = Profile.new(filter_params)
     authorize @profile
     if @profile.save
+      # add motivation rankings associated to profiles
+      @profile.add_motivation_rankings
+      # create matched jobs associated to profile with appropriate matching percentage
+      @profile.create_matched_jobs
+
       respond_to do |format|
           format.html {
             # flash[:notice] = "Un instant, je cherche des jobs qui correspondent à ton profil"
