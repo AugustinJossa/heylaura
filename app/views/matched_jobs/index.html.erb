@@ -1,21 +1,24 @@
-<h1>Trouve un emploi! <%= @matched_jobs.count %></h1>
+<h1><%= @matched_jobs.count %> postes pourraient t'intérresser</h1>
 
 <div class='white-wraper'>
 
 <div class='flexbox'>
   <div class='flex-item-1'>
-    <div class='trait-inf'>Filtrer par</div>
+    <div class='trait-inf'>Critères de matching</div>
 
   <div class='filter-box'>
-  <%= simple_form_for :query, url: profile_matched_jobs_path, :method => :get do |f| %>
-    <%= f.input :job_type, label: "Métier", required: false, collection: @job_types %>
-    <%= f.input :contract, label: "Type de contrat", required: false, collection: @contracts %>
-    <%= f.input :salary, label: "Salaire min", required: false %>
-    <%= f.input :industry, label: "Secteur", required: false, collection: @industries %>
-    <%= f.input :company_type, label: "Type d'entreprise", required: false, collection: @company_types %>
-    <%= f.input :size, label: "Taille d'entreprise", required: false, collection: @sizes %>
-    <%= f.input :location, label: "Ville", required: false, placeholder: @p_location %>
+  <%= simple_form_for @profile do |f| %>
+
+    <%= f.input :company_type, label: "Type d'entreprise", required: false, collection: Company::COMPANY_TYPE_ARRAY, input_html: { class: 'simple-form-field' } %>
+    <%= f.input :company_industry, label: "Secteur", required: false, collection: Company::COMPANY_INDUSTRY_ARRAY, input_html: { class: 'simple-form-field' } %>
+    <%= f.input :company_size, label: "Taille d'entreprise", required: false, collection: Company::COMPANY_SIZE_ARRAY, input_html: { class: 'simple-form-field' }%>
+    <%= f.input :job_type, label: "Métier", required: false, collection: Job::JOB_TYPE_ARRAY, input_html: { class: 'simple-form-field' } %>
+    <%= f.input :job_location, label: "Ville", required: false, input_html: { class: 'simple-form-field' } %>
+    <%= f.input :job_remote, label: "Home office", required: false, collection: Job::JOB_REMOTE_ARRAY, input_html: { class: 'simple-form-field' } %>
+    <%= f.input :job_contract, label: "Type de contrat", required: false, collection: Job::JOB_CONTRACT_ARRAY, input_html: { class: 'simple-form-field' } %>
+    <%= f.input :job_min_salary, label: "Salaire min", required: false, input_html: { class: 'simple-form-field' }  %>
     <%= f.submit "Go Laura!", class: "btn btn-primary" %>
+
   <% end %>
   </div>
 
@@ -52,13 +55,19 @@
               <span style="width:<%= matched_job.matching*100 %>%"></span>
             </div>
             <div class="pourcentage"> <%= (matched_job.matching*100).to_i.round %>% de matching</div>
+              <%= simple_form_for [matched_job.profile,matched_job] do |f| %>
+              <%= f.input :status, :collection => ["Bookmarked", "Pending", "Accepted", "Rejected"] %>
+              <%= f.submit 'update' %>
+              <% end %>
           </div>
+
           <div class="tags-2">
             <div class="tags-elements-adapt"></div>
             <div class="tags-elements"><%= matched_job.job.contract %></div>
             <div class="tags-elements"><%= "#{matched_job.job.salary.round(0)} €" %></div>
             <div class="tags-elements"><%= matched_job.job.remote %></div>
           </div>
+
         </div>
     <!--     <a class="card-link" href="#" ></a> -->
       </div>
@@ -83,5 +92,27 @@
 
 </div>
 
+<% content_for(:js) do %>
+  <%= javascript_tag do  %>
 
+
+    var btnsSupr = document.querySelectorAll('.delete-btn');
+
+    btnsSupr.forEach((element) => {
+      element.style.display = 'none';
+    });
+
+    var dropdown = document.querySelectorAll('.dropdown-list');
+    console.log(dropdown);
+
+    dropdown.forEach((element) => {
+        element.addEventListener("blur", (event) => {
+          event.target.parentElement.parentElement.querySelector('.delete-btn').click();
+      });
+    });
+
+
+
+  <% end %>
+<% end %>
 
