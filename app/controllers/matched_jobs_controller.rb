@@ -3,6 +3,7 @@ class MatchedJobsController < ApplicationController
   skip_before_action :authenticate_user!
   before_action :categories, only: [:index]
   before_action :set_profile_and_user, only: [:show]
+  before_action :set_placeholders, only: [:index]
 
   def index
 
@@ -25,7 +26,11 @@ class MatchedJobsController < ApplicationController
   end
 
   def filter
-
+    filter_jobs_params.each do |key, value|
+      unless value == nil
+        @matched_jobs = Job.where(key: "value")
+      end
+    end
   end
 
   private
@@ -44,6 +49,26 @@ class MatchedJobsController < ApplicationController
       @contracts = Job.select(:contract).distinct.map do |job|
         job.contract
       end
+      @industries = Company.select(:industry).distinct.map do |company|
+        company.industry
+      end
+      @company_types = Company.select(:company_type).distinct.map do |company|
+        company.company_type
+      end
+      @sizes = Company.select(:size).distinct.map do |company|
+        company.size
+      end
+
+  end
+
+  def set_placeholders
+      @p_job_type = Profile.find(params[:profile_id]).job_type
+      @p_contract = Profile.find(params[:profile_id]).job_contract
+      @p_industry = Profile.find(params[:profile_id]).company_industry
+      @p_company_type = Profile.find(params[:profile_id]).company_type
+      @p_size = Profile.find(params[:profile_id]).company_size
+      @p_salary = Profile.find(params[:profile_id]).job_min_salary
+      @p_location = Profile.find(params[:profile_id]).job_location
   end
 
   # récupération des params de mon form (attention à bien créer une route pour sauver les params)

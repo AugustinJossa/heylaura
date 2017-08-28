@@ -1,4 +1,4 @@
-<h1>Trouve un emploi!</h1>
+<h1>Trouve un emploi! <%= @matched_jobs.count %></h1>
 
 <div class='white-wraper'>
 
@@ -11,10 +11,10 @@
     <%= f.input :job_type, label: "Métier", required: false, collection: @job_types %>
     <%= f.input :contract, label: "Type de contrat", required: false, collection: @contracts %>
     <%= f.input :salary, label: "Salaire min", required: false %>
-    <%= f.input :industry, label: "Secteur", required: false %>
-    <%= f.input :company_type, label: "Type d'entreprise", required: false %>
-    <%= f.input :size, label: "Taille d'entreprise", required: false %>
-    <%= f.input :location, label: "Ville", required: false %>
+    <%= f.input :industry, label: "Secteur", required: false, collection: @industries %>
+    <%= f.input :company_type, label: "Type d'entreprise", required: false, collection: @company_types %>
+    <%= f.input :size, label: "Taille d'entreprise", required: false, collection: @sizes %>
+    <%= f.input :location, label: "Ville", required: false, placeholder: @p_location %>
     <%= f.submit "Go Laura!", class: "btn btn-primary" %>
   <% end %>
   </div>
