@@ -16,7 +16,9 @@ Rails.application.routes.draw do
 
   resources :profiles, only:[:show, :edit, :update] do
 
-  resources :matched_jobs, only:[:index, :show, :edit, :update] do
+
+  resources :matched_jobs, only:[:index, :show, :update] do
+
     collection do
         post 'filter', to: "profiles#filter"
       end

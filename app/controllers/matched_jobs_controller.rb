@@ -2,7 +2,7 @@ class MatchedJobsController < ApplicationController
 
   skip_before_action :authenticate_user!, only: [:index]
   before_action :categories, only: [:index]
-  before_action :set_profile_and_user, only: [:show, :index]
+  before_action :set_profile_and_user, only: [:show, :update, :index]
   before_action :set_matched_job, only: [:edit, :update]
   skip_after_action :verify_policy_scoped, only: [:index]
 
@@ -35,7 +35,15 @@ class MatchedJobsController < ApplicationController
     redirect_to profile_matched_jobs_path
   end
 
-
+  def update
+    @matched_job = MatchedJob.find(params[:id])
+    authorize @matched_job
+   
+    @matched_job.update(matched_job_params) 
+    @matched_job.save!
+  
+  end
+  
   private
 
   def matched_job_params
