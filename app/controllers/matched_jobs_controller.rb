@@ -26,7 +26,10 @@ class MatchedJobsController < ApplicationController
   end
 
   def filter
-    if params
+    filter_jobs_params.each do |key, value|
+      unless value == nil
+        @matched_jobs = Job.where(key: "value")
+      end
     end
   end
 
