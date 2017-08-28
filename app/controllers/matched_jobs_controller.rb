@@ -2,7 +2,7 @@ class MatchedJobsController < ApplicationController
 
   skip_before_action :authenticate_user!
   before_action :categories, only: [:index]
-  before_action :set_profile_and_user, only: [:show]
+  before_action :set_profile_and_user, only: [:show, :update]
   before_action :set_placeholders, only: [:index]
 
   def index
@@ -31,6 +31,15 @@ class MatchedJobsController < ApplicationController
         @matched_jobs = Job.where(key: "value")
       end
     end
+  end
+
+  def update
+    @matched_job = MatchedJob.find(params[:id])
+    authorize @matched_job
+   
+    @matched_job.update(matched_job_params) 
+    @matched_job.save!
+  
   end
 
   private
