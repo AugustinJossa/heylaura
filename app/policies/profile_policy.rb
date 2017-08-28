@@ -20,4 +20,16 @@ class ProfilePolicy < ApplicationPolicy
   def find_match?
     show?
   end
+
+  def test?
+    true
+  end
+
+  def manage_connection?
+    if record.user == user
+      return true
+    else
+      return false
+    end
+  end
 end

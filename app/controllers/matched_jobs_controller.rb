@@ -1,6 +1,6 @@
 class MatchedJobsController < ApplicationController
 
-  skip_before_action :authenticate_user!
+  skip_before_action :authenticate_user!, only: [:index]
   before_action :categories, only: [:index]
   before_action :set_profile_and_user, only: [:show, :index]
 
@@ -13,11 +13,11 @@ class MatchedJobsController < ApplicationController
     # raise
     @matched_jobs = policy_scope(MatchedJob).where(profile_id: @profile.id).order(matching: :desc)
 
-    if current_user
-      @profile.user = current_user
-      @profile.update(profile_params)
-      @profile.save
-    end
+    # if current_user
+    #   @profile.user = current_user
+    #   @profile.update(profile_params)
+    #   @profile.save
+    # end
 
   end
 
@@ -47,7 +47,7 @@ class MatchedJobsController < ApplicationController
 
   def set_profile_and_user
     @profile = Profile.find(params[:profile_id])
-    @user= User.find(profile_id=@profile.id)
+    @user = @profile.user if @profile.user
   end
 
   #liste des catégories pour le formulaire de filtres
