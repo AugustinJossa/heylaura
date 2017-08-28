@@ -20,24 +20,27 @@
 				<div class="tags-elements"><%= @matched_job.job.remote %></div>
 				<div class="tags-elements"><%= @matched_job.job.job_type %></div>
 			</div>
-
+			
+			<div class='trait-inf'> Interessé ? </div>
 			<div class="tags-3">
 
-				<% if @matched_job.status == ("Pending" || "Approved" || "Rejected") %>
-
-					<%= simple_form_for [@profile, @matched_job] do |f| %>
-		  		<%= f.input :message, placeholder: 'Laissez un message au recruteur'%>
-		  		<%= f.button :submit, "POSTULER", class: "btn btn-danger", data: {target: "#myModalOups", toggle: "modal"} %>
-					<% end %>
-
+				<div class="application-form" >
+						<% if @matched_job.status == ("Pending" || "Approved" || "Rejected") %>
+					
+							<%= simple_form_for [@profile, @matched_job] do |f| %>
+							<%= f.input :message, placeholder: 'Laissez un message au recruteur'%>
+							<%= f.button :submit, "POSTULER", class: "btn btn-danger", data: {target: "#myModalOups", toggle: "modal"} %>
+							<% end %>
+				
 				 <% else %>
 
-					<%= simple_form_for [@profile, @matched_job] do |f| %>
-	  			<%= f.input :message, placeholder: 'Laissez un message au recruteur'%>
-	  			<%= f.input :status, as: :hidden, input_html: { value: 'Pending' } %>
-	  			<%= f.button :submit, "POSTULER", class: "btn btn-danger", data: {target: "#myModalBravo", toggle: "modal"} %>
+						<%= simple_form_for [@profile, @matched_job] do |f| %>
+		  			<%= f.input :message, placeholder: 'Laissez un message au recruteur'%>
+		  			<%= f.input :status, as: :hidden, input_html: { value: 'Pending' } %>
+		  			<%= f.button :submit, "POSTULER", class: "btn btn-danger", data: {target: "#myModalBravo", toggle: "modal"} %>
+						<% end %>
 					<% end %>
-			<% end %>
+				</div>
 
 			</div>
 		</div>
