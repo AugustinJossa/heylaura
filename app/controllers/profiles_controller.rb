@@ -31,21 +31,15 @@ class ProfilesController < ApplicationController
     @profile = Profile.new(filter_params)
     authorize @profile
     if @profile.save
-      # add motivation rankings associated to profiles
-      @profile.add_motivation_rankings
-      # create matched jobs associated to profile with appropriate matching percentage
-      @profile.create_matched_jobs
-
       respond_to do |format|
           format.html {
             # flash[:notice] = "Un instant, je cherche des jobs qui correspondent à ton profil"
-            cookies[:session_info] = @profile.id
-            cookies[:profile_id] = @profile.id
-            redirect_to find_match_profile_path(@profile) }
+            # session[:session_info] = @profile.id
+            redirect_to find_match_profile_path(@profile)
+          }
           # format.js  { render :find_match }
       end
     else
-      #TODO: A gerer si le profil ne se sauve pas
       flash[:notice] = "Profile not created"
       render :home
     end
@@ -53,9 +47,33 @@ class ProfilesController < ApplicationController
 
   def find_match
     @profile = Profile.find(params[:id])
+    @profile.remove_motivation_rankings
+    @profile.remove_matched_jobs
+    # add motivation rankings associated to profiles
+    @profile = Profile.find(params[:id])
+    @profile.add_motivation_rankings
+    # create matched jobs associated to profile with appropriate matching percentage
+    @profile = Profile.find(params[:id])
+    @profile.create_matched_jobs
+    # add a session id in cache for the profile
+    session[:profile_id] = @profile.id
+    # binding.pry
+    # manage profile linking to current user if connected without any profile
+    if current_user && ( current_user.profiles.nil? || current_user.profiles.length == 0)
+      @profile.user = current_user
+      @profile.save
+      session[:profile_id] = nil
+    end
+    @profile = Profile.find(params[:id])
     authorize @profile
     sleep(5)
     redirect_to profile_matched_jobs_path(@profile)
+  end
+
+  def test
+    # binding.pry
+    @profile = Profile.all.last
+    authorize @profile
   end
 
   # def show

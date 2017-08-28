@@ -9,4 +9,12 @@ class UserPolicy < ApplicationPolicy
   	return true
   end
 
+  def manage_connection?
+    if record == user
+      return true
+    else
+      false
+    end
+  end
+
 end

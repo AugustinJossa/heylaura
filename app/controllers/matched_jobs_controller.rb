@@ -1,6 +1,6 @@
 class MatchedJobsController < ApplicationController
 
-  skip_before_action :authenticate_user!
+  skip_before_action :authenticate_user!, only: [:index]
   before_action :categories, only: [:index]
   before_action :set_profile_and_user, only: [:show, :index]
   before_action :set_matched_job, only: [:edit, :update]
@@ -8,18 +8,7 @@ class MatchedJobsController < ApplicationController
 
 
   def index
-
-    # @matched_jobs = policy_scope(MatchedJob)
-    # @profile = Profile.find(params[:profile_id])
-    # @profile.find_match_jobs
-    # raise
-
-    # @profile.update(profile_params)
-    # @profile.save
     @matched_jobs = @profile.matched_jobs.order(created_at: :desc)
-
-
-
   end
 
 
@@ -55,7 +44,7 @@ class MatchedJobsController < ApplicationController
 
   def set_profile_and_user
     @profile = Profile.find(params[:profile_id])
-    @user= User.find(profile_id=@profile.id)
+    @user = @profile.user if @profile.user
   end
 
   def set_matched_job
