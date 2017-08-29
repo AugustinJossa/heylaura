@@ -9,6 +9,7 @@ class MatchedJobsController < ApplicationController
 
   def index
     @matched_jobs = @profile.matched_jobs.order(created_at: :desc)
+    # raise
   end
 
 
@@ -25,25 +26,38 @@ class MatchedJobsController < ApplicationController
   #   end
   # end
 
+
   def edit
     @profile = @matched_job.profile
   end
 
-  def update
-    @profile = @matched_job.profile
-    @matched_job.update(matched_job_params)
-    redirect_to profile_matched_jobs_path
-  end
+  # def update
+  #   @profile = @matched_job.profile
+  #   @matched_job.update(matched_job_params)
+  #   binding.pry
+  #   respond_to do |format|
+  #       format.html {
+  #         redirect_to profile_matched_jobs_path
+  #       }
+  #       format.js {
+  #         console.log('toto')
+  #       }
+  #     end
+  # end
 
   def update
     @matched_job = MatchedJob.find(params[:id])
     authorize @matched_job
-   
-    @matched_job.update(matched_job_params) 
+
+    @matched_job.update(matched_job_params)
     @matched_job.save!
-  
+    respond_to do |format|
+        format.html { redirect_to profile_matched_jobs_path }
+        format.js {console.log('toto')}
+      end
+
   end
-  
+
   private
 
   def matched_job_params

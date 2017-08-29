@@ -6,11 +6,14 @@
   position: relative;
   box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
   border-radius: 2px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 0px !important;
+  margin-right: 0px !important;
+  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
   text-decoration: none !important;
+  padding: 20px;
+  margin: 20px;
     p{
       color: $gray;
       }
@@ -95,6 +98,7 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
+  margin-bottom: 0px !important;
 }
 
 .tags-elements{
