@@ -1,6 +1,6 @@
 .chat-content, .chat-status {
-  background-color: white;
-  height: calc(100vh - 20vh - 60px);
+  // background-color: white;
+  height: calc(100vh - 10vh - 60px);
   // calcul de la height > full screen - taille des margins du content - navbar
   width: 100%;
 }
@@ -23,7 +23,7 @@
 }
 
 .chat-status {
-  opacity: 0.8;
+  // opacity: 0.8;
   overflow: hidden;
   padding: 5%;
   display: flex;
@@ -36,9 +36,9 @@
     font-size: 12px;
   }
   .current-questions {
-    font-size: 16px;
+    font-size: 12px;
     font-weight: bolder;
-    color: $brand-primary;
+    color: white;
   }
 }
 
@@ -48,8 +48,13 @@
   height: 100% !important;
 }
 
-.hideform {
-  // height: 0px;
-  // width: 0px;
-  // overflow: hidden;
+
+.conversational-form-inner, .conversational-form, .conversational-form:before {
+  background: transparent !important;
+  opacity: 1 !important;
 }
+
+// .conversational-form * {
+//   box-shadow: none !important;
+
+// }

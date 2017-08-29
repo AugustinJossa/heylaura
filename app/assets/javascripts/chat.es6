@@ -17,7 +17,7 @@ const initHomePageDOM = () => {
 
   startButton.addEventListener("click", (event) => {
     event.preventDefault;
-    bannerStart.classList.add("hidden");
+    // bannerStart.classList.add("hidden");
     bannerChat.classList.remove("hidden");
     initCf(jsonInit);
   });
