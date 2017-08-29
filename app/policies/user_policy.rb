@@ -9,4 +9,8 @@ class UserPolicy < ApplicationPolicy
   	return true
   end
 
+  def accepted?
+  	return true
+  end
+
 end

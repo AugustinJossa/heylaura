@@ -33,6 +33,12 @@ class MatchedJobsController < ApplicationController
     end
   end
 
+  def preparation
+    @matched_job = MatchedJob.find(params[:id])
+    authorize @matched_job
+  end
+  
+
   private
 
 
@@ -78,7 +84,7 @@ class MatchedJobsController < ApplicationController
 
   # def params pour instancier matched_job dans la show
   def matched_job_params
-    params.require(:matched_job).permit(:matching, :status, :message, :job_id, :user_id)
+    params.require(:matched_job).permit(:id, :matching, :status, :message, :job_id, :user_id)
   end
 
 end

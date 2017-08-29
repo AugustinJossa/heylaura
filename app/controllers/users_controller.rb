@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-	before_action :set_user_and_profile, only: [:show ]
+	before_action :set_user_and_profile, only: [:show, :accepted ]
 
 	def show
 		@matched_jobs = MatchedJob.where(profile_id: @profile.id)
@@ -11,6 +11,10 @@ class UsersController < ApplicationController
 		@mj_rejected = MatchedJob.where(profile_id: @profile.id, status: "Rejected")
 
 	end
+
+	def accepted
+    	@mj_accepted = MatchedJob.where(profile_id: @profile.id, status: "Accepted")
+  	end
 
 
 	# def filter_by_status(status)
