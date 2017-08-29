@@ -1,5 +1,8 @@
 {
   "dependencies": {
-    "conversational-form": "^0.9.51"
+    "conversational-form": "^0.9.51",
+    "vue": "^2.4.2",
+    "vue-radial-progress": "^0.2.10",
+    "vue-simple-spinner": "^1.2.5"
   }
 }
