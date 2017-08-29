@@ -1,0 +1,64 @@
+<% @matched_jobs.each do |matched_job| %>
+  <%= link_to profile_matched_job_path(@profile, matched_job) do %>
+    <div class="mycard">
+      <div class="line-1">
+        <div class="title"><%= matched_job.job.company.name.upcase %></div>
+          <%= image_tag matched_job.job.company.logo.url(:logo), :class => "card-user"%>
+        </div>
+      <div class="line-2">
+        <h2><%= matched_job.job.title %></h2>
+        <p><% if matched_job.job.description.split(" ").length > 60 %>
+          <%= "#{matched_job.job.description.split(" ")[0..60].join(" ")} ..." %>
+          <% else %>
+          <%= matched_job.job.description %>
+          <% end %>
+        </p>
+      </div>
+      <div class="line-3">
+        <div class="tags-1">
+          <!-- gestion du bookmarked -->
+          <div>
+            <% if matched_job.status == 'Bookmarked' %>
+              <%= simple_form_for [@profile, matched_job], remote: true do |f| %>
+              <%= f.input :status, as: :hidden, input_html: { value: nil } %>
+              <%= f.button :submit, "coeur", class: "btn btn-success delete-btn" %>
+              <%= link_to profile_matched_jobs_path do %>
+                <span><i class="fa fa-heart unbookmark-btn" aria-hidden="true" method:bookmark></i> </span>
+              <% end %>
+              <% end %>
+            <% else %>
+              <%= simple_form_for [@profile, matched_job], remote: true do |f| %>
+              <%= f.input :status, as: :hidden, input_html: { value: 'Bookmarked' } %>
+              <%= f.button :submit, 'btn', class: "delete-btn", data: {target: "#modal-bookmarked", toggle: "modal"} %>
+
+              <%= link_to profile_matched_jobs_path do %>
+                <span><i class="fa fa-heart-o coeur bookmark-btn" aria-hidden="true" method:bookmark></i> </span>
+                <% end %>
+              <% end %>
+
+            <% end %>
+
+
+          </div>
+
+
+          <!-- ... -->
+
+          <div class="meter">
+            <span style="width:<%= matched_job.matching*100 %>%"></span>
+          </div>
+          <div class="pourcentage"> <%= (matched_job.matching*100).to_i.round %>% de matching</div>
+        </div>
+
+        <div class="tags-2">
+          <div class="tags-elements-adapt"></div>
+          <div class="tags-elements"><%= matched_job.job.contract %></div>
+          <div class="tags-elements"><%= "#{matched_job.job.salary.round(0)} €" %></div>
+          <div class="tags-elements"><%= matched_job.job.remote %></div>
+        </div>
+
+      </div>
+
+      </div>
+<% end %>
+<% end %>
