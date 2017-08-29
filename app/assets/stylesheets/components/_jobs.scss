@@ -1,3 +1,9 @@
+
+.title-index{
+  color: $red;
+  margin-bottom: 20px;
+}
+
 .white-wraper{
   background-color: white;
   margin-bottom: 20px;
@@ -14,18 +20,30 @@
 
 .flex-item-1{
   // border: solid 1px;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  border-radius: 2px;
   flex: 0 0 20%;
   font-size: 15px;
-  padding: 10px;
-  height: 100vh;
+  padding: 20px;
+  height: 97vh;
   position: sticky !important;
   top: 0 !important;
+  margin-bottom: 20px;
 }
 
 .simple-form-field {
+  font-size: 12px !important;
+  height: 25px;
+}
+
+.update-btn {
   font-size: 15px !important;
-  height: 30px;
-  text-align: center;
+  height: 35px;
+  width: 100%;
+  background-color: $red ;
+  border-radius: 2px;
+  border: solid 0px;
+  color: white;
 }
 
 .flex-item-2{

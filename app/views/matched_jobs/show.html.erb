@@ -20,14 +20,59 @@
 				<div class="tags-elements"><%= @matched_job.job.remote %></div>
 				<div class="tags-elements"><%= @matched_job.job.job_type %></div>
 			</div>
-
+			
+			<div class='trait-inf'> Interessé ? </div>
 			<div class="tags-3">
-			<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">POSTULER</button>
+
+				<div class="application-form" >
+						<% if @matched_job.status == ("Pending" || "Approved" || "Rejected") %>
+					
+							<%= simple_form_for [@profile, @matched_job] do |f| %>
+							<%= f.input :message, placeholder: 'Laissez un message au recruteur'%>
+							<%= f.button :submit, "POSTULER", class: "btn btn-danger", data: {target: "#myModalOups", toggle: "modal"} %>
+							<% end %>
+				
+				 <% else %>
+
+						<%= simple_form_for [@profile, @matched_job] do |f| %>
+		  			<%= f.input :message, placeholder: 'Laissez un message au recruteur'%>
+		  			<%= f.input :status, as: :hidden, input_html: { value: 'Pending' } %>
+		  			<%= f.button :submit, "POSTULER", class: "btn btn-danger", data: {target: "#myModalBravo", toggle: "modal"} %>
+						<% end %>
+					<% end %>
+				</div>
+
 			</div>
 		</div>
 		
 		  <!-- Modal -->
-		  <div class="modal fade" id="myModal" role="dialog">
+		  <div class="modal fade" id="myModalOups" role="dialog">
+		    <div class="modal-dialog">
+		    
+		      <!-- Modal content-->
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal">&times;</button>
+		          <h4 class="modal-title">Oups <br> tu as déjà postulé à cette offre </h4>
+		        </div>
+				<!-- <div class="modal-body">
+		          <p>Some text in the modal.</p>
+		        </div> -->
+		        <div class="modal-footer">
+		        	<div class="btn btn-danger btn-modal">
+		          	<%= link_to "OFFRES",  profile_matched_jobs_path(@profile) %>
+		        	</div>
+		        	<div class="btn btn-danger btn-modal">
+		          	<%= link_to "DASHBOARD",  user_path(@user) %>
+		          	</div>
+		        </div>
+		      </div>	
+		      
+		    </div>
+		  </div>
+
+			<!-- Modal -->
+		  <div class="modal fade" id="myModalBravo" role="dialog">
 		    <div class="modal-dialog">
 		    
 		      <!-- Modal content-->

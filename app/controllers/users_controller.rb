@@ -38,9 +38,6 @@ class UsersController < ApplicationController
     end
   end
 
-	# def filter_by_status(status)
-	# 	@mj_bookmarked = MatchedJob.where(profile_id: @profile.id, status: status)
-	# end
 
   private
 

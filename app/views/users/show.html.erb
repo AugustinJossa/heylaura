@@ -31,9 +31,11 @@
 					</div>
 					<% end %>
 				</div>
-				<div class = btn-voir-plus>
-					<h2>voir plus</h2>
-				</div>
+				<% if @mj_accepted.size > 3 %>
+				<%= render "users/button" %>
+				<% else %>
+				<div> </div>
+				<% end %>
 			</div>
 		</div>
 
@@ -60,9 +62,11 @@
 					</div>
 					<% end %>
 				</div>
-				<div class = btn-voir-plus>
-					<h2>voir plus</h2>
-				</div>
+				<% if @mj_pending.size > 3 %>
+				<%= render "users/button" %>
+				<% else %>
+				<div> </div>
+				<% end %>
 			</div>
 		</div>
 
@@ -89,9 +93,11 @@
 					</div>
 					<% end %>
 				</div>
-				<div class = btn-voir-plus>
-					<h2>voir plus</h2>
-				</div>
+				<% if @mj_rejected.size > 3 %>
+				<%= render "users/button" %>
+				<% else %>
+				<div> </div>
+				<% end %>
 			</div>
 		</div>	
 	</div>
