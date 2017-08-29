@@ -25,15 +25,18 @@
       color: rgb(255, 255, 255);
       opacity: 0.6;
   }
+  .startbtn {
+    margin-top: 10vh;
+  }
 }
 
 // ===============================================  config chat
 
 .chat-wrapper {
-  background: $red;  /* fallback for old browsers */
-  background: linear-gradient(-225deg, rgba(239,100,97,1) 0%, rgba(239,100,97,1) 100%);
+  // background: $red;  /* fallback for old browsers */
+  background: linear-gradient(-225deg, $red 0%, #FFC371 100%);
   background-size: cover !important;
-  .container {
+  .chat-container {
     min-height: 0 !important;
     background-color: transparent !important;
   }

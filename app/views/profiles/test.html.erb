@@ -1,53 +1,28 @@
-<h1>TEST SIGN IN SIGN UP</h1>
+<h1>TESTS DIVERS</h1>
 
 <div id="testvue">
-  <progressbartest></progressbartest>
+  <radial-progress-bar :total-steps="100" :completed-steps=currentpercent diameter="100">
+    <p>Complété à {{ currentpercent }}%</p>
+  </radial-progress-bar>
 </div>
 
 <div id="example">
-  <my-component></my-component>
 </div>
-
-<template id="progressbartest-template">
-  <radial-progress-bar :diameter="200"
-                       :completed-steps="completedSteps"
-                       :total-steps="totalSteps">
-   <p>Total steps: {{ totalSteps }}</p>
-   <p>Completed steps: {{ completedSteps }}</p>
-  </radial-progress-bar>
-</template>
-
-
 
 <% content_for(:js) do %>
 
 <script>
   // import Vue from 'vue';
   // import App from './app.vue';
-  import RadialProgressBar from 'vue-radial-progress'
+  // import RadialProgressBar from 'vue-radial-progress'
+  // var currentpercent = 30
 
-  export default {
-    data () {
-      return {
-        completedSteps: 0,
-        totalSteps: 10
-      }
-    },
-
-    components: {
-      RadialProgressBar
-    }
-  }
-
-  Vue.component('progressbartest', {
-    template: '#progressbartest-template'
-  });
-
-
+  var progressbar = Vue.component('radial-progress-bar', RadialProgressBar)
 
   var app = new Vue({
     el: '#testvue',
     data: {
+      currentpercent: 30
     }
   })
 

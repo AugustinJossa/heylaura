@@ -6,7 +6,7 @@ const initHomePageDOM = () => {
   const bannerChat = document.getElementById("bchat");
 
   chatRestit = document.getElementById("chatrestit");
-  perCent = document.getElementById("percent");
+  // perCent = document.getElementById("percent");
   entTag = document.getElementById("entreprise");
   jobTag = document.getElementById("job");
   profTag = document.getElementById("profil");
@@ -67,7 +67,7 @@ const chatRadio = (id, question, radioTexts, placeholder) => {
 // functions to manage the chat flow
 
 const updateCompletion = (i) => {
-  perCent.innerText = Math.round(i / totalLength * 100);
+  completionBar.currentpercent = Math.round(i * 100 / totalLength);
 };
 
 const runCompanyQuestionnaire = () => {

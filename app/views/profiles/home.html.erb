@@ -6,12 +6,16 @@
 </div>
 
 <div class="chat-wrapper">
-  <div class="container">
+  <div class="chat-container">
     <div class="banner-chat hidden" id="bchat">
       <div class="row">
         <div class="hidden-xs hidden-sm col-md-3 chat-status-col">
           <div class="chat-status">
-            <h2>Completion: <span id="percent">0</span>%</h2>
+            <div id="progressbar">
+              <radial-progress-bar ref="progresstest" :total-steps="100" :completed-steps=currentpercent :diameter="100" inner-stroke-color="#FFF">
+                <p>{{ currentpercent }}%</p>
+              </radial-progress-bar>
+            </div>
             <h3 id="entreprise">L'entreprise de tes rêves</h3>
             <h3 id="job">Ton job idéal</h3>
             <h3 id="profil">Ton profil</h3>
@@ -19,11 +23,13 @@
           </div>
         </div>
         <div class="hidden-xs hidden-sm col-md-1"></div>
-        <div class="col-xs-12 col-md-9">
+        <div class="col-xs-12 col-md-7">
           <div class="chat-content">
             <div class="chat-end hidden" id="chatend">
-              <div class="text-center"><%= image_tag "robot.png" %></div>
+              <vue-simple-spinner size="big" message="Un instant, je cherche le job de tes rêves..."></vue-simple-spinner>
+              <!-- <div class="text-center"><%= image_tag "robot.png" %></div>
               <h2 class="text-center">Un instant. Je cherche le job de tes rêves</h2>
+ -->
             </div>
             <div id="chatrestit" cf-context ></div>
           </div>
@@ -73,7 +79,7 @@
       var aspirTags = createAspirTags();
 
       // dom elements
-      var perCent;
+      // var perCent;
       var entTag;
       var jobTag;
       var profTag;
@@ -81,6 +87,23 @@
       var profileForm;
       var rawChatContent;
       var chatEnd;
+
+      // vue initialization
+      Vue.component('radial-progress-bar', RadialProgressBar)
+
+      var completionBar = new Vue({
+        el: '#progressbar',
+        data: {
+          currentpercent: 0
+        }
+      })
+
+      var endSpinner = new Vue({
+        el: '#chatend',
+        data: {
+        }
+      })
+
 
       // chat initialization
       var chatRestit;
