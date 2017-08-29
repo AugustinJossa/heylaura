@@ -1,4 +1,4 @@
-<h1><%= @matched_jobs.count %> postes pourraient t'intérresser</h1>
+<h1 class="title-index"><%= @matched_jobs.count %> postes pourraient t'intérresser</h1>
 
 <div class='white-wraper'>
 
@@ -17,7 +17,7 @@
     <%= f.input :job_remote, label: "Home office", required: false, collection: Job::JOB_REMOTE_ARRAY, input_html: { class: 'simple-form-field' } %>
     <%= f.input :job_contract, label: "Type de contrat", required: false, collection: Job::JOB_CONTRACT_ARRAY, input_html: { class: 'simple-form-field' } %>
     <%= f.input :job_min_salary, label: "Salaire min", required: false, input_html: { class: 'simple-form-field' }  %>
-    <%= f.submit "Go Laura!", class: "btn btn-primary" %>
+    <%= f.submit "Go Laura!", class: "update-btn" %>
 
   <% end %>
   </div>
@@ -45,20 +45,38 @@
         </div>
         <div class="line-3">
           <div class="tags-1">
-
+            <!-- gestion du bookmarked -->
             <div>
-              <%= link_to job_path(2) do %>
-            <span><i class="fa fa-heart-o coeur" aria-hidden="true"></i> </span>
+              <% if matched_job.status == 'Bookmarked' %>
+                <%= simple_form_for [@profile, matched_job], remote: true do |f| %>
+                <%= f.input :status, as: :hidden, input_html: { value: nil } %>
+                <%= f.button :submit, "coeur", class: "btn btn-success delete-btn" %>
+                <%= link_to profile_matched_jobs_path do %>
+                  <span><i class="fa fa-heart unbookmark-btn" aria-hidden="true" method:bookmark></i> </span>
+                <% end %>
+                <% end %>
+              <% else %>
+                <%= simple_form_for [@profile, matched_job], remote: true do |f| %>
+                <%= f.input :status, as: :hidden, input_html: { value: 'Bookmarked' } %>
+                <%= f.button :submit, 'btn', class: "delete-btn", data: {target: "#modal-bookmarked", toggle: "modal"} %>
+
+                <%= link_to profile_matched_jobs_path do %>
+                  <span><i class="fa fa-heart-o coeur bookmark-btn" aria-hidden="true" method:bookmark></i> </span>
+                  <% end %>
+                <% end %>
+
               <% end %>
+
+
             </div>
+
+
+            <!-- ... -->
+
             <div class="meter">
               <span style="width:<%= matched_job.matching*100 %>%"></span>
             </div>
             <div class="pourcentage"> <%= (matched_job.matching*100).to_i.round %>% de matching</div>
-              <%= simple_form_for [matched_job.profile,matched_job] do |f| %>
-              <%= f.input :status, :collection => ["Bookmarked", "Pending", "Accepted", "Rejected"] %>
-              <%= f.submit 'update' %>
-              <% end %>
           </div>
 
           <div class="tags-2">
@@ -72,16 +90,14 @@
     <!--     <a class="card-link" href="#" ></a> -->
       </div>
 
-
+    <% end %>
 
 
         <% end %>
 
-    <% end %>
+
 
   </div>
-
-
 
 
 
@@ -92,9 +108,27 @@
 
 </div>
 
+<!-- Modal -->
+          <div class="modal fade" id="modal-bookmarked" role="dialog">
+            <div class="modal-dialog">
+
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <div class="modal-title">
+                    L'offre a bien été ajoutée à tes favoris
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+
+
+
 <% content_for(:js) do %>
   <%= javascript_tag do  %>
-
 
     var btnsSupr = document.querySelectorAll('.delete-btn');
 
@@ -102,16 +136,27 @@
       element.style.display = 'none';
     });
 
-    var dropdown = document.querySelectorAll('.dropdown-list');
-    console.log(dropdown);
 
-    dropdown.forEach((element) => {
-        element.addEventListener("blur", (event) => {
-          event.target.parentElement.parentElement.querySelector('.delete-btn').click();
+    var unbookmark = document.querySelectorAll('.unbookmark-btn');
+    console.log(unbookmark);
+
+    unbookmark.forEach((element) => {
+        element.addEventListener("click", (event) => {
+
+          event.target.parentElement.parentElement.parentElement.querySelector('.delete-btn').click();
       });
     });
 
 
+    var bookmark = document.querySelectorAll('.bookmark-btn');
+    console.log(bookmark);
+
+    bookmark.forEach((element) => {
+        element.addEventListener("click", (event) => {
+
+          event.target.parentElement.parentElement.parentElement.querySelector('.delete-btn').click();
+      });
+    });
 
   <% end %>
 <% end %>
