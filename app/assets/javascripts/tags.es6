@@ -2,7 +2,7 @@
 const createCompanyTags = (types, industries, sizes) => {
   const tags = [
     chatRadio("go_company",
-      "Bienvenue {previous-answer} && Je vais t'aider à trouver le job de tes rêves. && Il suffit de répondre à quelques questions simples et je te proposerai les jobs qui te correspondent le mieux. && Prêt à tenter l'expérience ?",
+      "Bienvenue {previous-answer} && Je vais t'aider à trouver le job de tes rêves. Il suffit de répondre à quelques questions simples et je te proposerai les jobs qui te correspondent le mieux. && Prêt à tenter l'expérience ?",
       ["Go"]),
     chatRadio("company_type",
       "Nous allons commencer par parler de ton entreprise idéale. && Dans quel type d'entreprise aimerais-tu travailler ?",
@@ -20,14 +20,11 @@ const createCompanyTags = (types, industries, sizes) => {
 const createProfileTags = () => {
   const tags = [
     chatRadio("go_profile",
-      "Je vois bien le type de job qui t'intéresse. && Parlons un peu de toi maintenant.",
+      "Je vois bien le type de job qui t'intéresse. Parlons un peu de toi maintenant.",
       ["Go"]),
     chatText("main_school",
       "De quelle école es-tu diplômé ?",
       "HEC"),
-    chatText("main_school_graduation_year",
-      "Cool. Et en quelle année es-tu sorti de {previous-answer} ?",
-      "2016"),
     chatText("nb_years_experience",
       "Et combien d'années d'expérience professionnelle (stages compris) as-tu ?",
       "2")

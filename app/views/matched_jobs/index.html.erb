@@ -1,87 +1,53 @@
-<h1>Trouve un emploi! <%= @matched_jobs.count %></h1>
+<h1 class="title-index"><%= @matched_jobs.count %> postes pourraient t'intérresser</h1>
 
 <div class='white-wraper'>
 
-<div class='flexbox'>
-  <div class='flex-item-1'>
-    <div class='trait-inf'>Filtrer par</div>
+  <div class='flexbox'>
+    <div class='flex-item-1'>
+      <%= render 'filter' %>
+    </div>
 
-  <div class='filter-box'>
-  <%= simple_form_for :query, url: profile_matched_jobs_path, :method => :get do |f| %>
-    <%= f.input :job_type, label: "Métier", required: false, collection: @job_types %>
-    <%= f.input :contract, label: "Type de contrat", required: false, collection: @contracts %>
-    <%= f.input :salary, label: "Salaire min", required: false %>
-    <%= f.input :industry, label: "Secteur", required: false, collection: @industries %>
-    <%= f.input :company_type, label: "Type d'entreprise", required: false, collection: @company_types %>
-    <%= f.input :size, label: "Taille d'entreprise", required: false, collection: @sizes %>
-    <%= f.input :location, label: "Ville", required: false, placeholder: @p_location %>
-    <%= f.submit "Go Laura!", class: "btn btn-primary" %>
-  <% end %>
-  </div>
+    <div class='flex-item-2'>
+      <%= render 'card' %>
+    </div>
 
   </div>
-
-  <div class='flex-item-2'>
-    <% @matched_jobs.each do |matched_job| %>
-
-<%= link_to profile_matched_job_path(@profile, matched_job) do %>
-
-      <div class="mycard">
-        <div class="line-1">
-          <div class="title"><%= matched_job.job.company.name.upcase %></div>
-          <%= image_tag matched_job.job.company.logo.url(:logo), :class => "card-user"%>
-        </div>
-        <div class="line-2">
-          <h2><%= matched_job.job.title %></h2>
-          <p><% if matched_job.job.description.split(" ").length > 60 %>
-            <%= "#{matched_job.job.description.split(" ")[0..60].join(" ")} ..." %>
-            <% else %>
-            <%= matched_job.job.description %>
-            <% end %>
-          </p>
-        </div>
-        <div class="line-3">
-          <div class="tags-1">
-
-            <div>
-              <%= link_to job_path(2) do %>
-            <span><i class="fa fa-heart-o coeur" aria-hidden="true"></i> </span>
-              <% end %>
-            </div>
-            <div class="meter">
-              <span style="width:<%= matched_job.matching*100 %>%"></span>
-            </div>
-            <div class="pourcentage"> <%= (matched_job.matching*100).to_i.round %>% de matching</div>
-          </div>
-          <div class="tags-2">
-            <div class="tags-elements-adapt"></div>
-            <div class="tags-elements"><%= matched_job.job.contract %></div>
-            <div class="tags-elements"><%= "#{matched_job.job.salary.round(0)} €" %></div>
-            <div class="tags-elements"><%= matched_job.job.remote %></div>
-          </div>
-        </div>
-    <!--     <a class="card-link" href="#" ></a> -->
-      </div>
-
-
-
-
-        <% end %>
-
-    <% end %>
-
-  </div>
-
-
-
-
-
-
-
-
-  </div>
-
 </div>
 
+<%= render 'index_modal' %>
 
+
+<% content_for(:js) do %>
+  <%= javascript_tag do  %>
+
+    var btnsSupr = document.querySelectorAll('.delete-btn');
+
+    btnsSupr.forEach((element) => {
+      element.style.display = 'none';
+    });
+
+
+    var unbookmark = document.querySelectorAll('.unbookmark-btn');
+    console.log(unbookmark);
+
+    unbookmark.forEach((element) => {
+        element.addEventListener("click", (event) => {
+
+          event.target.parentElement.parentElement.parentElement.querySelector('.delete-btn').click();
+      });
+    });
+
+
+    var bookmark = document.querySelectorAll('.bookmark-btn');
+    console.log(bookmark);
+
+    bookmark.forEach((element) => {
+        element.addEventListener("click", (event) => {
+
+          event.target.parentElement.parentElement.parentElement.querySelector('.delete-btn').click();
+      });
+    });
+
+  <% end %>
+<% end %>
 

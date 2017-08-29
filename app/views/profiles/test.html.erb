@@ -1,0 +1,42 @@
+<h1>TESTS DIVERS</h1>
+
+<div id="testvue">
+  <radial-progress-bar :total-steps="100" :completed-steps=currentpercent diameter="100">
+    <p>Complété à {{ currentpercent }}%</p>
+  </radial-progress-bar>
+</div>
+
+<div id="example">
+</div>
+
+<% content_for(:js) do %>
+
+<script>
+  // import Vue from 'vue';
+  // import App from './app.vue';
+  // import RadialProgressBar from 'vue-radial-progress'
+  // var currentpercent = 30
+
+  var progressbar = Vue.component('radial-progress-bar', RadialProgressBar)
+
+  var app = new Vue({
+    el: '#testvue',
+    data: {
+      currentpercent: 30
+    }
+  })
+
+  // register
+  Vue.component('my-component', {
+    template: '<div>A custom component!</div>'
+  })
+  // create a root instance
+  new Vue({
+    el: '#example'
+  })
+
+
+
+</script>
+
+<% end %>

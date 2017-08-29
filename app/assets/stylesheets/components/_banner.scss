@@ -1,18 +1,19 @@
 .banner {
-  height: calc(100vh - 60px);
   background-size: cover !important;
+  margin-bottom: 10vh;
 }
 
 // ===============================================  config demarrage
 
 .banner-start {
-  height: 100%;
+  height: calc(100vh - 60px);
+  // height: 100%;
   color: white;
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0px 5px 10px 5px;
+  padding-bottom: 10px;
   h1 {
       font-size: 50px;
       font-weight: bold;
@@ -24,10 +25,24 @@
       color: rgb(255, 255, 255);
       opacity: 0.6;
   }
+  .startbtn {
+    margin-top: 10vh;
+  }
 }
 
 // ===============================================  config chat
 
+.chat-wrapper {
+  // background: $red;  /* fallback for old browsers */
+  background: linear-gradient(-225deg, $red 0%, #FFC371 100%);
+  background-size: cover !important;
+  .chat-container {
+    min-height: 0 !important;
+    background-color: transparent !important;
+  }
+}
+
 .banner-chat {
-  padding: 10vh;
+  height: calc(100vh - 60px);
+  padding: 5vh;
 }

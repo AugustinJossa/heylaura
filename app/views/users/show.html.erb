@@ -30,9 +30,12 @@
 					</div>
 					<% end %>
 				</div>
+        
 				<div class = btn-voir-plus>
 				<h2> <%= link_to "Voir plus",accepted_user_path(current_user) %> </h2>
 				</div>
+
+
 			</div>
 		</div>
 
@@ -59,9 +62,11 @@
 					</div>
 					<% end %>
 				</div>
-				<div class = btn-voir-plus>
-					<h2>voir plus</h2>
-				</div>
+				<% if @mj_pending.size > 3 %>
+				<%= render "users/button" %>
+				<% else %>
+				<div> </div>
+				<% end %>
 			</div>
 		</div>
 
@@ -87,9 +92,11 @@
 					</div>
 					<% end %>
 				</div>
-				<div class = btn-voir-plus>
-					<h2>voir plus</h2>
-				</div>
+				<% if @mj_rejected.size > 3 %>
+				<%= render "users/button" %>
+				<% else %>
+				<div> </div>
+				<% end %>
 			</div>
 		</div>	
 	</div>

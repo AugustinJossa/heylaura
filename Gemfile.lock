@@ -228,6 +228,7 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.4)
+    vuejs-rails (2.4.2)
     warden (1.2.7)
       rack (>= 1.0)
     web-console (3.5.1)
@@ -271,6 +272,7 @@ DEPENDENCIES
   sprockets (>= 3.0.0.beta)
   sprockets-es6
   uglifier
+  vuejs-rails
   web-console (>= 3.3.0)
 
 RUBY VERSION
