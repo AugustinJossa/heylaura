@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
   layout "home_layout", only: [ :home ]
-  skip_before_action :authenticate_user!, only: [:home, :create, :show, :find_match ]
+  skip_before_action :authenticate_user!, only: [:home, :create, :show, :find_match, :test ]
 
   def home
     #TODO : si profil deja existant en session (faire un update plutôt qu'un update ?)

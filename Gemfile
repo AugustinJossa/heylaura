@@ -28,6 +28,7 @@ gem 'sprockets', '>=3.0.0.beta'
 gem 'sprockets-es6'
 gem 'carrierwave', '~> 0.11.2'
 # gem 'acts_as_list'
+gem 'vuejs-rails'
 
 group :development, :test do
   gem 'pry-byebug'
