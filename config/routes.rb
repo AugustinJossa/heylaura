@@ -27,6 +27,19 @@ Rails.application.routes.draw do
 
   resources :jobs, only:[:index, :show]
 
+  
+  resources :users, only: [ :show] do
+    member do                      
+      get 'accepted', to: "users#accepted" #Users controller
+    end
+  end
+
+  resources :matched_jobs do
+    member do
+      get 'preparation', to: "matched_jobs#preparation" #MatchedJob controller
+    end
+  end
+
   resources :users, only: [ :show] do
     member do
       get :manage_connection
@@ -34,3 +47,5 @@ Rails.application.routes.draw do
   end
 
 end
+
+

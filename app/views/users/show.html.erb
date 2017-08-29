@@ -24,18 +24,18 @@
 					<div class="job">
 						<div class = "logo"> </div>
 						<div class="job-desc"> 
-							<p> <strong> <%= mj.job.title %></strong> </p>
+							<p> <strong> <%= link_to mj.job.title, profile_matched_job_path(@profile, mj.id)%> </strong> </p>
 							<p><%= mj.job.company.name %></p>
 						</div>
-						<!-- <div class="btn-danger"> Voir </div> -->
 					</div>
 					<% end %>
 				</div>
-				<% if @mj_accepted.size > 3 %>
-				<%= render "users/button" %>
-				<% else %>
-				<div> </div>
-				<% end %>
+        
+				<div class = btn-voir-plus>
+				<h2> <%= link_to "Voir plus",accepted_user_path(current_user) %> </h2>
+				</div>
+
+
 			</div>
 		</div>
 
@@ -55,7 +55,7 @@
 					<div class="job">
 						<div class = "logo"> </div>
 						<div class="job-desc"> 
-							<p> <strong> <%= mj.job.title %></strong> </p>
+							<p> <strong> <%= link_to mj.job.title, profile_matched_job_path(@profile, mj.id)%> </strong> </p>
 							<p><%= mj.job.company.name %></p>
 						</div>
 					<!-- 	<div class="btn-danger"> Voir </div> -->
@@ -86,10 +86,9 @@
 					<div class="job">
 						<div class = "logo"> </div>
 						<div class="job-desc"> 
-							<p> <strong> <%= mj.job.title %></strong> </p>
+							<p> <strong> <%= link_to mj.job.title, profile_matched_job_path(@profile, mj.id)%> </strong> </p>
 							<p><%= mj.job.company.name %></p>
 						</div>
-						<!-- <div class="btn-voir"> Voir </div> -->
 					</div>
 					<% end %>
 				</div>
