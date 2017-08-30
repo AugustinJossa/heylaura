@@ -5,7 +5,6 @@ require 'open-uri' # Open an url
 # require 'nokogiri' # HTML ==> Nokogiri Document
 require 'faker'
 require 'csv'
-require 'pry-byebug'
 
 def destroy_data
   puts "Destrying data..."
@@ -73,7 +72,6 @@ def load_csv
     row.each do |el|
       load_hash[el[0]] = el[1] if el[0]
     end
-    # binding.pry
     jl.update(load_hash)
     jl.save
     puts "1 jl loaded"
@@ -85,7 +83,6 @@ end
 
 def seed_company(jl)
   company = Company.find_by(name: jl.cname)
-    # binding.pry
   unless company
     comp = Company.new(
       name: jl.cname,
