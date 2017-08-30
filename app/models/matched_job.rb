@@ -68,7 +68,7 @@ class MatchedJob < ApplicationRecord
     match = 0
     match += 1 if profile.job_contract == job.contract
     match += 1 if profile.job_min_salary >= job.salary
-    # match +=1 if profile.nb_years_experience >= job.experience
-    match.fdiv(2)
+    match +=1 if profile.nb_years_experience >= job.experience
+    match.fdiv(3)
   end
 end
