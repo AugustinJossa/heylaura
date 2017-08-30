@@ -1,0 +1,29 @@
+// récupération de l'élément sur lequel on a cliqué
+element = document.getElementById('wishlist-<%= @matched_job.id %>')
+console.log(element)
+
+// remplacer le contenu de l'élément (escape_javascript pour le coller le html du render dans le js)
+element.innerHTML = "<%= escape_javascript render 'wishlist', profile: @profile, element: @matched_job %>"
+
+
+var unbookmark = document.querySelectorAll('.unbookmark-btn');
+    console.log(unbookmark);
+
+    unbookmark.forEach((element) => {
+        element.addEventListener("click", (event) => {
+          event.preventDefault();
+          event.target.parentElement.parentElement.parentElement.querySelector('.delete-btn').click();
+      });
+    });
+
+
+    var bookmark = document.querySelectorAll('.bookmark-btn');
+    console.log(bookmark);
+
+    bookmark.forEach((element) => {
+        element.addEventListener("click", (event) => {
+          event.preventDefault();
+          event.target.parentElement.parentElement.parentElement.querySelector('.delete-btn').click();
+
+      });
+    });
