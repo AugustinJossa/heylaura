@@ -1,0 +1,21 @@
+
+<% if element.status == 'Bookmarked' %>
+  <%= simple_form_for [profile, element], remote: true do |f| %>
+  <%= f.input :status, as: :hidden, input_html: { value: nil } %>
+  <%= f.button :submit, "coeur", style: "display: none", class: "btn btn-success delete-btn" %>
+  <%= link_to '#' do %>
+    <span><i class="fa fa-star unbookmark-btn" aria-hidden="true" ></i> </span>
+  <% end %>
+  <% end %>
+<% else %>
+  <%= simple_form_for [profile, element], remote: true do |f| %>
+  <%= f.input :status, as: :hidden, input_html: { value: 'Bookmarked' } %>
+  <%= f.button :submit, 'btn', style: "display: none", class: "delete-btn", data: {target: "#modal-bookmarked", toggle: "modal"} %>
+
+  <%= link_to '#' do %>
+    <span><i class="fa fa-star-o coeur bookmark-btn" aria-hidden="true" ></i> </span>
+    <% end %>
+  <% end %>
+
+<% end %>
+
