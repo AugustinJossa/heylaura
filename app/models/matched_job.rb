@@ -29,14 +29,15 @@ class MatchedJob < ApplicationRecord
          when "Type de job" then job_match
          when "Localisation" then location_match
          when "Salaire et contrat" then salary_match
-         else 0.5
+         else
+          binding.pry
       end
       puts match_coeff
       puts weight
-      final_match += match_coeff * weight + 0.1
+      final_match += match_coeff * weight
     end
     puts "match: #{final_match}"
-    self.matching = final_match
+    self.matching = final_match + 0.1
     self.save
   end
 
