@@ -1,6 +1,6 @@
 class MatchedJobsController < ApplicationController
 
-  skip_before_action :authenticate_user!, only: [:index]
+  skip_before_action :authenticate_user!, only: [:index, :update]
   before_action :categories, only: [:index]
   before_action :set_profile_and_user, only: [:show, :update, :index]
   before_action :set_matched_job, only: [:edit, :update]
@@ -8,7 +8,7 @@ class MatchedJobsController < ApplicationController
 
 
   def index
-    @matched_jobs = @profile.matched_jobs.order(created_at: :desc)
+    @matched_jobs = @profile.matched_jobs.order(matching: :desc)
     # raise
   end
 
@@ -53,7 +53,7 @@ class MatchedJobsController < ApplicationController
     @matched_job.save!
     respond_to do |format|
         format.html { redirect_to profile_matched_jobs_path }
-        format.js {console.log('toto')}
+        format.js {}
       end
 
   end

@@ -7,7 +7,7 @@
     <%= f.input :company_size, label: "Taille d'entreprise", required: false, collection: Company::COMPANY_SIZE_ARRAY, input_html: { class: 'simple-form-field' }%>
     <%= f.input :job_type, label: "Métier", required: false, collection: Job::JOB_TYPE_ARRAY, input_html: { class: 'simple-form-field' } %>
     <%= f.input :job_location, label: "Ville", required: false, input_html: { class: 'simple-form-field' } %>
-    <%= f.input :job_remote, label: "Home office", required: false, collection: Job::JOB_REMOTE_ARRAY, input_html: { class: 'simple-form-field' } %>
+    <%= f.input :job_remote, label: "Home office", required: false, collection: Job::JOB_REMOTE_ARRAY, value: @profile.job_remote ,input_html: { class: 'simple-form-field' } %>
     <%= f.input :job_contract, label: "Type de contrat", required: false, collection: Job::JOB_CONTRACT_ARRAY, input_html: { class: 'simple-form-field' } %>
     <%= f.input :job_min_salary, label: "Salaire min", required: false, input_html: { class: 'simple-form-field' }  %>
     <%= f.submit "Go Laura!", class: "update-btn" %>
