@@ -16,38 +16,3 @@
 
 <%= render 'index_modal' %>
 
-
-<% content_for(:js) do %>
-  <%= javascript_tag do  %>
-
-    var btnsSupr = document.querySelectorAll('.delete-btn');
-
-    btnsSupr.forEach((element) => {
-      element.style.display = 'none';
-    });
-
-
-    var unbookmark = document.querySelectorAll('.unbookmark-btn');
-    console.log(unbookmark);
-
-    unbookmark.forEach((element) => {
-        element.addEventListener("click", (event) => {
-
-          event.target.parentElement.parentElement.parentElement.querySelector('.delete-btn').click();
-      });
-    });
-
-
-    var bookmark = document.querySelectorAll('.bookmark-btn');
-    console.log(bookmark);
-
-    bookmark.forEach((element) => {
-        element.addEventListener("click", (event) => {
-
-          event.target.parentElement.parentElement.parentElement.querySelector('.delete-btn').click();
-      });
-    });
-
-  <% end %>
-<% end %>
-

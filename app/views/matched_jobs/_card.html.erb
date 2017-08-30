@@ -2,7 +2,7 @@
   <%= link_to profile_matched_job_path(@profile, matched_job) do %>
     <div class="mycard">
       <div class="line-1">
-        <div class="title"><%= matched_job.job.company.name.upcase %></div>
+        <div class="title"><%= matched_job.job.company.name.upcase %> - <%= matched_job.status %> - id: <%= matched_job.id %></div>
           <%= image_tag matched_job.job.company.logo.url(:logo), :class => "card-user"%>
         </div>
       <div class="line-2">
@@ -21,15 +21,15 @@
             <% if matched_job.status == 'Bookmarked' %>
               <%= simple_form_for [@profile, matched_job], remote: true do |f| %>
               <%= f.input :status, as: :hidden, input_html: { value: nil } %>
-              <%= f.button :submit, "coeur", class: "btn btn-success delete-btn" %>
-              <%= link_to profile_matched_jobs_path do %>
+              <%= f.button :submit, "coeur",as: :hidden, class: "btn btn-success delete-btn" %>
+              <%= link_to profile_matched_jobs_path, class: "bookmark-link" do %>
                 <span><i class="fa fa-heart unbookmark-btn" aria-hidden="true" method:bookmark></i> </span>
               <% end %>
               <% end %>
             <% else %>
               <%= simple_form_for [@profile, matched_job], remote: true do |f| %>
               <%= f.input :status, as: :hidden, input_html: { value: 'Bookmarked' } %>
-              <%= f.button :submit, 'btn', class: "delete-btn", data: {target: "#modal-bookmarked", toggle: "modal"} %>
+              <%= f.button :submit, 'btn', as: :hidden, class: "delete-btn", data: {target: "#modal-bookmarked", toggle: "modal"} %>
 
               <%= link_to profile_matched_jobs_path do %>
                 <span><i class="fa fa-heart-o coeur bookmark-btn" aria-hidden="true" method:bookmark></i> </span>
@@ -62,3 +62,50 @@
       </div>
 <% end %>
 <% end %>
+
+<% content_for(:js) do %>
+  <%= javascript_tag do  %>
+
+    <!-- <script> -->
+    var btnsSupr = document.querySelectorAll('.delete-btn');
+
+    btnsSupr.forEach((element) => {
+      element.style.display = 'none';
+    });
+
+
+    var unbookmark = document.querySelectorAll('.unbookmark-btn');
+    console.log(unbookmark);
+
+    unbookmark.forEach((element) => {
+        element.addEventListener("click", (event) => {
+
+          event.target.parentElement.parentElement.parentElement.querySelector('.delete-btn').click();
+      });
+    });
+
+
+    var bookmark = document.querySelectorAll('.bookmark-btn');
+    console.log(bookmark);
+
+    bookmark.forEach((element) => {
+        element.addEventListener("click", (event) => {
+
+          event.target.parentElement.parentElement.parentElement.querySelector('.delete-btn').click();
+      });
+    });
+
+
+    var stopaction = document.querySelectorAll('.bookmark-link');
+    console.log(bookmark);
+
+    stopaction.forEach((element) => {
+      element.addEventListener("click", (event) => {
+        event.target.parentElement.parentElement.parentElement.preventDefault()
+      });
+    });
+
+  <% end %>
+<% end %>
+
+
