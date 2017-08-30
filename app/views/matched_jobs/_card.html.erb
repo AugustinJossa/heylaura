@@ -21,7 +21,7 @@
             <% if matched_job.status == 'Bookmarked' %>
               <%= simple_form_for [@profile, matched_job], remote: true do |f| %>
               <%= f.input :status, as: :hidden, input_html: { value: nil } %>
-              <%= f.button :submit, "coeur", class: "btn btn-success delete-btn" %>
+              <%= f.button :submit, "coeur",as: :hidden, class: "btn btn-success delete-btn" %>
               <%= link_to profile_matched_jobs_path do %>
                 <span><i class="fa fa-heart unbookmark-btn" aria-hidden="true" method:bookmark></i> </span>
               <% end %>
@@ -29,7 +29,7 @@
             <% else %>
               <%= simple_form_for [@profile, matched_job], remote: true do |f| %>
               <%= f.input :status, as: :hidden, input_html: { value: 'Bookmarked' } %>
-              <%= f.button :submit, 'btn', class: "delete-btn", data: {target: "#modal-bookmarked", toggle: "modal"} %>
+              <%= f.button :submit, 'btn', as: :hidden, class: "delete-btn", data: {target: "#modal-bookmarked", toggle: "modal"} %>
 
               <%= link_to profile_matched_jobs_path do %>
                 <span><i class="fa fa-heart-o coeur bookmark-btn" aria-hidden="true" method:bookmark></i> </span>
