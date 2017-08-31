@@ -78,9 +78,9 @@ const runCompanyQuestionnaire = () => {
 
 const runJobQuestionnaire = () => {
   if (iJob === 0) {
-    jobTags = createJobTags(currentProfile.company_type, jobTypes, "Tout", jobSubTypes["marketing"], jobRemotes, jobContracts, jobSalaries);
+    jobTags = createJobTags(currentProfile.company_type, jobTypes, "Tout", jobSubTypes["Marketing & communication"], jobRemotes, jobContracts, jobSalaries);
   }
-  if (iJob === 2) { // update with selectedJobType
+  if (iJob === 1) { // update with selectedJobType
     currentJobType = currentProfile.job_type;
     jobTags = createJobTags(currentProfile.company_type, jobTypes, currentJobType, jobSubTypes[currentJobType], jobRemotes, jobContracts, jobSalaries);
   }

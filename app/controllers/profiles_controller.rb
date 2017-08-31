@@ -139,8 +139,8 @@ class ProfilesController < ApplicationController
 
   def initial_tag
     [
-      chat_init_text("first_name", "Salut&&Je m'appelle Laura et toi ?", "Ton prénom"),
-      chat_init_radio("end", "Merci pour ta patience. C'est fini. && Tu veux voir les jobs qui te correspondent ?", ["Go"])
+      chat_init_text("first_name", "Salut. Je m'appelle Laura et toi ?", "Ton prénom"),
+      chat_init_radio("end", "Merci pour ta patience. C'est fini. Tu veux voir les jobs qui te correspondent ?", ["Go"])
     ]
   end
 end
