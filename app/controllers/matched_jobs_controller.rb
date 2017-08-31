@@ -1,5 +1,7 @@
 class MatchedJobsController < ApplicationController
 
+  layout 'show_layout', only: [:show]
+
   skip_before_action :authenticate_user!, only: [:index, :update]
   before_action :categories, only: [:index]
   before_action :set_profile_and_user, only: [:show, :update, :index]
@@ -62,7 +64,7 @@ class MatchedJobsController < ApplicationController
     @matched_job = MatchedJob.find(params[:id])
     authorize @matched_job
   end
-  
+
 
   private
 
