@@ -1,25 +1,14 @@
-<div class="applications">
-	<div class="row">
-		<div class="col-xs-12">
-			<div class= dashboard-title>
-				<h2>  <i class="fa fa-star" aria-hidden="true"></i> Candidatures </h2>
-			</div>
-		</div>
-	</div>
+<section class="wrapper">
+	<ul class="tabs">
+		<li class="active">SELECTION</li>
+		<li>CANDIDATURES</li>
+	</ul>
 
-	<div class="row">
-
-		<div class="col-xs-12 col-sm-4">
-			<div class="card-status status-accepted text-center">
-				<div class="badge-count">
-					<%= @mj_accepted.count%>
-				</div>
-				<div class="status-name">
-					<h2>candidatures acceptées </h2>
-					<i class="fa fa-check-circle" aria-hidden="true"></i> 
-				</div>
+	<ul class="tab__content">
+		<li class="active">
+			<div class="content__wrapper">
 				<div class="jobs">
-					<% @mj_accepted.first(3).each do |mj|%>
+					<% @mj_bookmarked.each do |mj|%>
 					
 					<div class="job">
 						<div class = "logo"> </div>
@@ -27,94 +16,165 @@
 							<p> <strong> <%= link_to mj.job.title, profile_matched_job_path(@profile, mj.id)%> </strong> </p>
 							<p><%= mj.job.company.name %></p>
 						</div>
+						<button type="button" class="btn btn-secondary btn-danger btn-sm btn-postuler"> <%= link_to  "Postuler", profile_matched_job_path(@profile, mj.id)%> </button>
 					</div>
 					<% end %>
 				</div>
-        
-				<div class = btn-voir-plus>
-				<h2> <%= link_to "Voir plus",accepted_user_path(current_user) %> </h2>
-				</div>
-
-
-			</div>
-		</div>
-
-		<div class="col-xs-12 col-sm-4">
-			<div class="card-status status-pending text-center">
-				<div class="badge-count">
-					<%= @mj_pending.count%>
-				</div>
-				<div class="status-name">
-					<h2> candidatures en attente </h2>
-					<i class="fa fa-clock-o" aria-hidden="true"></i>
-
-				</div>
-				<div class="jobs">
-					<% @mj_pending.first(3).each do |mj|%>
-					
-					<div class="job">
-						<div class = "logo"> </div>
-						<div class="job-desc"> 
-							<p> <strong> <%= link_to mj.job.title, profile_matched_job_path(@profile, mj.id)%> </strong> </p>
-							<p><%= mj.job.company.name %></p>
-						</div>
-					<!-- 	<div class="btn-danger"> Voir </div> -->
-					</div>
-					<% end %>
-				</div>
-				<% if @mj_pending.size > 3 %>
-				<%= render "users/button" %>
-				<% else %>
-				<div> </div>
-				<% end %>
-			</div>
-		</div>
-
-
-		<div class="col-xs-12 col-sm-4">
-			<div class="card-status status-rejected text-center">
-				<div class="badge-count">
-					<%= @mj_rejected.count%>
-				</div>
-				<div class="status-name">
-					<h2> candidatures rejetées </h2>
-					<i class="fa fa-frown-o" aria-hidden="true"></i>
-				</div>
-				<div class="jobs">
-					<% @mj_rejected.first(3).each do |mj|%>
-					
-					<div class="job">
-						<div class = "logo"> </div>
-						<div class="job-desc"> 
-							<p> <strong> <%= link_to mj.job.title, profile_matched_job_path(@profile, mj.id)%> </strong> </p>
-							<p><%= mj.job.company.name %></p>
-						</div>
-					</div>
-					<% end %>
-				</div>
-				<% if @mj_rejected.size > 3 %>
-				<%= render "users/button" %>
-				<% else %>
-				<div> </div>
-				<% end %>
-			</div>
-		</div>	
-	</div>
-
-	<div class="row">
-		<div class="col-xs-12">
-			<div class= dashboard-title>
-				<h2> <i class="fa fa-heart" aria-hidden="true"></i>  Favoris </h2>
-			</div>
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="col-xs-12 col-sm-4">
-			<div class= dashboard-title>
 				
 			</div>
-		</div>
-	</div>
+		</li>
+		<li>
+			<div class="content__wrapper">
+				
+<ul class="accordeon">
+  
+  <li class="accordeon_item one">
+    <h3 class="accordeon_title"> <i class="fa fa-check-circle" aria-hidden="true"></i> Candidatures acceptees</h3>
+    <div class="accordeon_content">
+    	<div class="jobs">
+					<% @mj_accepted.each do |mj|%>
+					
+					<div class="job">
+						<div class = "logo"> </div>
+						<div class="job-desc"> 
+							<p> <strong> <%= link_to mj.job.title, profile_matched_job_path(@profile, mj.id)%> </strong> </p>
+							<p><%= mj.job.company.name %></p>
+						</div>
+						<button type="button" class="btn btn-secondary btn-danger btn-sm btn-postuler" id="entretien"> <%= link_to  "Preparer l'entretien", preparation_matched_job_path(mj.id)%> </button>
+					</div>
+					<% end %>
+				</div>
+    </div>
+  </li>
+  
+  <li class="accordeon_item">
+    <h3 class="accordeon_title">Candidatures en attente</h3>
+    <div class="accordeon_content">
+      <div class="jobs">
+					<% @mj_pending.each do |mj|%>
+					
+					<div class="job">
+						<div class = "logo"> </div>
+						<div class="job-desc"> 
+							<p> <strong> <%= link_to mj.job.title, profile_matched_job_path(@profile, mj.id)%> </strong> </p>
+							<p><%= mj.job.company.name %></p>
+						</div>
+						<button type="button" class="btn btn-secondary btn-danger btn-sm btn-postuler" id="entretien"> <%= link_to  "Relancer", preparation_matched_job_path(mj.id)%> </button>
+					</div>
+					<% end %>
+				</div>
+    </div>
+  </li>
+  <li class="accordeon_item">
+    <h3 class="accordeon_title">Candidatures rejetees</h3>
+    <div class="accordeon_content">
+      <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+      <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, quibusdam?</p>
+    </div>
+  </li>
+</ul>	
+			</div>
+		</li>
+	</ul>
+</section>
 
-</div>
+
+<% content_for(:js) do %>
+  <%= javascript_tag do  %>
+
+
+	$(document).ready(function(){
+	
+	// Variables
+	var clickedTab = $(".tabs > .active");
+	var tabWrapper = $(".tab__content");
+	var activeTab = tabWrapper.find(".active");
+	var activeTabHeight = activeTab.outerHeight();
+	
+	// Show tab on page load
+	activeTab.show();
+	
+	// Set height of wrapper on page load
+	tabWrapper.height(activeTabHeight);
+	
+	$(".tabs > li").on("click", function() {
+		
+		// Remove class from active tab
+		$(".tabs > li").removeClass("active");
+		
+		// Add class active to clicked tab
+		$(this).addClass("active");
+		
+		// Update clickedTab variable
+		clickedTab = $(".tabs .active");
+		
+		// fade out active tab
+		activeTab.fadeOut(250, function() {
+			
+			// Remove active class all tabs
+			$(".tab__content > li").removeClass("active");
+			
+			// Get index of clicked tab
+			var clickedTabIndex = clickedTab.index();
+
+			// Add class active to corresponding tab
+			$(".tab__content > li").eq(clickedTabIndex).addClass("active");
+			
+			// update new active tab
+			activeTab = $(".tab__content > .active");
+			
+			// Update variable
+			activeTabHeight = activeTab.outerHeight();
+			
+			// Animate height of wrapper to new tab height
+			tabWrapper.stop().delay(50).animate({
+				height: activeTabHeight
+			}, 500, function() {
+				
+				// Fade in active tab
+				activeTab.delay(50).fadeIn(250);
+				
+			});
+		});
+	});
+	
+	// Variables
+	var colorButton = $(".colors li");
+	
+	colorButton.on("click", function(){
+		
+		// Remove class from currently active button
+		$(".colors > li").removeClass("active-color");
+		
+		// Add class active to clicked button
+		$(this).addClass("active-color");
+		
+		// Get background color of clicked
+		var newColor = $(this).attr("data-color");
+		
+		// Change background of everything with class .bg-color
+		$(".bg-color").css("background-color", newColor);
+		
+		// Change color of everything with class .text-color
+		$(".text-color").css("color", newColor);
+	});
+});
+
+$(function(){
+  // hide all content
+  $('.accordeon_content').hide();
+  
+  $('.accordeon_title').click(function(){
+    $(this).parent().toggleClass('active').siblings().removeClass('active');
+    $('.accordeon_content').slideUp();
+    
+    if(!$(this).next().is(":visible")) {
+			$(this).next().slideDown();
+		}
+  });
+});
+
+
+  
+    <% end %>
+<% end %>
