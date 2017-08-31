@@ -27,7 +27,7 @@ class UsersController < ApplicationController
       redirect_to(profile_matched_jobs_path(@profile))
     elsif session[:profile_id] && Profile.find(session[:profile_id])
     # a profile has been registered in the session cookies > add it to the user
-      flash[:notice] = "J'ai rattaché ton profil à ton compte. Bravo !"
+      flash[:notice] = "J'ai rattaché ton profil à ton compte. Bonne recherche !"
       @profile = Profile.find(session[:profile_id])
       session[:profile_id] = nil
       @profile.user = current_user

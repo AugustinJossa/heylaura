@@ -1,3 +1,9 @@
+
+<div class= dashboard-title style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.5)), url('http://res.cloudinary.com/dkalpv2xf/image/upload/g_face/v1504185591/woman-hand-smartphone-desk_stmfcu.jpg')">
+<h2> <br><br>DASHBOARD</h2>
+</div>
+
+
 <section class="wrapper">
 	<ul class="tabs">
 		<li class="active">SELECTION</li>
@@ -29,7 +35,7 @@
 <ul class="accordeon">
   
   <li class="accordeon_item one">
-    <h3 class="accordeon_title"> <i class="fa fa-check-circle" aria-hidden="true"></i>  Candidatures acceptees</h3>
+    <h3 class="accordeon_title"> <i class="fa fa-check-circle fa-accepted" aria-hidden="true"></i>    Candidatures acceptees <span class="badge badge-default accepted"><%= @mj_accepted.count %></span> </h3>
     <div class="accordeon_content">
     	<div class="jobs">
 					<% @mj_accepted.each do |mj|%>
@@ -40,15 +46,16 @@
 							<p> <strong> <%= link_to mj.job.title, profile_matched_job_path(@profile, mj.id)%> </strong> </p>
 							<p><%= mj.job.company.name %></p>
 						</div>
-						<button type="button" class="btn btn-secondary btn-danger btn-sm btn-postuler" id="entretien"> <%= link_to  "Preparer l'entretien", preparation_matched_job_path(mj.id)%> </button>
+						<button type="button" class="btn btn-secondary btn-danger btn-sm btn-postuler accepted" > <%= link_to  "Preparer l'entretien", preparation_matched_job_path(mj.id)%> </button>
 					</div>
 					<% end %>
-				</div>
+		</div>
     </div>
   </li>
   
 	<li class="accordeon_item">
-		<h3 class="accordeon_title"><i class="fa fa-history" aria-hidden="true"></i>  Candidatures en attente</h3>
+		<h3 class="accordeon_title"><i class="fa fa-history fa-pending" aria-hidden="true"></i>    Candidatures en attente
+		<span class="badge badge-default pending"><%= @mj_pending.count %></span> </h3>
 		<div class="accordeon_content">
 			
 			<div class="jobs">
@@ -59,7 +66,7 @@
 						<p> <strong> <%= link_to mj.job.title, profile_matched_job_path(@profile, mj.id)%> </strong> </p>
 						<p><%= mj.job.company.name %></p>
 					</div>
-					<button type="button" class="btn btn-secondary btn-danger btn-sm btn-postuler" id="entretien"> <%= link_to  "Relancer", preparation_matched_job_path(mj.id)%> </button>
+					<button type="button" class="btn btn-secondary btn-danger btn-sm btn-postuler pending" id="entretien"> <%= link_to  "Relancer", preparation_matched_job_path(mj.id)%> </button>
 				</div>
 				<% end %>
 			</div>
@@ -67,7 +74,7 @@
 	</li>
  
 	<li class="accordeon_item">
-		<h3 class="accordeon_title"><i class="fa fa-ban" aria-hidden="true"></i>  Candidatures rejetees</h3>
+		<h3 class="accordeon_title"><i class="fa fa-ban fa-rejected" aria-hidden="true"></i>    Candidatures rejetees <span class="badge badge-default rejected"><%= @mj_rejected.count %></span> </h3>
 		<div class="accordeon_content">
 						<div class="jobs">
 				<% @mj_rejected.each do |mj|%>
