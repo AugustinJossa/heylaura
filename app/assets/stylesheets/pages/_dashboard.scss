@@ -1,9 +1,17 @@
 .dashboard-title {
 	padding-top : 30px;
-	color: rgba(0,0,0,0.6);
-	text-shadow: 0 1px 3px lightgrey;
+	color: white;
+  padding:10px;
+  margin:5px;
+	text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+  height: 230px;
+  background-size: cover !important;
+  vertical-align: center;
+  align-items: center;
+  text-align: center;
+
 	h2 {
-	  	font-size : 20px;
+	  	font-size : 30px;
 	  }
 	 i {
 	 	color:rgba(239, 100, 97, 0.9);
@@ -15,37 +23,42 @@
   position: relative;
   text-align: center;
   margin: 25px 5px 20px 5px;
-  padding: 25px 10px 25px 10px;
+  // padding: 25px 10px 25px 10px;
   align-items: center;
-  height: 500px;
-  border-top: 3px solid rgba(239, 100, 97, 0.9);
+  height: 50vh;
+  // border-top: 3px solid rgba(239, 100, 97, 0.9);
 }
 
 
-.badge-count{
-  width: 60px;
-  height: 60px;
-  display:flex;
-  border-radius: 50%;
-  box-shadow: 0 1px 2px red;
-  justify-content: space-around;
-  align-items: center;
-  text-shadow: 0 1px 3px red;
-  color:red;
-  opacity:0.6;
-  font-size: 24px;
-  margin: auto;
-  }
+// .badge-count{
+//   width: 60px;
+//   height: 60px;
+//   display:flex;
+//   border-radius: 50%;
+//   box-shadow: 0 1px 2px red;
+//   justify-content: space-around;
+//   align-items: center;
+//   text-shadow: 0 1px 3px red;
+//   color:red;
+//   opacity:0.6;
+//   font-size: 24px;
+//   margin: auto;
+//   }
 
 .status-name {
 	padding-top: 10px;
-	padding-bottom:40px;
+	// padding-bottom:40px;
+  background-size: cover !important;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+  height: 175px;
+  vertical-align: center;
+  align-items: center;
 	h2 {
-	font-size: 18px;
-	color:red;
-  	opacity:0.6;
-  	margin-top: 25px;
-  	margin-bottom: 20px;
+	font-size: 20px;
+	color:white;
+  // opacity:0.9;
+  	// margin-top: 25px;
+  	// margin-bottom: 20px;
 	}
   p {
     padding-top: 10px;
@@ -55,13 +68,16 @@
   }
 }
 
+.jobs{
+  margin-top: 20px;
+}
+
  .job {
   display: flex;
   align-items: center;
   padding: 5px;
   border-bottom: 1px solid rgba(220,224,244,0.4);
   margin-left: 5px;
-  
 }
 
 
@@ -73,7 +89,7 @@
   flex-grow: 1;
   padding-left: 10px;
   padding-right: 10px;
-  font-size: 13px;
+  font-size: 15px;
   color: rgba(0,0,0,0.6);
   text-align: left;
   // font-size: 10px;
@@ -315,9 +331,7 @@ $color2: #5F9CCA;
 .active > .accordeon_title {
   border-radius: $radius $radius 0 0;
 
-  &:after {
-    content: '\f056';
-  }
+
 }
 
 .accordeon_title {
@@ -332,12 +346,10 @@ $color2: #5F9CCA;
   box-shadow: 0 1px 2px grey;
   color: rgba(0,0,0,0.6);
 
-    
-  &:after {
 
-    float: right;
-    content: '\f055';
-    color: $red;
+  
+  span{
+    float:right;
   }
 
 
@@ -348,6 +360,57 @@ $color2: #5F9CCA;
   box-shadow: inset 0 -3px $color1;
   border-radius: $radius;
 }
+
+.fa-accepted{
+color: $green;
+margin-right: 5px;
+}
+
+.fa-pending{
+color: $orange; 
+margin-right: 5px;}
+
+.fa-rejected {
+color: $red; 
+margin-right: 5px;
+}
+
+.accepted {
+background-color: $green;
+opacity: 0.9;
+color: white;
+font: open-sans;
+font-size: 14px;
+border-color: $green;
+}
+.accepted:hover {
+background-color: $green;
+opacity: 0.6;
+border-color: $green;
+}
+
+.pending {
+background-color: $orange;
+opacity: 0.9;
+color:white;
+font: open-sans;
+font-size: 14px;
+border-color: $orange;
+
+.pending:hover {
+background-color: $orange;
+opacity: 0.6;
+border-color: $orange;
+}
+}
+
+.rejected {
+background-color: $red; 
+opacity:0.9;
+color:white;
+font: open-sans;
+font-size: 14px;
+border-color: $red}
 
 
 

@@ -1,41 +1,40 @@
 <div class="applications">
 	<div class="row">
 		<div class="col-xs-12">
-			<div class= dashboard-title>
-				<h2>  <i class="fa fa-star" aria-hidden="true"></i> Ta checklist </h2>
+			<div class= dashboard-title style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.5)), url('http://res.cloudinary.com/dkalpv2xf/image/upload/g_face/v1504185591/woman-hand-smartphone-desk_stmfcu.jpg')">
+				<h2> <br> <!-- <i class="fa fa-star" aria-hidden="true"></i> --> PREPARATION  <br><br><%= @matched_job.job.title %> chez <%= @matched_job.job.company.name %></h2>
 			</div>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-12 col-sm-4">
 			<div class="card-status status-accepted text-center">
-<!-- 				<div class="badge-count">
-					#1
-				</div> -->
-				<div class="status-name">
-					<h2> L'ENTREPRISE </h2>
-					<p> <br> <%= @matched_job.job.company.name %> </p>
+				<div class="status-name" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('http://res.cloudinary.com/dkalpv2xf/image/upload/c_fill,w_350/v1504176836/m4afbxrwvk4ubzaddret.jpg');)">
+        			<h2> <br><br>L'ENTREPRISE </h2>
 				</div>
+<!-- 				<div class="status-name">
+					<h2> L'ENTREPRISE </h2>
+				</div> -->
 				<div class="jobs">
 					
 					<div class="job">
 						<div class="job-desc">
 							<% url = "https://www.#{@matched_job.job.company.name}.fr" %>
-							<p> <strong> <%= link_to "Site web d'#{@matched_job.job.company.name}",url,target: "_blank" %> </strong> <i class="fa fa-external-link" aria-hidden="true"></i> </p>
+							<p> <strong> <%= link_to "Le site web de#{@matched_job.job.company.name}",url,target: "_blank" %> </strong> <i class="fa fa-external-link" aria-hidden="true"></i> </p>
 						</div>
 						
 					</div>
 					<div class="job">
 						<div class="job-desc">
 							<% url = "https://www.google.fr/search?q=#{@matched_job.job.company.name}&source=lnms&tbm=nws" %>
-							<p> <strong> <%= link_to "Actualites de l'entreprise",url, target: "_blank" %> </strong> <i class="fa fa-external-link" aria-hidden="true"></i> </p>
+							<p> <strong> <%= link_to " Les actualités de l'entreprise",url, target: "_blank" %> </strong> <i class="fa fa-external-link" aria-hidden="true"></i> </p>
 						</div>
 					</div>
 					
 					<div class="job">
 						<div class="job-desc">
 							<% url = "https://www.google.fr/search?source=hp&q=linkedin+#{@matched_job.job.company.name}" %>
-							<p> <strong> <%= link_to "L'equipe",url, target: "_blank" %> </strong> <i class="fa fa-external-link" aria-hidden="true"></i> </p>
+							<p> <strong> <%= link_to "L'équipe",url, target: "_blank" %> </strong> <i class="fa fa-external-link" aria-hidden="true"></i> </p>
 						</div>
 					</div>
 					
@@ -44,9 +43,8 @@
 		</div>
 		<div class="col-xs-12 col-sm-4">
 			<div class="card-status status-accepted text-center">
-				<div class="status-name">
-					<h2> LE POSTE </h2>
-					<p> <%= @matched_job.job.title %> </p>
+				<div class="status-name" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('http://res.cloudinary.com/dkalpv2xf/image/upload/c_fill,h_175,w_350/v1504176871/i0ovyuymxt5g1jel2dsr.jpg');)">
+					<h2> <br><br>LE POSTE </h2>
 				</div>
 			
 				<div class="jobs">
@@ -54,7 +52,7 @@
 					<div class="job">
 						<div class="job-desc">
 							<% url = "https://www.google.fr/search?source=hp&q=fiche+metier+#{@matched_job.job.title.gsub!(/\s/,'+')}" %>
-							<p> <strong> <%= link_to "Les competences types", url, target: "_blank" %> </strong> 
+							<p> <strong> <%= link_to "Les compétences types", url, target: "_blank" %> </strong> 
 							<i class="fa fa-external-link" aria-hidden="true"></i> 	</p>
 							
 						</div>
@@ -75,10 +73,8 @@
 		</div>
 				<div class="col-xs-12 col-sm-4">
 			<div class="card-status status-accepted text-center">
-				<div class="status-name">
-					<h2> TOI </h2>
-					<p>    <br> <br> </p>
-<!-- 					<p> <%= @matched_job.job.title %> </p> -->
+				<div class="status-name" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('http://res.cloudinary.com/dkalpv2xf/image/upload/c_fill,w_350/v1504182033/cwvlywjcxgqoimvhbnnu.jpg');)">
+					<h2> <br><br>TOI </h2>
 				</div>
 			
 				<div class="jobs">
@@ -86,7 +82,7 @@
 					<div class="job">
 						<div class="job-desc">
 							<% url = "https://www.google.fr/search?source=hp&q=fiche+metier+#{@matched_job.job.title.gsub!(/\s/,'+')}" %>
-							<p> <strong> <%= link_to "Tes competences", url, target: "_blank" %> </strong> 
+							<p> <strong> <%= link_to "Tes expériences et compétences", url, target: "_blank" %> </strong> 
 							<i class="fa fa-external-link" aria-hidden="true"></i> 	</p>
 							
 						</div>
@@ -94,8 +90,8 @@
 					</div>
 					<div class="job">
 						<div class="job-desc">
-							<% url = "https://docs.google.com/document/d/1sUc4jn3JgenOAg49OG7adQxGet0nzz-wWhTJqNT1628/edit" %>
-							<p> <strong> <%= link_to "Tes experiences ", url, target: "_blank" %> </strong>
+							<% url = "https://docs.google.com/document/d/1WMhhNFUqxRuZyyF1LM77udZOOP7CP6eHhjxIsL49akM/edit?usp=sharing" %>
+							<p> <strong> <%= link_to "Ton anti-sèche pour l'entretien", url, target: "_blank" %> </strong>
 							<i class="fa fa-external-link" aria-hidden="true"></i> 	</p>
 
 						</div>

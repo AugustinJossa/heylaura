@@ -35,9 +35,9 @@
 				 <% else %>
 
 						<%= simple_form_for [@profile, @matched_job] do |f| %>
-		  			<%= f.input :message, placeholder: 'Laissez un message au recruteur'%>
-		  			<%= f.input :status, as: :hidden, input_html: { value: 'Pending' } %>
-		  			<%= f.button :submit, "POSTULER", class: "btn btn-danger", data: {target: "#myModalBravo", toggle: "modal"} %>
+		  				<%= f.input :message, placeholder: 'Laissez un message au recruteur'%>
+		  				<%= f.input :status, as: :hidden, input_html: { value: 'Pending' } %>
+		  				<%= f.button :submit, "POSTULER", class: "btn btn-danger", data: {target: "#myModalBravo", toggle: "modal"} %>
 						<% end %>
 					<% end %>
 				</div>
