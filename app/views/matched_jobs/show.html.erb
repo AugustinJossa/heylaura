@@ -12,7 +12,7 @@
 <div class='container'>
   <div class='flexbox-show'>
     <div class='flex-item-1-job-show'>
-      <div class='trait-inf'> En bref </div>
+      <div class='trait-inf-2'> En bref </div>
       <div class="meter meter-job">
         <span style="width:<%= @matched_job.matching*100 %>%"></span>
       </div>
@@ -26,27 +26,15 @@
 
     </div>
     <div class='flex-item-2-job-show'>
-      <div class="">
-        <div class="line-2-job">
-          <div class="title-company">
+
           <div class='trait-inf-2'> Le poste </div>
           <!-- <h2> Le poste </h2> -->
-          </div>
+          <p class='font-size-show-14'> <%= @matched_job.job.description %></p>
 
-          <p><% if @matched_job.job.description.split(" ").length > 500 %>
-            <%= "#{@matched_job.job.description.split(" ")[0..2500].join(" ")} ..." %>
-            <%=  %>
-            <% else %>
-            <%= @matched_job.job.description %>
-            <% end %>
-          </p>
-
-          </div>
-
-        </div>
-      </div>
+    </div>
     </div>
 
+    <div class="flexbox-show">
     <div class=flex-item-3-job-show>
        <div class='trait-inf-2'> Interessé ? </div>
       <div class="application-form" >
@@ -67,6 +55,7 @@
           <% end %>
         </div>
       </div>
+    </div>
   </div>
 </div>
 <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
