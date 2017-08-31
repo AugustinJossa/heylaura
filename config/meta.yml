@@ -1,0 +1,5 @@
+meta_product_name: "Laura app"
+meta_title: "Laura app - La discussion qui va booster ta carrière"
+meta_description: "Discute avec notre chatbot et découvre les offres qui matchent avec ton profil"
+meta_image: "background_2.jpeg"             # should exist in `app/assets/images/`
+twitter_account: ""   # required for Twitter Cards
