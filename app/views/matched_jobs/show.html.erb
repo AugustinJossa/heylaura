@@ -1,54 +1,81 @@
-<h1>L'offre en details</h1>
-<div class='white-wraper'>
-	
-	<div class='flexbox'>
-		
-		<div class='flex-item-1-job'>
-			<div class='trait-inf'> En bref </div>
-			
-			<div class="meter meter-job">
-				<span style="width:<%= @matched_job.matching*100 %>%"></span>
-			</div>
-			
-			<div class="pourcentage-job"> <%= (@matched_job.matching*100).to_i.round %>% de matching
-			</div>
-			
-			<div class="tags-2">
-				<!-- <div class="tags-elements-adapt"></div> -->
-				<div class="tags-elements"><%= @matched_job.job.contract %></div>
-				<div class="tags-elements"><%= "#{@matched_job.job.salary.round(0)} €" %></div>
-				<div class="tags-elements"><%= @matched_job.job.remote %></div>
-				<div class="tags-elements"><%= @matched_job.job.job_type %></div>
-			</div>
-			
-			<div class='trait-inf'> Interessé ? </div>
-			<div class="tags-3">
+<div class="banner-show" style="background-image: linear-gradient(-225deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.8) 50%), url('<%= cl_image_path 'fa784trjuxv9ivebnixv', height: 800, width: 1200, crop: :fill; %>');background-position-y: 490px" >
 
-				<div class="application-form" >
-						<% if @matched_job.status == ("Pending" || "Approved" || "Rejected") %>
-					
-							<%= simple_form_for [@profile, @matched_job] do |f| %>
-							<%= f.input :message, placeholder: 'Laissez un message au recruteur'%>
-							<%= f.button :submit, "POSTULER", class: "btn btn-danger", data: {target: "#myModalOups", toggle: "modal"} %>
-							<% end %>
-				
-				 <% else %>
 
-						<%= simple_form_for [@profile, @matched_job] do |f| %>
-		  			<%= f.input :message, placeholder: 'Laissez un message au recruteur'%>
-		  			<%= f.input :status, as: :hidden, input_html: { value: 'Pending' } %>
-		  			<%= f.button :submit, "POSTULER", class: "btn btn-danger", data: {target: "#myModalBravo", toggle: "modal"} %>
-						<% end %>
-					<% end %>
-				</div>
 
-			</div>
-		</div>
-		
+  <div class="banner-content-show">
+    <h1><%= @matched_job.job.company.name.upcase %></h1>
+    <p> <%= @matched_job.job.title %> </p>
+  </div>
+</div>
+
+<div class='container'>
+  <div class='flexbox-show'>
+    <div class='flex-item-1-job-show'>
+      <div class='trait-inf'> En bref </div>
+      <div class="meter meter-job">
+        <span style="width:<%= @matched_job.matching*100 %>%"></span>
+      </div>
+      <div class="pourcentage-job"> <%= (@matched_job.matching*100).to_i.round %>% de matching
+      </div>
+      <div class="tags-elements-show"><%= @matched_job.job.contract %></div>
+      <div class="tags-elements-show"><%= "#{@matched_job.job.salary.round(0)} €" %></div>
+      <div class="tags-elements-show"><%= @matched_job.job.remote %></div>
+      <div class="tags-elements-show"><%= @matched_job.job.job_type %></div>
+
+
+    </div>
+    <div class='flex-item-2-job-show'>
+      <div class="">
+        <div class="line-2-job">
+          <div class="title-company">
+          <div class='trait-inf-2'> Le poste </div>
+          <!-- <h2> Le poste </h2> -->
+          </div>
+
+          <p><% if @matched_job.job.description.split(" ").length > 500 %>
+            <%= "#{@matched_job.job.description.split(" ")[0..2500].join(" ")} ..." %>
+            <%=  %>
+            <% else %>
+            <%= @matched_job.job.description %>
+            <% end %>
+          </p>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class=flex-item-3-job-show>
+       <div class='trait-inf-2'> Interessé ? </div>
+      <div class="application-form" >
+            <% if @matched_job.status == ("Pending" || "Approved" || "Rejected") %>
+
+              <%= simple_form_for [@profile, @matched_job] do |f| %>
+              <%= f.input :message, placeholder: 'Laissez un message au recruteur'%>
+              <%= f.button :submit, "POSTULER", class: "btn btn-danger", data: {target: "#myModalOups", toggle: "modal"} %>
+              <% end %>
+
+         <% else %>
+
+            <%= simple_form_for [@profile, @matched_job] do |f| %>
+            <%= f.input :message, placeholder: 'Laissez un message au recruteur', input_html: { class: 'simple-form-field-show' }, rows: 20%>
+            <%= f.input :status, as: :hidden, input_html: { value: 'Pending' } %>
+            <%= f.button :submit, "POSTULER", class: "btn btn-danger", data: {target: "#myModalBravo", toggle: "modal"} %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+  </div>
+</div>
+<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
+
+
+
 		  <!-- Modal -->
 		  <div class="modal fade" id="myModalOups" role="dialog">
 		    <div class="modal-dialog">
-		    
+
 		      <!-- Modal content-->
 		      <div class="modal-content">
 		        <div class="modal-header">
@@ -66,15 +93,15 @@
 		          	<%= link_to "DASHBOARD",  user_path(@user) %>
 		          	</div>
 		        </div>
-		      </div>	
-		      
+		      </div>
+
 		    </div>
 		  </div>
 
 			<!-- Modal -->
 		  <div class="modal fade" id="myModalBravo" role="dialog">
 		    <div class="modal-dialog">
-		    
+
 		      <!-- Modal content-->
 		      <div class="modal-content">
 		        <div class="modal-header">
@@ -92,45 +119,15 @@
 		          	<%= link_to "DASHBOARD",  user_path(@user) %>
 		          	</div>
 		        </div>
-		      </div>	
-		      
+		      </div>
+
 		    </div>
 		  </div>
 
 		<!-- fin de la modal -->
-	
-		<div class='flex-item-2-job'>
-			
-			<div class="mycard-job">
-				<div class="line-1-job">
-					<div class="title">
-						<%=  @matched_job.job.company.name.upcase %>
-					</div>
-				</div>
-				<div class="line-2-job">
-					<h2><%= @matched_job.job.title %></h2>
-				</div>
-			</div>
-			<div class="mycard-job">
-				<div class="line-2-job">
-					<div class="title-company"> 
-					<h2> Le poste </h2>
-					</div>
 
-					<p><% if @matched_job.job.description.split(" ").length > 500 %>
-						<%= "#{@matched_job.job.description.split(" ")[0..2500].join(" ")} ..." %>
-						<%=  %>
-						<% else %>
-						<%= @matched_job.job.description %>
-						<% end %>
-					</p>
-						<div class = "btn-voir-plus">
-						<h2>voir plus</h2>
-					</div>
 
-				</div>
-			</div>			
-		</div>
+
 
 	</div>
 </div>

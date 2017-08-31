@@ -1,5 +1,5 @@
 
-<% if element.status == 'Bookmarked' %>
+<% if element.status == 'Bookmarked' || 'Accepted' || 'Rejected' %>
   <%= simple_form_for [profile, element], remote: true do |f| %>
   <%= f.input :status, as: :hidden, input_html: { value: nil } %>
   <%= f.button :submit, "coeur", style: "display: none", class: "btn btn-success delete-btn" %>
