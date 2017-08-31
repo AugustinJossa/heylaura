@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <div class="banner" style="background-image: linear-gradient(-225deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 50%), url( <%= image_path "background_2.jpeg" %>);">
+  <div class="banner" style="background-image: linear-gradient(-225deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 50%), url( <%= image_path "background.jpeg" %>);">
     <div class="banner-start" id="bstart">
       <%= render 'landing' %>
     </div>
@@ -9,20 +9,22 @@
   <div class="chat-container">
     <div class="banner-chat hidden" id="bchat">
       <div class="row">
-        <div class="hidden-xs hidden-sm col-md-3 chat-status-col">
-          <div class="chat-status">
-            <div id="progressbar">
-              <radial-progress-bar ref="progresstest" :total-steps="100" :completed-steps=currentpercent :diameter="100" inner-stroke-color="#FFF">
-                <p>{{ currentpercent }}%</p>
-              </radial-progress-bar>
+        <div class="hidden-xs hidden-sm col-md-2 chat-status-col">
+          <div class="chat-status-wrapper">
+            <div class="chat-status">
+              <div id="progressbar">
+                <radial-progress-bar ref="progresstest" :total-steps="100" :completed-steps=currentpercent :diameter="100" inner-stroke-color="#FFF">
+                  <p>{{ currentpercent }}%</p>
+                </radial-progress-bar>
+              </div>
+              <h3 id="entreprise">L'entreprise de tes rêves</h3>
+              <h3 id="job">Ton job idéal</h3>
+              <h3 id="profil">Ton profil</h3>
+              <h3 id="aspirations">Tes aspirations</h3>
             </div>
-            <h3 id="entreprise">L'entreprise de tes rêves</h3>
-            <h3 id="job">Ton job idéal</h3>
-            <h3 id="profil">Ton profil</h3>
-            <h3 id="aspirations">Tes aspirations</h3>
           </div>
         </div>
-        <div class="hidden-xs hidden-sm col-md-1"></div>
+        <div class="hidden-xs hidden-sm col-md-2"></div>
         <div class="col-xs-12 col-md-7">
           <div class="chat-content">
             <div class="chat-end hidden" id="chatend">
