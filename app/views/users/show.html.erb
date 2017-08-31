@@ -29,7 +29,7 @@
 <ul class="accordeon">
   
   <li class="accordeon_item one">
-    <h3 class="accordeon_title"> <i class="fa fa-check-circle" aria-hidden="true"></i> Candidatures acceptees</h3>
+    <h3 class="accordeon_title"> <i class="fa fa-check-circle" aria-hidden="true"></i>  Candidatures acceptees</h3>
     <div class="accordeon_content">
     	<div class="jobs">
 					<% @mj_accepted.each do |mj|%>
@@ -47,31 +47,42 @@
     </div>
   </li>
   
-  <li class="accordeon_item">
-    <h3 class="accordeon_title">Candidatures en attente</h3>
-    <div class="accordeon_content">
-      <div class="jobs">
-					<% @mj_pending.each do |mj|%>
-					
-					<div class="job">
-						<div class = "logo"> </div>
-						<div class="job-desc"> 
-							<p> <strong> <%= link_to mj.job.title, profile_matched_job_path(@profile, mj.id)%> </strong> </p>
-							<p><%= mj.job.company.name %></p>
-						</div>
-						<button type="button" class="btn btn-secondary btn-danger btn-sm btn-postuler" id="entretien"> <%= link_to  "Relancer", preparation_matched_job_path(mj.id)%> </button>
+	<li class="accordeon_item">
+		<h3 class="accordeon_title"><i class="fa fa-history" aria-hidden="true"></i>  Candidatures en attente</h3>
+		<div class="accordeon_content">
+			
+			<div class="jobs">
+				<% @mj_pending.each do |mj|%>
+				<div class="job">
+					<div class = "logo"> </div>
+					<div class="job-desc">
+						<p> <strong> <%= link_to mj.job.title, profile_matched_job_path(@profile, mj.id)%> </strong> </p>
+						<p><%= mj.job.company.name %></p>
 					</div>
-					<% end %>
+					<button type="button" class="btn btn-secondary btn-danger btn-sm btn-postuler" id="entretien"> <%= link_to  "Relancer", preparation_matched_job_path(mj.id)%> </button>
 				</div>
-    </div>
-  </li>
-  <li class="accordeon_item">
-    <h3 class="accordeon_title">Candidatures rejetees</h3>
-    <div class="accordeon_content">
-      <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-      <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, quibusdam?</p>
-    </div>
-  </li>
+				<% end %>
+			</div>
+		</div>
+	</li>
+ 
+	<li class="accordeon_item">
+		<h3 class="accordeon_title"><i class="fa fa-ban" aria-hidden="true"></i>  Candidatures rejetees</h3>
+		<div class="accordeon_content">
+						<div class="jobs">
+				<% @mj_rejected.each do |mj|%>
+				<div class="job">
+					<div class = "logo"> </div>
+					<div class="job-desc">
+						<p> <strong> <%= link_to mj.job.title, profile_matched_job_path(@profile, mj.id)%> </strong> </p>
+						<p><%= mj.job.company.name %></p>
+					</div>
+<!-- 					<button type="button" class="btn btn-secondary btn-danger btn-sm btn-postuler" id="entretien"> <%= link_to  "Relancer", preparation_matched_job_path(mj.id)%> </button> -->
+				</div>
+				<% end %>
+			</div>
+		</div>
+	</li>
 </ul>	
 			</div>
 		</li>

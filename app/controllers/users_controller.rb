@@ -5,10 +5,10 @@ class UsersController < ApplicationController
 	def show
 		@matched_jobs = MatchedJob.where(profile_id: @profile.id)
 		status = ["Bookmarked", "Pending", "Accepted", "Rejected"]
-		@mj_bookmarked = MatchedJob.where(profile_id: @profile.id, status: "Bookmarked")
-		@mj_pending = MatchedJob.where(profile_id: @profile.id, status: "Pending")
-		@mj_accepted = MatchedJob.where(profile_id: @profile.id, status: "Accepted")
-		@mj_rejected = MatchedJob.where(profile_id: @profile.id, status: "Rejected")
+		@mj_bookmarked = MatchedJob.where(profile_id: @profile.id, status: "Bookmarked").sort_by{|mj| mj.updated_at}.reverse
+		@mj_pending = MatchedJob.where(profile_id: @profile.id, status: "Pending").sort_by{|mj| mj.updated_at}.reverse
+		@mj_accepted = MatchedJob.where(profile_id: @profile.id, status: "Accepted").sort_by{|mj| mj.updated_at}.reverse
+		@mj_rejected = MatchedJob.where(profile_id: @profile.id, status: "Rejected").sort_by{|mj| mj.updated_at}.reverse
 
 	end
 
