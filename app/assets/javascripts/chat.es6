@@ -15,11 +15,17 @@ const initHomePageDOM = () => {
   rawChatContent = document.getElementById("profile_raw_chat_content");
   chatEnd = document.getElementById("chatend")
 
+  let nbChat = 0;
+
   startButton.addEventListener("click", (event) => {
     event.preventDefault;
     // bannerStart.classList.add("hidden");
     bannerChat.classList.remove("hidden");
-    initCf(jsonInit);
+    if (nbChat === 0) {
+      initCf(jsonInit);
+    }
+    nbChat = 1;
+
   });
   // const dispatcher = new cf.EventDispatcher();
 };
@@ -154,6 +160,7 @@ const callbackCfQuestion = (dto, success, error) => {
 const endChat = (normal) => {
   window.ConversationalForm.remove();
   chatEnd.classList.remove("hidden");
+  nbChat = 0;
   if (normal === true) {
     currentProfile["session_info"] = sessionInfo;
     currentProfile["i"] = i;
