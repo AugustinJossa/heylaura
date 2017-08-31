@@ -87,6 +87,7 @@ class ProfilesController < ApplicationController
 
   def update
     @profile.update(profile_params)
+    @profile.update_matched_jobs
     redirect_to profile_matched_jobs_path(@profile)
   end
 
