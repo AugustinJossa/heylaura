@@ -65,7 +65,7 @@ class ProfilesController < ApplicationController
     end
     @profile = Profile.find(params[:id])
     authorize @profile
-    sleep(5)
+    sleep(3)
     redirect_to profile_matched_jobs_path(@profile)
   end
 
@@ -87,6 +87,7 @@ class ProfilesController < ApplicationController
 
   def update
     @profile.update(profile_params)
+    @profile.update_matched_jobs
     redirect_to profile_matched_jobs_path(@profile)
   end
 

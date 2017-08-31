@@ -55,4 +55,11 @@ class Profile < ApplicationRecord
     end
   end
 
+  def update_matched_jobs
+    p = self
+    p.matched_jobs.each do |mj|
+      mj.calculate_matching
+    end
+  end
+
 end
