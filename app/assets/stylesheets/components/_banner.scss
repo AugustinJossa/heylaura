@@ -38,7 +38,8 @@
 
 .chat-wrapper {
   // background: $red;  /* fallback for old browsers */
-  background: linear-gradient(-225deg, $red 0%, #FFC371 100%);
+  // background: linear-gradient(-225deg, $red 0%, #FFC371 100%);
+  background: linear-gradient(-225deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.05) 50%);
   background-size: cover !important;
   .chat-container {
     min-height: 0 !important;
