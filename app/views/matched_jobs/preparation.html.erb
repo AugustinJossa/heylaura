@@ -9,12 +9,12 @@
 	<div class="row">
 		<div class="col-xs-12 col-sm-4">
 			<div class="card-status status-accepted text-center">
-				<div class="badge-count">
+<!-- 				<div class="badge-count">
 					#1
-				</div>
+				</div> -->
 				<div class="status-name">
 					<h2> L'ENTREPRISE </h2>
-
+					<p> <br> <%= @matched_job.job.company.name %> </p>
 				</div>
 				<div class="jobs">
 					
@@ -44,12 +44,11 @@
 		</div>
 		<div class="col-xs-12 col-sm-4">
 			<div class="card-status status-accepted text-center">
-				<div class="badge-count">
-					#2
-				</div>
 				<div class="status-name">
-					<h2> <%= @matched_job.job.title.upcase %> </h2>
+					<h2> LE POSTE </h2>
+					<p> <%= @matched_job.job.title %> </p>
 				</div>
+			
 				<div class="jobs">
 					
 					<div class="job">
@@ -63,18 +62,54 @@
 					</div>
 					<div class="job">
 						<div class="job-desc">
-							<% url = "https://www.google.fr/search?q=#{@matched_job.job.company.name}&source=lnms&tbm=nws" %>
-							<p> <strong> <%= link_to "Actualites de l'entreprise",url %> </strong> </p>
+							<% url = "https://www.google.fr/search?biw=1440&bih=803&q=#{@matched_job.job.company.name}+glassdoor+salaires" %>
+							<p> <strong> <%= link_to "La rémunération", url, target: "_blank" %> </strong>
+							<i class="fa fa-external-link" aria-hidden="true"></i> 	</p>
 
 						</div>
 					</div>
 					
+					
+				</div>
+			</div>
+		</div>
+				<div class="col-xs-12 col-sm-4">
+			<div class="card-status status-accepted text-center">
+				<div class="status-name">
+					<h2> TOI </h2>
+					<p>    <br> <br> </p>
+<!-- 					<p> <%= @matched_job.job.title %> </p> -->
+				</div>
+			
+				<div class="jobs">
+					
 					<div class="job">
 						<div class="job-desc">
-							<% url = "https://www.google.fr/search?source=hp&q=linkedin+#{@matched_job.job.company.name}" %>
-							<p> <strong> <%= link_to "L'equipe",url %> </strong> </p>
+							<% url = "https://www.google.fr/search?source=hp&q=fiche+metier+#{@matched_job.job.title.gsub!(/\s/,'+')}" %>
+							<p> <strong> <%= link_to "Tes competences", url, target: "_blank" %> </strong> 
+							<i class="fa fa-external-link" aria-hidden="true"></i> 	</p>
+							
+						</div>
+						
+					</div>
+					<div class="job">
+						<div class="job-desc">
+							<% url = "https://docs.google.com/document/d/1sUc4jn3JgenOAg49OG7adQxGet0nzz-wWhTJqNT1628/edit" %>
+							<p> <strong> <%= link_to "Tes experiences ", url, target: "_blank" %> </strong>
+							<i class="fa fa-external-link" aria-hidden="true"></i> 	</p>
+
 						</div>
 					</div>
+
+					<div class="job">
+						<div class="job-desc">
+							<% url = "https://www.google.fr/search?biw=1440&bih=803&q=#{@matched_job.job.company.name}+glassdoor+salaires" %>
+							<p> <strong> <%= link_to "Les questions a poser", url, target: "_blank" %> </strong>
+							<i class="fa fa-external-link" aria-hidden="true"></i> 	</p>
+
+						</div>
+					</div>
+					
 					
 				</div>
 			</div>
