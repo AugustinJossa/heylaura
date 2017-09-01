@@ -12,7 +12,7 @@
 <div class='container'>
   <div class='flexbox-show'>
     <div class='flex-item-1-job-show'>
-      <div class='trait-inf'> En bref </div>
+      <div class='trait-inf-2'> En bref </div>
       <div class="meter meter-job">
         <span style="width:<%= @matched_job.matching*100 %>%"></span>
       </div>
@@ -25,11 +25,10 @@
     </div>
 
     <div class='flex-item-2-job-show'>
-      <div class="">
-        <div class="line-2-job">
-          <div class="title-company">
+
           <div class='trait-inf-2'> Le poste </div>
           <!-- <h2> Le poste </h2> -->
+
           </div>
           <% if @matched_job.job.description.first(3) == '***' %>
             <%=  formatted_description(@matched_job.job.description) %>
@@ -46,12 +45,14 @@
 
           </div>
 
-        </div>
-      </div>
+
+    </div>
     </div>
   <div class=flex-item-3-job-show>
 
+
       <div class='trait-inf-2'> Interessé ? </div>
+
       <div class="application-form" >
             <%= simple_form_for [@profile, @matched_job] do |f| %>
               <%= f.input :message, placeholder: 'Laissez un message au recruteur', input_html: { class: 'simple-form-field-show' }, rows: 20%>
