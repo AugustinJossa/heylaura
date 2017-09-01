@@ -22,100 +22,43 @@
       <div class="tags-elements-show"><%= "#{@matched_job.job.salary.round(0)} €" %></div>
       <div class="tags-elements-show"><%= @matched_job.job.remote %></div>
       <div class="tags-elements-show"><%= @matched_job.job.job_type %></div>
-
-
     </div>
+
     <div class='flex-item-2-job-show'>
 
           <div class='trait-inf-2'> Le poste </div>
           <!-- <h2> Le poste </h2> -->
-          <p class='font-size-show-14'> <%= @matched_job.job.description %></p>
 
-    </div>
-    </div>
-
-    <div class="flexbox-show">
-    <div class=flex-item-3-job-show>
-       <div class='trait-inf-2'> Interessé ? </div>
-      <div class="application-form" >
-            <% if @matched_job.status == ("Pending" || "Approved" || "Rejected") %>
-
-              <%= simple_form_for [@profile, @matched_job] do |f| %>
-              <%= f.input :message, placeholder: 'Laissez un message au recruteur'%>
-              <%= f.button :submit, "POSTULER", class: "btn btn-danger", data: {target: "#myModalOups", toggle: "modal"} %>
+          </div>
+          <% if @matched_job.job.description.first(3) == '***' %>
+            <%=  formatted_description(@matched_job.job.description) %>
+          <% else %>
+            <p>
+              <% if @matched_job.job.description.split(" ").length > 500 %>
+              <%= "#{@matched_job.job.description.split(" ")[0..2500].join(" ")} ..." %>
+              <%=  %>
+              <% else %>
+              <%= @matched_job.job.description %>
               <% end %>
-
-         <% else %>
-
-            <%= simple_form_for [@profile, @matched_job] do |f| %>
-            <%= f.input :message, placeholder: 'Laissez un message au recruteur', input_html: { class: 'simple-form-field-show' }, rows: 20%>
-            <%= f.input :status, as: :hidden, input_html: { value: 'Pending' } %>
-            <%= f.button :submit, "POSTULER", class: "btn btn-danger", data: {target: "#myModalBravo", toggle: "modal"} %>
-            <% end %>
+            </p>
           <% end %>
-        </div>
+
+          </div>
+
+
+    </div>
+    </div>
+  <div class=flex-item-3-job-show>
+
+
+      <div class='trait-inf-2'> Interessé ? </div>
+
+      <div class="application-form" >
+            <%= simple_form_for [@profile, @matched_job] do |f| %>
+              <%= f.input :message, placeholder: 'Laissez un message au recruteur', input_html: { class: 'simple-form-field-show' }, rows: 20%>
+              <%= f.input :status, as: :hidden, input_html: { value: 'Pending' } %>
+              <%= f.button :submit, "POSTULER", class: "btn btn-danger" %>
+            <% end %>
       </div>
     </div>
-  </div>
-</div>
-<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
-
-		  <!-- Modal -->
-		  <div class="modal fade" id="myModalOups" role="dialog">
-		    <div class="modal-dialog">
-
-		      <!-- Modal content-->
-		      <div class="modal-content">
-		        <div class="modal-header">
-		          <button type="button" class="close" data-dismiss="modal">&times;</button>
-		          <h4 class="modal-title">Oups <br> tu as déjà postulé à cette offre </h4>
-		        </div>
-				<!-- <div class="modal-body">
-		          <p>Some text in the modal.</p>
-		        </div> -->
-		        <div class="modal-footer">
-		        	<div class="btn btn-danger btn-modal">
-		          	<%= link_to "OFFRES",  profile_matched_jobs_path(@profile) %>
-		        	</div>
-		        	<div class="btn btn-danger btn-modal">
-		          	<%= link_to "DASHBOARD",  user_path(@user) %>
-		          	</div>
-		        </div>
-		      </div>
-
-		    </div>
-		  </div>
-
-			<!-- Modal -->
-		  <div class="modal fade" id="myModalBravo" role="dialog">
-		    <div class="modal-dialog">
-
-		      <!-- Modal content-->
-		      <div class="modal-content">
-		        <div class="modal-header">
-		          <button type="button" class="close" data-dismiss="modal">&times;</button>
-		          <h4 class="modal-title">Bravo <br> pour ta candidature</h4>
-		        </div>
-				<!-- <div class="modal-body">
-		          <p>Some text in the modal.</p>
-		        </div> -->
-		        <div class="modal-footer">
-		        	<div class="btn btn-danger btn-modal">
-		          	<%= link_to "OFFRES",  profile_matched_jobs_path(@profile) %>
-		        	</div>
-		        	<div class="btn btn-danger btn-modal">
-		          	<%= link_to "DASHBOARD",  user_path(@user) %>
-		          	</div>
-		        </div>
-		      </div>
-
-		    </div>
-		  </div>
-
-		<!-- fin de la modal -->
-
-
-
-
-	</div>
 </div>
