@@ -1,3 +1,7 @@
+.mycard-link:hover {
+  text-decoration: none;
+}
+
 .mycard {
   min-height: 100px;
   height: auto;
@@ -26,6 +30,9 @@
       text-decoration: none !important;
     }
     a{
+     text-decoration: none !important;
+    }
+    a:hover{
      text-decoration: none !important;
     }
 }

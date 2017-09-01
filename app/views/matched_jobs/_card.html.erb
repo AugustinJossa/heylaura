@@ -1,5 +1,5 @@
 <% @matched_jobs.each do |matched_job| %>
-  <%= link_to profile_matched_job_path(@profile, matched_job) do %>
+  <%= link_to profile_matched_job_path(@profile, matched_job), class: "mycard-link" do %>
     <div class="mycard">
       <div class="line-1">
         <div class="title"><%= matched_job.job.company.name.upcase %></div>
