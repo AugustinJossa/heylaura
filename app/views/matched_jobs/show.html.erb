@@ -32,14 +32,18 @@
           <div class='trait-inf-2'> Le poste </div>
           <!-- <h2> Le poste </h2> -->
           </div>
-
-          <p><% if @matched_job.job.description.split(" ").length > 500 %>
-            <%= "#{@matched_job.job.description.split(" ")[0..2500].join(" ")} ..." %>
-            <%=  %>
-            <% else %>
-            <%= @matched_job.job.description %>
-            <% end %>
-          </p>
+          <% if @matched_job.job.description.first(3) == '***' %>
+            <%=  formatted_description(@matched_job.job.description) %>
+          <% else %>
+            <p>
+              <% if @matched_job.job.description.split(" ").length > 500 %>
+              <%= "#{@matched_job.job.description.split(" ")[0..2500].join(" ")} ..." %>
+              <%=  %>
+              <% else %>
+              <%= @matched_job.job.description %>
+              <% end %>
+            </p>
+          <% end %>
 
           </div>
 

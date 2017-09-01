@@ -44,6 +44,11 @@ module ConstantsHelper
     MotivationCategory.all.map { |motiv_cat| motiv_cat.name }
   end
 
+  def formatted_description(jobdesc)
+    jd = jobdesc.delete '***'
+    jd.html_safe
+  end
+
   # def skills
   #   Skills.all.map { |skill| skill.name }
   # end
