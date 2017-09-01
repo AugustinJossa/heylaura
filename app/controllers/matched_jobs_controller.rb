@@ -54,7 +54,9 @@ class MatchedJobsController < ApplicationController
 
     @matched_job.update(matched_job_params)
     @matched_job.save!
-    flash[:notice] = "Nous avons bien enregistré ta candidature. Tu peux la retrouver dans ton dashboard"
+    if @matched_job.message && @matched_job.status = "pending"
+      flash[:notice] = "Nous avons bien enregistré ta candidature. Tu peux la retrouver dans ton dashboard"
+    end
     respond_to do |format|
         format.html { redirect_to profile_matched_jobs_path }
         format.js {}
