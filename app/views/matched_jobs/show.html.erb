@@ -29,9 +29,18 @@
           <div class='trait-inf-2'> Le poste </div>
           <!-- <h2> Le poste </h2> -->
 
-          </div>
-          <% if @matched_job.job.description.first(3) == '***' %>
-            <%=  formatted_description(@matched_job.job.description) %>
+          <% if @matched_job.job.description.first(3) == '***' || "Agr" %>
+            <p>Agricool amorce une nouvelle phase dans son histoire : la distribution des fraises (woup woup!).</p>
+            <p>Tout va donc s’accélérer, y compris la communication ! Nous avons besoin de toi pour venir renforcer l’équipe et apporter ta petite étincelle.</p>
+            <br>
+            <p>Ta mission ?</p>
+            <p>Capitaliser sur notre communauté (10.000 fans Facebook, 8.000 personnes sur liste d’attente pour une barquette) et surtout … la faire décoller !</p>
+            <p>Au programme : une petite mise à niveau sur le discours Agricool (notre jargon, on y tient), la gestion quotidienne des réseaux sociaux, la préparation du calendrier “social media” et l’analyse des résultats. Mais ce n’est pas tout. On compte aussi sur toi pour faire preuve de créativité et de curiosité. Oui, disons-le, il ne faudra pas avoir froid aux yeux ! Il existe des milliers d’actions incroyables à mettre en place pour faire grandir notre communauté et créer de l’engagement. Ta mission sera de trouver les meilleures pour nous.</p>
+            <br>
+            <p>Petit bonus :</p>
+            <p>Gérer les réseaux sociaux veut aussi dire créer du contenu. Chaque mois nous abordons de nouvelles thématiques sur notre compte Medium. Tu réaliseras tout le travail en amont, c’est-à-dire la recherche documentaire. C’est grâce à toi que l’on pourra préparer des articles aux petits oignons pour notre communauté. Bref, pour ce poste il te faudra beaucoup de passion, un zeste de folie, un sens poussé du détail, de l’organisation et de la persévérance. et si en plus tu maîtrises les outils de création (genre pack Adobe), là on saute au plafond.</p>
+            <br>
+            <p>Alors, tu es notre perle rare ? Ecris-nous vite !</p>
           <% else %>
             <p>
               <% if @matched_job.job.description.split(" ").length > 500 %>
@@ -47,12 +56,8 @@
 
 
     </div>
-    </div>
   <div class=flex-item-3-job-show>
-
-
       <div class='trait-inf-2'> Interessé ? </div>
-
       <div class="application-form" >
             <%= simple_form_for [@profile, @matched_job] do |f| %>
               <%= f.input :message, placeholder: 'Laissez un message au recruteur', input_html: { class: 'simple-form-field-show' }, rows: 20%>
