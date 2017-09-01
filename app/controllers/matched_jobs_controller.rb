@@ -48,11 +48,13 @@ class MatchedJobsController < ApplicationController
   # end
 
   def update
+
     @matched_job = MatchedJob.find(params[:id])
     authorize @matched_job
 
     @matched_job.update(matched_job_params)
     @matched_job.save!
+    flash[:notice] = "Nous avons bien enregistré ta candidature. Tu peux la retrouver dans ton dashboard"
     respond_to do |format|
         format.html { redirect_to profile_matched_jobs_path }
         format.js {}
